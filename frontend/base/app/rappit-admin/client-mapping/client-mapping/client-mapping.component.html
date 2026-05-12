@@ -1,0 +1,10 @@
+<div class="client_mapping_page">
+    <div class="info-bubble client-info-section">
+        <span [autoHide]="false" [pTooltip]="oauthTokenUrlPathText" [escape]="false" tooltipStyleClass="client-info-section-tootip" tooltipPosition="left">
+            <i class="pi pi-info-circle"></i>
+        </span>
+    </div>
+    <app-grid [gridConfig]="gridConfig" [ngClass]="this.tableConfig.viewAs === 'card' ? 'gridsterList' : ''"
+        class="{{tableConfig.tableStyle}} client-mapping">
+    </app-grid>
+</div>

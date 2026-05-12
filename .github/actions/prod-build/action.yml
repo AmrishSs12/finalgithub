@@ -1,0 +1,42 @@
+name: prod-build
+description: prod-build action for the pipeline
+
+inputs:
+  SERVICE_ACCOUNT_KEYFILE_JSON:
+    required: true
+
+  ARTIFACTORY_USER:
+    required: true
+  
+  ARTIFACTORY_PASS:
+    required: true
+
+runs:
+  using: "composite"
+
+  steps:
+  - name: Setting up environment for build...
+    shell: sh
+    run: |
+      apk add --no-cache git maven bash curl wget
+      apk --no-cache add openjdk21-jdk
+      apk add --no-cache python3 py3-pip
+  
+  - name: Github authentication
+    uses: google-github-actions/auth@v1
+    with:
+      credentials_json: ${{inputs.SERVICE_ACCOUNT_KEYFILE_JSON}}
+    
+  - name: Building project...
+    shell: sh
+    run: |
+      sed -i 's/${env.ARTIFACTORY_USER}/${{inputs.ARTIFACTORY_USER}}/' .m2/settings.xml
+      sed -i 's/${env.ARTIFACTORY_PASS}/${{inputs.ARTIFACTORY_PASS}}/' .m2/settings.xml
+      npm install -g @angular/cli
+      mvn -s .m2/settings.xml --batch-mode clean install -P prod
+      mvn -f BackendApp/pom.xml jib:build -P cloud-run-prod -s .m2/settings.xml --batch-mode -X -D IMAGE_VERSION_ID=${{inputs.IMAGE_VERSION_ID}} -D COMMIT_ID=${GITHUB_SHA}
+
+  - name: Login
+    uses: google-github-actions/setup-gcloud@v0
+    with:
+      service_account_key: ${{inputs.SERVICE_ACCOUNT_KEYFILE_JSON}}

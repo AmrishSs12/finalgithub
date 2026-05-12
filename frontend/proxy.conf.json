@@ -1,0 +1,29 @@
+{
+  "/rest": {
+    "target": "http://localhost:9090",
+    "secure": false,
+    "logLevel": "debug",
+    "pathRewrite": {
+      "^/rest/": "http://localhost:9090/rest/"
+    },
+    "changeOrigin": true
+  },
+  "/login": {
+    "target": "http://localhost:9090",
+    "secure": false,
+    "logLevel": "debug",
+    "pathRewrite": {
+      "^/login/": "http://localhost:9090/login/"
+    },
+    "changeOrigin": true
+  },
+  "/logout": {
+    "target": "http://localhost:9090",
+    "secure": false,
+    "logLevel": "debug",
+    "pathRewrite": {
+      "^/logout/": "http://localhost:9090/logout/"
+    },
+    "changeOrigin": true
+  }
+}

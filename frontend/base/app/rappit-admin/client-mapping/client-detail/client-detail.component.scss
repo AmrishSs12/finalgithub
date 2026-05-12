@@ -1,0 +1,12 @@
+.required {
+  label:after {
+    content: "*";
+    color: red;
+  }
+}
+
+.error-message {
+  color: red; 
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}

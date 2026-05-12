@@ -1,0 +1,160 @@
+	
+<div class="list rwftask-list">
+   	<div class="w-100"  *ngIf="showBreadcrumb && !fromDetailPage"> <app-breadcrumb></app-breadcrumb></div>
+	<div id="title-bar">
+    <div class="display">
+        <div class="col" class="page-title-bar" *ngIf="((isMobile && !isSearchFocused) || !isMobile) && !hideListPageTitle">
+            <!-- <span class="pi pi-arrow-left back-action"></span> -->
+            <span class="page-title" [pTooltip]="isMobile ? (pageViewTitle | translate) : null" [innerHTML]="pageViewTitle | translate"></span>
+             <span class="filters-banner" *ngIf="(mappedFiltersDisplay | keyvalue).length > 0" [title]="tooltipText"> (
+                    <span *ngFor="let filter of mappedFiltersDisplay| keyvalue ; let isLast = last">
+                        <span [textContent]="filter.key"></span> :
+                        <span [textContent]="filter.value"></span>
+                        <span *ngIf="!isLast">,</span>
+                </span>
+                    )
+                </span>
+        </div>
+
+     	<app-action-bar  [buttons] = "isMobile? combinedActionConfig:leftActionBarConfig.children"
+(onBtnClick)='actionBarAction($event)'
+[style.order]="isMobile?'1':'0'"
+ actionBarName = "leftActionBar"
+[isRowSelected]="isRowSelected" [isChildListpage]="isChildPage"
+[isListPage]="isList" [detailConditionalButtons]="conditionalActions" [filterActionButtons]="filterActions">
+</app-action-bar>
+
+	<app-action-bar  [buttons] = "isMobile? combinedActionConfig:rightActionBarConfig.children"
+(onBtnClick)='actionBarAction($event)'
+[style.order]="isMobile?'1':'0'"
+ actionBarName = "rightActionBar"
+[isRowSelected]="isRowSelected" [isChildListpage]="isChildPage"
+[isListPage]="isList" [detailConditionalButtons]="conditionalActions" [filterActionButtons]="filterActions">
+</app-action-bar>
+
+<div class="p-0" id="search-container" [ngStyle]="{'width':isMobile && isSearchFocused? '100%':'50%' }"
+[ngClass]="{'advance-filter-applied':filtersApplied, 'show-advanced-search':(showAdvancedSearch || filtersApplied || filter.globalSearch)}">
+<div  class="col global-search p-3"
+    [ngClass]="{'advance-filter-applied':filtersApplied}">
+    <div class="input-group"  [ngClass]="{ 'highlightSearch': isSearchActive || filtersApplied }">
+        <div class="input-group-prepend global-search-magnifier">
+            <span class="input-group-text show-advanced">
+                <span class="pi pi-search icon-font"></span>
+            </span>
+        </div>
+        <span class="input-container">
+        <input type="text" class="form-control global-search-input" pInputText
+            [placeholder]="'Search' | translate" (keydown)="onKeydown($event)" (focus)="onSearchFocus()" (blur)="onSearchBlur()" 
+            [(ngModel)]="dynamicModel" [title]="dynamicModel" id="inputField"/>
+        </span>
+            <span class="p-inputgroup-addon searchCloseIcon" *ngIf="(filter.globalSearch != '' && filter.globalSearch != undefined) || filtersApplied"
+            (click)="clearValues()"><i class="pi pi-times"></i></span>  
+        <div class="input-group-append d-flex justify-content-end advancedSearch-only"
+            *ngIf="(tableSearchConfig.showAdvancedSearch && tableSearchConfig?.children?.length > 0)">
+            <span (click)="toggleAdvancedSearch()" class="advancedsearch-icon" #toggleButton>
+              <span class="icon-filter">
+                <svg class="filter-icon">
+                  <use xlink:href="assets/images/filter.svg#filter-button"></use>
+                </svg>
+              </span>
+            </span>
+        </div>
+    </div>
+</div>
+<div class="advanced-search ev-detail-view"
+  *ngIf="(tableSearchConfig.showAdvancedSearch && showAdvancedSearch && tableSearchConfig?.children?.length > 0)" #menu>
+  <span class="pr-3 pt-0 adv-search-header" [innerHTML]="'Advanced_Search'| translate"></span>
+  <span style="float:right" class="cursor-pointer"><i class="pi pi-times" (click)="toggleAdvancedSearch()"></i></span>
+  <form [formGroup]="tableSearchControls" (ngSubmit)="this.filter.globalSearch = '';advancedSearch()" class="ev-form">
+    <div class="row form-body">
+      <div class="form-row vg-col-1">
+        <div class="form-col" [hidden]="hiddenFields.tableName" id="tableName">
+          <div class="field-row" [ngClass]="{
+                    required: tableSearchFieldConfig?.tableName?.isRequired,
+                    error: inValidFields.tableId
+                  }">
+            <label for="tableId" class="col-form-label tableName-label"
+              [textContent]="'Table_Name' | translate"></label>
+
+            <span class="info-bubble" *ngIf="tableSearchFieldConfig?.tableName?.infoBubble"
+              [pTooltip]="(tableSearchFieldConfig?.tableName?.infoBubble | translate) || ''">
+              <i class="fa fa-circle-info"></i>
+            </span>
+
+            <p-dropdown [options]="tableOptions" optionLabel="tableName" optionValue="tableId" formControlName="tableId"
+              [placeholder]="(tableSearchFieldConfig?.tableName?.placeHolder | translate) || 'Select Table'"
+              [showClear]="true" [ngClass]="{
+                      'ng-invalid': inValidFields.tableId,
+                      required: tableSearchFieldConfig?.tableName?.isRequired
+                    }"></p-dropdown>
+
+            <div class="fst-italic fs-5 help-text">
+              {{ (tableSearchFieldConfig?.tableName?.helpText | translate) || '' }}
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="search-actions">
+      <div>
+        <button type="button" class="btn btn-secondary search-btn" (click)="clearFilterValues()">{{'Clear_Filter' |
+          translate}}</button>
+      </div>
+      <div>
+        <div class="btn-group mr-0" role="group">
+          <button type="button" class="btn btn-secondary search-btn" (click)="toggleAdvancedSearch()">{{'Cancel'|
+            translate}}</button>
+          <button type="submit" class="btn btn-primary search-btn">{{'Search'| translate}}</button>
+        </div>
+      </div>
+    </div>
+
+  </form>
+</div>
+</div>
+
+    </div>
+</div>
+
+ <div class="row" id="filter-container" *ngIf="showFilter() ">
+ <div class="quick-filters ev-detail-view">
+     <form [formGroup]="quickFilterControls" class="quick-filter-fields-list">
+
+         <div class="radio-group" [formGroup]="quickFilterControls">
+             <div *ngFor="let option of quickFilterFieldConfig.status?.options" class="radio-option">
+               
+               <p-radioButton 
+                 [inputId]="option.label" 
+                 [value]="option.label" 
+                 formControlName="status"
+                 [disabled]="getDisabled(quickFilterControls,'status')">
+               </p-radioButton>
+           
+               <label [for]="option.label">
+                 {{ option.label | translate }}
+               </label>
+           
+             </div>
+           </div>
+
+     </form>
+ </div>
+</div>
+
+	<app-grid [gridConfig]="gridConfig" *ngIf="gridConfig  && (gridConfig | keyvalue).length > 0" [ngClass]="this.tableConfig.viewAs === 'card' ? 'gridsterList' : ''"  
+[showonFilter]="showonFilter" [filtersApplied]=" queryViewList? queryViewFiltersApplied :hasMappedParameters" class="{{tableConfig.tableStyle}}" [fromDetailView]="fromDetailPage" [standardGrid]="standardGrid"></app-grid>
+
+
+<p-overlayPanel #contextMenu [dismissable]="true">
+    <ul class="custom-menu">
+      <li *ngFor="let action of contextMenuActions"
+          (click)="onActionClick(action.eventId)">
+        {{ action.eventName }}
+      </li>
+    </ul>
+  </p-overlayPanel>
+
+</div>
+
+

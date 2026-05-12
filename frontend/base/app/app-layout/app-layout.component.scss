@@ -1,0 +1,30 @@
+.app-main-inner-w-shrink {
+    width: calc(100% - 65px) !important;
+    position: absolute;
+}
+
+.app-main-inner-w {
+    width: calc(100% - 280px) !important;
+    position: absolute;
+}
+
+.app-main-inner-hide {
+    width: 100% !important;
+    position: absolute;
+}
+
+.layout-middle {
+
+    .sidebar,
+    .main-content {
+        height: calc(100% - 60px) !important;
+        position: absolute;
+        top: 60px;
+        transition: all 0.3s ease;
+    }
+
+    .main-content {
+        width: 100%;
+        overflow: auto;
+    }
+}

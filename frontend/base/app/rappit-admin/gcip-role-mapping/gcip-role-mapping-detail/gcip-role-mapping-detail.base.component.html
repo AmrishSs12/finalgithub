@@ -1,0 +1,83 @@
+<div class="detail gcip-role-mapping-detail">
+
+    <div class="w-100" *ngIf="showBreadcrumb"> <app-breadcrumb></app-breadcrumb></div>
+    <div id="title-bar">
+        <div class="display">
+            <div class="col" class="page-title-bar"
+                *ngIf="((isMobile && !isSearchFocused) || !isMobile) && !hideListPageTitle">
+                <span class="page-title" [pTooltip]="isMobile ? (pageViewTitle | translate) : null"
+                    [innerHTML]="pageViewTitle | translate"></span>
+            </div>
+
+            <app-action-bar [buttons]="isMobile? combinedActionConfig:leftActionBarConfig.children"
+                (onBtnClick)='actionBarAction($event)' [style.order]="isMobile?'1':'0'" actionBarName="leftActionBar"
+                [isRowSelected]="isRowSelected" [isChildListpage]="isChildPage" [isListPage]="isList"
+                [detailConditionalButtons]="conditionalActions" [filterActionButtons]="filterActions">
+            </app-action-bar>
+
+        </div>
+    </div>
+
+    <div class="ev-detail-view" id="detail-view-container">
+        <div class="detail-flex-box">
+            <div class="flex align-items-center justify-content-center wizard-container col-2"
+                *ngIf="wizardItems?.length && showScrollSpy" id="detail-wizard">
+                <p-tieredMenu #menu [model]="wizardItems"></p-tieredMenu>
+            </div>
+            <div class="missing-filters-banner" *ngIf="!showForm">
+                <i class="pi pi-exclamation-triangle"></i>
+                <span [innerHtml]="filtersEmptyMsg">
+                </span>
+            </div>
+            <div class="flex align-items-center justify-content-center form-container" *ngIf="showForm">
+                <form class="ev-form " [formGroup]="detailFormControls" #detailForm
+                    [ngClass]="{'read-only-fields':enableReadOnly,  'read-only-form':!tableaccess}">
+                    <div class="row form-body">
+                        <div class="form-row vg-col-2">
+                            <div class="form-col" [hidden]="hiddenFields.domain" id="domain">
+                                <div class="field-row"
+                                    [ngClass]="{'required': formFieldConfig?.domainname?.isRequired, 'error':inValidFields.domainname}">
+                                    <label for="domainname" class="col-form-label domain-label"
+                                        [textContent]=" 'Domain'|translate "></label>
+                                    <span class="info-bubble" *ngIf="formFieldConfig?.domainname?.infoBubble"
+                                        [pTooltip]="(formFieldConfig?.domainname?.infoBubble|translate) || ''"><i
+                                            class="fa fa-circle-info"></i></span>
+                                    <input type="text" pInputText class="form-control domain-name"
+                                        formControlName="domainname"
+                                        [placeholder]="(formFieldConfig?.domainname?.placeHolder|translate) || ''"
+                                        [maxlength]="formFieldConfig?.domainname?.maxLength" />
+                                    <div class="fst-italic fs-5 help-text">
+                                        {{(formFieldConfig?.domainname?.helpText|translate) || ''}}</div>
+                                </div>
+                            </div>
+                            <div class="form-col system-created-container" [hidden]="hiddenFields.systemCreated"
+                                id="systemCreated">
+                                <div class="field-row"
+                                    [ngClass]="{'required': formFieldConfig?.systemCreated?.isRequired, 'error':inValidFields.systemCreated}">
+                                    <span class="info-bubble" *ngIf="formFieldConfig?.systemCreated?.infoBubble"
+                                        [pTooltip]="(formFieldConfig?.systemCreated?.infoBubble|translate) || ''"><i
+                                            class="fa fa-circle-info"></i></span>
+                                    <p-checkbox formControlName="systemCreated" [binary]="true"
+                                        [label]="'System created' | translate" inputId="systemCreated"
+                                        class="field-row">
+                                    </p-checkbox>
+                                    <div class="fst-italic fs-5 help-text">
+                                        {{(formFieldConfig?.systemCreated?.helpText|translate) || ''}}</div>
+                                </div>
+                            </div>
+                            <label for="role" class="col-form-label role-label"
+                                [textContent]=" 'Roles'|translate "></label>
+                            <div class="checkbox-control-group role-container form-col"
+                                *ngFor="let option of rolesArray">
+                                <p-checkbox [name]="option.name" class="field-row" value="{{option.value}}"
+                                    label="{{option.value| translate}}" [formControl]="selectedRoleNameControl"
+                                    inputId="{{ option.name }}">
+                                </p-checkbox>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

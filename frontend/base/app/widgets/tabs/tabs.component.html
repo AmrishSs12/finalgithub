@@ -1,0 +1,44 @@
+<div *ngIf="tabContents.length > 0" id="tab-container">
+    <ng-container
+        *ngTemplateOutlet="recursiveTabList;  context: { items: tabContents, selectedTab:getSelectedTab(tabContents),level:1}">
+    </ng-container>
+</div>
+
+<ng-template #recursiveTabList let-items="items" let-selected="selectedTab" let-level="level">
+    <p-tabView (onChange)="navigateTo($event,items)" class="tab-view-level-{{level}}" [activeIndex]="selected"
+        *ngIf="items && items.length > 0">
+        <p-tabPanel *ngFor="let tab of items let i = index;" [cache]="false">
+
+            <ng-template pTemplate="header">
+
+                <span class="tab-icon-container" *ngIf="tab?.icon">
+
+                    <i class="fa {{tab.icon?.icon?.value}}" *ngIf="tab?.icon?.type == 'icon'"
+                        [style.color]="tab.icon?.iconColor" [style.font-size]="tab.icon?.iconSize">
+                    </i>
+
+                    <img [src]="getMenuImage(tab)"
+                        *ngIf="tab?.icon?.type != 'icon' && tab?.icon?.type != '' && tab?.iconFileName"
+                        class="menu-image" [ngStyle]="appLayoutService.getStyles(tab)" alt="tab" />
+                </span>
+
+                <span *ngIf="tab.showOnlyIcon === false || !tab.showOnlyIcon"
+                    [innerHTML]="tab.label | translate"></span>
+
+            </ng-template>
+
+            <div *ngIf="tab.element ==='tabGroup'">
+                <ng-container
+                    *ngTemplateOutlet="recursiveTabList;  context: { items: tab.children, selectedTab: getSelectedTab(tab.children),level:(level+1)}">
+                </ng-container>
+            </div>
+
+            <!-- <ng-template pTemplate="content">
+                <div *ngIf="tab.element ==='tabItem'">
+                    <router-outlet>
+                    </router-outlet>
+                </div>
+            </ng-template> -->
+        </p-tabPanel>
+    </p-tabView>
+</ng-template>

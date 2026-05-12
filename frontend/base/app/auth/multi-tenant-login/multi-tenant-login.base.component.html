@@ -1,0 +1,10 @@
+<div class="vh-100 login-container" [ngStyle]="currentStyles">
+    <div class="p-3 content">
+        <h2 class="mb-3 login-wrapper">{{ appTitle }}</h2>
+        <p class="sub-title">Sign in to access your application</p>
+        <div id="firebaseui-auth-container"></div>
+        <div class="back-container">
+            <p-button label="Back" id="back-btn" (onClick)="goBack()"></p-button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,45 @@
+@import "../../../../src/sass/variables";
+
+.logout-container {
+    background-color: $secondary-color;
+}
+
+.logo {
+    text-align: -webkit-center;
+}
+
+
+.logout-wrapper {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .logout-header {
+        h4 {
+            margin-bottom: 2rem;
+            color: $ternary-color;
+            font-weight: 600;
+            font-size: 3.5rem;
+        }
+    }
+
+    .content {
+        font-size: 1.5rem;
+        font-weight: 400;
+        color: $ternary-color;
+    }
+}
+
+.btns {
+    justify-content: right;
+    margin-top: 1rem;
+    flex-direction: column;
+
+    .sign-out-btn {
+        font-size: 1.3rem;
+        background-color: $primary-color;
+        padding: 6px;
+    }
+}

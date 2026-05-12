@@ -1,0 +1,229 @@
+<div class="list export-history-list">
+    <div id="title-bar">
+        <div class="display">
+            <div class="col" class="page-title-bar" *ngIf="(isMobile && !isSearchFocused) || !isMobile">
+                <!-- <span class="pi pi-arrow-left back-action"></span> -->
+                <span class="page-title" [innerHTML]="pageViewTitle | translate"></span>
+            </div>
+            <div class="w-100" *ngIf="showBreadcrumb">
+                <app-breadcrumb></app-breadcrumb>
+            </div>
+            <app-action-bar [buttons]="leftActionBarConfig.children" (onBtnClick)='actionBarAction($event)'
+                [style.order]="isMobile?'1':'0'" [isRowSelected]="isRowSelected" [isChildListpage]="isChildPage"
+                [isListPage]="isList" [detailConditionalButtons]="conditionalActions">
+            </app-action-bar>
+            <app-action-bar [buttons]="rightActionBarConfig.children" (onBtnClick)='actionBarAction($event)'
+                [style.order]="isMobile?'1':'0'" [isRowSelected]="isRowSelected" [isChildListpage]="isChildPage"
+                [isListPage]="isList" [detailConditionalButtons]="conditionalActions">
+            </app-action-bar>
+            <div class="p-0" id="search-container" [ngStyle]="{'width':isMobile && isSearchFocused? '100%':'50%' }">
+                <div *ngIf="!isMobile" class="col global-search p-3">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text show-advanced">
+                                <span class="pi pi-search icon-font"></span>
+                            </span>
+                        </div>
+                        <input type="text" class="form-control" pInputText [placeholder]="'Search' | translate"
+                            (keydown)="onKeydown($event)" [(ngModel)]="filter.globalSearch" />
+                        <div class="input-group-append ">
+                            <span class="input-group-text show-advanced cursor-pointer">
+                                <span class="icon-filter" *ngIf="filter.globalSearch">
+                                    <i class="pi pi-times filter-icon" (click)="clearGlobalSearch()"></i>
+                                </span>
+                                <span (click)="toggleAdvancedSearch()" class="advancedsearch-icon" #toggleButton
+                                    *ngIf="tableSearchConfig.showAdvancedSearch">
+                                    <span class="icon-filter">
+                                        <svg class="filter-icon icon-height">
+                                            <use xlink:href="../../../../assets/images/filter.svg#filter-button"></use>
+                                        </svg>
+                                    </span>
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex" *ngIf="isMobile">
+                    <div *ngIf="isMobile" class="search-mobile-container col global-search">
+                        <button class="pi pi-search icon-font search-btn1" (click)="focus()"></button>
+                        <!-- <span>{{isSearchFocused}}</span> -->
+                        <input placeholder='Search' id="mobile-search-icon" class='js-search open' type="text"
+                            (keydown)="onKeydown($event)" [(ngModel)]="filter.globalSearch"
+                            [ngClass]="{'open':isSearchFocused}">
+                        <!-- <span [ngClass]="{'search-close':!isSearchFocused}" class="pi pi-times icon-font " style="right:50px" (click)="clearFilters()"></span> -->
+                    </div>
+                    <div class="input-group-append" *ngIf="!isSearchFocused && tableSearchConfig.showAdvancedSearch">
+                        <span class="input-group-text pi pi-sliders-h icon-font px-3 py-3 cursor-pointer"
+                            (click)="toggleAdvancedSearch()" #toggleButton></span>
+                    </div>
+                    <div class="input-group-append" *ngIf="isSearchFocused">
+                        <span class="input-group-text pi pi-times icon-font px-3 py-3 cursor-pointer"
+                            (click)="clearFilters()"></span>
+                    </div>
+                </div>
+
+                <div class="advanced-search ev-detail-view"
+                    *ngIf="(tableSearchConfig.showAdvancedSearch && showAdvancedSearch)" #menu>
+                    <span class="pr-3 pt-0 adv-search-header" [innerHTML]="'Advanced_Search'| translate"></span>
+                    <span style="float:right" class="cursor-pointer"><i class="pi pi-times"
+                            (click)="toggleAdvancedSearch()"></i></span>
+                    <form [formGroup]="tableSearchControls" (ngSubmit)="advancedSearch()" class="ev-form">
+                        <div class="row form-body">
+                            <div class="form-row vg-col-2">
+                                <div class="form-col" [hidden]="hiddenFields.modelName" id="modelName">
+                                    <div class="field-row"
+                                        [ngClass]="{'required': tableSearchFieldConfig?.modelName?.isRequired, 'error':inValidFields.modelName}">
+                                        <label for="modelName" class="col-form-label modelName-label"
+                                            [textContent]=" 'Table'|translate "></label>
+                                        <span class="info-bubble" *ngIf="tableSearchFieldConfig?.modelName?.infoBubble"
+                                            [pTooltip]="tableSearchFieldConfig?.modelName?.infoBubble || ''"><i
+                                                class="fa fa-circle-info"></i></span>
+                                        <input type="text" pInputText class="form-control" formControlName="modelName"
+                                            [placeholder]="tableSearchFieldConfig?.modelName?.placeHolder || ''"
+                                            [maxlength]="tableSearchFieldConfig?.modelName?.maxLength" />
+                                        <div class="fst-italic fs-5 help-text">
+                                            {{tableSearchFieldConfig?.modelName?.helpText || ''}}</div>
+                                    </div>
+                                </div>
+                                <div class="form-col" [hidden]="hiddenFields.exportName" id="exportName">
+                                    <div class="field-row"
+                                        [ngClass]="{'required': tableSearchFieldConfig?.exportName?.isRequired, 'error':inValidFields.exportName}">
+                                        <label for="exportName" class="col-form-label exportName-label"
+                                            [textContent]=" 'Template'|translate "></label>
+                                        <span class="info-bubble" *ngIf="tableSearchFieldConfig?.exportName?.infoBubble"
+                                            [pTooltip]="tableSearchFieldConfig?.exportName?.infoBubble || ''"><i
+                                                class="fa fa-circle-info"></i></span>
+                                        <input type="text" pInputText class="form-control" formControlName="exportName"
+                                            [placeholder]="tableSearchFieldConfig?.exportName?.placeHolder || ''"
+                                            [maxlength]="tableSearchFieldConfig?.exportName?.maxLength" />
+                                        <div class="fst-italic fs-5 help-text">
+                                            {{tableSearchFieldConfig?.exportName?.helpText || ''}}</div>
+                                    </div>
+                                </div>
+                                <div class="form-col" [hidden]="hiddenFields.createdBy" id="createdBy">
+                                    <div class="field-row"
+                                        [ngClass]="{'required': tableSearchFieldConfig?.createdBy?.isRequired, 'error':inValidFields.createdBy}">
+                                        <label for="createdBy" class="col-form-label createdBy-label"
+                                            [textContent]=" 'Exported_By'|translate "></label>
+                                        <span class="info-bubble" *ngIf="tableSearchFieldConfig?.createdBy?.infoBubble"
+                                            [pTooltip]="tableSearchFieldConfig?.createdBy?.infoBubble || ''"><i
+                                                class="fa fa-circle-info"></i></span>
+                                        <input type="text" pInputText class="form-control" formControlName="createdBy"
+                                            [placeholder]="tableSearchFieldConfig?.createdBy?.placeHolder || ''"
+                                            [maxlength]="tableSearchFieldConfig?.createdBy?.maxLength" />
+                                        <div class="fst-italic fs-5 help-text">
+                                            {{tableSearchFieldConfig?.createdBy?.helpText || ''}}</div>
+                                    </div>
+                                </div>
+                                <div class="form-col" [hidden]="hiddenFields.exportStatus" id="exportStatus">
+                                    <div class="field-row"
+                                        [ngClass]="{'required': tableSearchFieldConfig?.exportStatus?.isRequired, 'error':inValidFields.exportStatus}">
+                                        <label for="exportStatus" class="col-form-label exportStatus-label"
+                                            [textContent]="'Status'|translate "></label>
+                                        <span class="info-bubble"
+                                            *ngIf="tableSearchFieldConfig?.exportStatus?.infoBubble"
+                                            [pTooltip]="tableSearchFieldConfig?.exportStatus?.infoBubble || ''"><i
+                                                class="fa fa-circle-info"></i></span>
+                                        <p-multiSelect [options]="tableSearchFieldConfig.exportStatus?.options"
+                                            formControlName="exportStatus" optionLabel="name" [filter]="false"
+                                            [showToggleAll]="false"
+                                            [showClear]="(tableSearchControls.controls.exportStatus?.value?.length > 0) ? true : false"
+                                            [placeholder]="tableSearchFieldConfig?.exportStatus?.placeHolder || 'Select'"
+                                            [disabled]="getDisabled(tableSearchControls,'exportStatus')"
+                                            styleClass="dropdown" optionValue="label" appendTo="body">
+                                            <ng-template let-value pTemplate="header">
+                                                <b>{{ 'Select_Items' | translate }}</b>
+                                            </ng-template>
+                                            <ng-template let-value pTemplate="selectedItems">
+                                                <ng-template #exportStatusSelectedRef let-conditions="conditions"
+                                                    let-option="option">
+                                                    <p-chip
+                                                        label="{{(!conditions || (conditions && conditions?.showText) ? option.label : '')|translate}}"
+                                                        [removable]="!getDisabled(tableSearchControls,'exportStatus')"
+                                                        styleClass="mr-2 chip-text" [style]="conditions?.cellStyle"
+                                                        (onRemove)="onRemovestatusItem($event,option, i,'exportStatus')">
+                                                        <span class="mr-2" [ngStyle]="conditions?.iconStyle"
+                                                            *ngIf="conditions?.iconClass">
+                                                            <i [class]="conditions?.iconClass"></i>
+                                                        </span>
+                                                        <img *ngIf="conditions?.image" [src]="conditions?.image" alt="">
+                                                    </p-chip>
+                                                </ng-template>
+
+                                                <ng-container
+                                                    *ngFor="let option of (getSelectedMultipleObjects(getValue(tableSearchControls,'exportStatus'),tableSearchFieldConfig.exportStatus?.options)); let i = index;">
+                                                    <ng-template
+                                                        *ngTemplateOutlet="exportStatusSelectedRef;context:{conditions :tableSearchFieldConfig.status?.optionConditions?.[option.value], option:option}">
+                                                    </ng-template>
+                                                </ng-container>
+
+                                                <div *ngIf="!getValue(tableSearchControls,'exportStatus') || getValue(tableSearchControls,'exportStatus').length === 0"
+                                                    class="multi-placeholder">
+                                                    {{ 'Select_Items' | translate }}
+                                                </div>
+
+                                            </ng-template>
+                                            <ng-template let-dropdownItem pTemplate="item">
+                                                <ng-template #exportStatusListRef let-conditions="conditions"
+                                                    let-option="option">
+                                                    <div class="select-list-item" [ngStyle]="conditions?.cellStyle">
+                                                        <img [src]="conditions?.image" class="list-image"
+                                                            *ngIf="conditions?.image" />
+                                                        <span *ngIf="conditions?.iconClass"
+                                                            [ngStyle]="conditions?.iconStyle">
+                                                            <i [ngClass]="conditions?.iconClass"></i>
+
+                                                        </span>
+                                                        <div
+                                                            *ngIf="!conditions || (conditions && conditions?.showText)">
+                                                            {{option.label | translate}}</div>
+                                                    </div>
+                                                </ng-template>
+
+                                                <ng-container>
+                                                    <ng-template
+                                                        *ngTemplateOutlet="exportStatusListRef;context:{conditions :tableSearchFieldConfig?.exportStatus.optionConditions?.[dropdownItem.value], option:dropdownItem}">
+                                                    </ng-template>
+                                                </ng-container>
+                                            </ng-template>
+                                        </p-multiSelect>
+                                        <div class="fst-italic fs-5 help-text">
+                                            {{tableSearchFieldConfig?.exportStatus?.helpText || ''}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="search-actions">
+                            <div>
+                                <button type="button" class="btn btn-secondary search-btn"
+                                    (click)="clearFilterValues()">Clear
+                                    Filter</button>
+                            </div>
+                            <div>
+                                <div class="btn-group mr-0" role="group">
+                                    <button type="button" class="btn btn-secondary search-btn"
+                                        (click)="toggleAdvancedSearch()">Cancel</button>
+                                    <button type="submit"
+                                        class="btn btn-primary search-btn search-btn-primary">Search</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <app-grid [gridConfig]="gridConfig" *ngIf="gridConfig"
+        [ngClass]="this.tableConfig.viewAs === 'card' ? 'gridsterList' : ''" class="{{tableConfig.tableStyle}}">
+    </app-grid>
+
+</div>
+
+<p-dialog header="Export" [(visible)]="displayExport" [modal]="true"
+    [style]="{width: '45vw', height:'40vw', 'font-family': 'Poppins'}" [draggable]="false" [resizable]="false"
+    class="ev-detail-view export-dialog-box" (onHide)="onExportPopupClose()">
+    <app-export-page [fromListPage]="false" (onAfterExportInitiate)="onExportSucess()"></app-export-page>
+</p-dialog>

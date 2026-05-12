@@ -1,0 +1,57 @@
+@import "base/sass-base/base-variables";
+
+:host ::ng-deep {
+    width: 100%;
+
+    .link-wrap {
+        border-radius: 0.8rem;
+        border: 1px solid #ced4da;
+
+
+        .p-button-link {
+            background-color: transparent;
+            font-weight: 600;
+            box-shadow: none !important;
+            outline: none;
+            padding: 0.5rem 0;
+
+            .p-button-label {
+                color: $primary-color;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                width: 2rem;
+            }
+        }
+
+        .empty-link {
+            visibility: hidden;
+        }
+
+        .link-edit {
+            background-color: transparent;
+            border: 0;
+        }
+
+        .p-button:enabled:hover {
+            color: $primary-color;
+            background-color: $secondary-color;
+        }
+
+        .p-button.p-button-icon-only.p-button-rounded {
+            width: 3rem;
+        }
+    }
+
+    .link-edit-wrap {
+        display: flex;
+
+    }
+
+    .disabled {
+        border: 0.13rem solid #e9ecef;
+        border-radius: 0.8rem;
+        margin-top: -1px;
+        margin-left: 0px;
+        background-color: #e9ecef;
+    }
+}

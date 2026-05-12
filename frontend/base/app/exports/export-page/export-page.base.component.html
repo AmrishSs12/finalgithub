@@ -1,0 +1,76 @@
+<div class="detail exports-page ">
+    <div class="export-popup-container">
+        <div class="ev-detail-view" id="detail-view-container">
+            <div>
+                <div class="flex align-items-center justify-content-center form-container">
+
+                    <form class="ev-form " [formGroup]="exportGroup" #detailForm>
+                        <div *ngIf="!fromListPage">
+                            <div class="field-row required">
+                                <label class="col-form-label">{{'Select_Table' | translate}}</label>
+                                <p-dropdown [options]="this.currentImpConfig" styleClass="dropdown" #tableName
+                                    optionLabel="tableName" (onChange)="selectedTable($event)"
+                                    placeholder="Select Table Type" value="tableName" appendTo="body">
+                                </p-dropdown>
+                            </div>
+                        </div>
+
+                        <div class="field-row required" *ngIf="fromListPage || this.selectedtablename">
+                            <label class="col-form-label">{{'Export_Type' | translate}}</label>
+                            <p-dropdown [options]="exportConfig" styleClass="dropdown" optionLabel="name" #templateName
+                                [autoDisplayFirst]="true" (onChange)="selectedExportType($event)" value="name"
+                                appendTo="body">
+                            </p-dropdown>
+                        </div>
+
+                        <!-- <div class="field-row required" *ngIf="fromListPage || this.selectedtablename">
+                            <label *ngIf="this.selectedValues.selectedExportFileType !=undefined"
+                                class="col-form-label">Output Type</label>
+                            <div class="filetype-radiobtn-container">
+                                <div *ngFor="let fileType of selectedValues.selectedExportFileType"
+                                    class="filetype-checkbox">
+                                    <p-radioButton (click)="selectedFileType(fileType)" name="fileType"
+                                        [value]="fileType" formControlName="fileType"></p-radioButton>
+                                    <label>{{fileTypeMap.get(fileType)}}</label>
+                                </div>
+                            </div>
+                        </div> -->
+                        <div class="optional-filters" *ngIf="exportFilterConfig.children?.length > 0">
+                            <app-optional-filters [filterConfig]="exportFilterConfig"
+                                *ngIf="fromListPage || this.selectedtablename"></app-optional-filters>
+                        </div>
+                        <!-- <div class="field-row" *ngIf="fromListPage || this.selectedtablename">
+                            <label class="col-form-label">Output Date Format</label>
+                            <p-dropdown [options]="dateFormatConfig | formattingpipe:'dateformat'"
+                                formControlName="dateFormat" styleClass="dropdown" [autoDisplayFirst]="true"
+                                optionValue="value" optionLabel="label" (onChange)="selectedDateFormat($event)"
+                                appendTo="body">
+                            </p-dropdown>
+                        </div>
+                        <div class="field-row" *ngIf="fromListPage || this.selectedtablename">
+                            <label class="col-form-label">Output Date Time Format</label>
+                            <p-dropdown [options]="dateTimeFormatConfig | formattingpipe:'datetimeformat'"
+                                formControlName="dateTimeFormat" styleClass="dropdown" [autoDisplayFirst]="true"
+                                optionValue="value" optionLabel="label" (onChange)="selectedDateTimeFormat($event)"
+                                appendTo="body">
+                            </p-dropdown>
+                        </div>
+                        <div class="field-row" *ngIf="fromListPage || this.selectedtablename">
+                            <label class="col-form-label">Output Number Format</label>
+                            <p-dropdown [options]="numberFormatConfig | formattingpipe:'numberformat'"
+                                formControlName="numberFormat" styleClass="dropdown" [autoDisplayFirst]="true"
+                                optionLabel="label" optionValue="value" (onChange)="selectedNumberFormat($event)"
+                                appendTo="body">
+                            </p-dropdown>
+                        </div> -->
+
+                    </form>
+                    <div class="footer">
+                        <p-button icon="pi pi-check" class="export-btn  " type="submit" (onClick)="initiateExport()"
+                            label=" Export" [disabled]="exportBtndisabled"></p-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

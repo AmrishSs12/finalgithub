@@ -1,0 +1,105 @@
+<div class="list gcip-role-mapping-list">
+    <div id="title-bar">
+        <div class="display">
+            <div class="col" class="page-title-bar">
+                <!-- <span class="pi pi-arrow-left back-action"></span> -->
+                <span class="page-title" [pTooltip]="isMobile ? (pageViewTitle | translate) : null"
+                    [innerHTML]="pageViewTitle | translate"></span>
+            </div>
+
+            <app-action-bar [buttons]="isMobile? combinedActionConfig:leftActionBarConfig.children"
+                (onBtnClick)='actionBarAction($event)' [style.order]="isMobile?'1':'0'" actionBarName="leftActionBar"
+                [isRowSelected]="isRowSelected" [isChildListpage]="isChildPage" [isListPage]="isList"
+                [detailConditionalButtons]="conditionalActions" [filterActionButtons]="filterActions">
+            </app-action-bar>
+
+            <div class="p-0" id="search-container" [ngStyle]="{'width':isMobile ? '100%':'50%' }"
+                [ngClass]="{'advance-filter-applied':filtersApplied, 'show-advanced-search':(showAdvancedSearch || filtersApplied || filter.globalSearch)}">
+                <div class="input-group-append d-flex justify-content-end advancedSearch-only"
+                    *ngIf="(tableSearchConfig.showAdvancedSearch && tableSearchConfig?.children?.length > 0)">
+                    <span class="input-group-text pi pi-filter icon-font  cursor-pointer"
+                        (click)="toggleAdvancedSearch()" #toggleButton></span>
+                </div>
+                <div class="advanced-search ev-detail-view"
+                    *ngIf="(tableSearchConfig.showAdvancedSearch && showAdvancedSearch && tableSearchConfig?.children?.length > 0)"
+                    #menu>
+                    <span class="pr-3 pt-0 adv-search-header" [innerHTML]="'Advanced_Search'| translate"></span>
+                    <span style="float:right" class="cursor-pointer"><i class="pi pi-times"
+                            (click)="toggleAdvancedSearch()"></i></span>
+                    <form [formGroup]="tableSearchControls" (ngSubmit)="this.filter.globalSearch = '';advancedSearch()"
+                        class="ev-form">
+                        <div class="row form-body">
+                            <div class="form-row vg-col-1">
+                                <div class="form-col" id="domainname">
+                                    <div class="field-row"
+                                        [ngClass]="{'required': tableSearchFieldConfig?.domainname?.isRequired, 'error':inValidFields.domainname}">
+                                        <label for="domainname" class="col-form-label domainname-label"
+                                            [textContent]=" 'Domain'|translate "></label>
+                                        <span class="info-bubble" *ngIf="tableSearchFieldConfig?.domainname?.infoBubble"
+                                            [pTooltip]="(tableSearchFieldConfig?.domainname?.infoBubble|translate) || ''"><i
+                                                class="fa fa-circle-info"></i></span>
+                                        <input type="text" pInputText class="form-control" formControlName="domainname"
+                                            [placeholder]="(tableSearchFieldConfig?.domainname?.placeHolder|translate) || ''"
+                                            [maxlength]="tableSearchFieldConfig?.domainname?.maxLength" />
+                                        <div class="fst-italic fs-5 help-text">
+                                            {{(tableSearchFieldConfig?.domainname?.helpText|translate) || ''}}</div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="search-actions">
+                            <div>
+                                <button type="button" class="btn btn-secondary search-btn"
+                                    (click)="clearFilterValues()">{{'Clear_Filter' | translate}}</button>
+                            </div>
+                            <div>
+                                <div class="btn-group mr-0" role="group">
+                                    <button type="button" class="btn btn-secondary search-btn"
+                                        (click)="toggleAdvancedSearch()">{{'Cancel'| translate}}</button>
+                                    <button type="submit" class="btn btn-primary search-btn">{{'Search'|
+                                        translate}}</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="row" id="filter-container" *ngIf="deactivateRecords && displayFilterIn === 'QUICK_FILTER'">
+        <div class="quick-filters ev-detail-view">
+            <form [formGroup]="quickFilterControls" class="quick-filter-fields-list">
+                <span class="left-arrow qf-arrow-controls" (click)="scrollFilterFieldsList('left', $event)"
+                    *ngIf="checkIfScrollbarVisible()">
+                    <i class="pi pi-angle-left"></i>
+                </span>
+                <div [ngClass]="{'soft-delete-filter-div-mobile': isMobile}"
+                    *ngIf="softDeleteFilterConfig.showFilter && softDeleteFilterConfig.displayActiveFilterIn == 'quickFilter'">
+                    <app-soft-delete-filter [localStorageStateKey]="localStorageStateKey"
+                        (onFilterSelectionClick)="onFilterSelectionClick($event)"
+                        [defaultValue]="this.softDeleteFilterConfig?.defaultValue"></app-soft-delete-filter>
+                </div>
+                <div class="row align-filter quick-filter-fields" [id]="localStorageStateKey"
+                    [ngClass]="quickFilterConfig.style ==='style_2'? 'rowfiltercolumnfilter':'columnfilter'">
+
+                </div>
+                <span class="right-arrow  qf-arrow-controls" (click)="scrollFilterFieldsList('right', $event)"
+                    *ngIf="checkIfScrollbarVisible()">
+                    <i class="pi pi-angle-right"></i>
+                </span>
+                <div class="reset-quick-filter" (click)="resetQuickFilterValues()">
+                    {{'Reset_Quick_Filter' | translate}}
+                    <i [ngClass]="quickFilterApplied? 'pi-filter-fill' : 'pi-filter'" class="pi"></i>
+                </div>
+            </form>
+        </div>
+    </div>
+    <app-grid [gridConfig]="gridConfig" *ngIf="gridConfig  && (gridConfig | keyvalue).length > 0"
+        [ngClass]="this.tableConfig.viewAs === 'card' ? 'gridsterList' : ''" [showonFilter]="showonFilter"
+        [filtersApplied]=" queryViewList? queryViewFiltersApplied :hasMappedParameters"
+        class="{{tableConfig.tableStyle}}" [fromDetailView]="fromDetailPage" [standardGrid]="standardGrid"></app-grid>
+
+</div>

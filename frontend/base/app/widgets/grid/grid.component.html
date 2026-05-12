@@ -1,0 +1,68 @@
+<div class=" paginator paginator-top p-mb-3" *ngIf="paginatorOnTop && gridConfig.paging">
+    <ng-container *ngTemplateOutlet="paginator">
+    </ng-container>
+</div>
+<table id="{{dtOptions.id}}" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+    class="cell-border hover stripe display col-render application-user-list rowH-{{this.gridConfig.rowHeight}} rowS-{{this.gridConfig.rowSpacing}}"
+    cellspacing="0" style="width:100%;"
+    [ngClass]="{'striped' : this.gridConfig.striped == true,'gridlines' : this.gridConfig.showGridlines == true}">
+    <thead>
+        <tr class="complex-grid-header"
+            *ngIf="!gridConfig.colResize && !gridConfig.colReorder && dtOptions.complexHeader && dtOptions.complexHeader.length>0">
+            <th scope="" *ngFor="let header of dtOptions.complexHeader; let i = index" [attr.colspan]="header.colspan"
+                [ngClass]="{'emptyHeader': !header.label}" class="complex-header-{{i}}" [attr.colorder]="i"
+                [attr.data-column-index]="i">
+                {{header.label | translate}}
+            </th>
+        </tr>
+        <tr class="vs-grid-header" [ngClass]="{'hide-table': hideTable}">
+            <th scope="" *ngFor="let col of dtOptions.columns; let i = index" [ngClass]="col.sortDirection"
+                [attr.colorder]="i" [attr.data-column-index]="i" [attr.colspan]="col.colspan">
+                {{col.label | translate}}
+            </th>
+        </tr>
+    </thead>
+</table>
+
+<p-overlayPanel #columnSettingsOP>
+    <ng-template pTemplate>
+        <button class="btn btn-link btn-lg" (click)="resetColumnSettings();columnSettingsOP.hide($event)"> Reset Column
+            Settings</button>
+        <span *ngIf="gridConfig?.toggleColumns">
+            <div class="column-toggle-settings">
+                <div *ngFor="let category of gridConfig?.columns" class="field-checkbox p-1">
+                    <p-checkbox name="group" [value]="category.label" [(ngModel)]="selectedColumns"
+                        [inputId]="category.field"></p-checkbox>
+                    <label [for]="category.field" class="pl-2">{{ category.label | translate }}</label>
+                </div>
+            </div>
+            <div class="btn-group ml-auto d-flex pt-2" role="group">
+                <button type="button" class="btn btn-secondary search-btn"
+                    (click)="columnSettingsOP.hide($event)">Cancel</button>
+                <button type="submit" class="btn btn-primary search-btn search-btn-primary"
+                    (click)="columnToggleChange();columnSettingsOP.hide($event)">Ok</button>
+            </div>
+        </span>
+    </ng-template>
+</p-overlayPanel>
+
+<div class=" paginator paginator-top p-mb-3" *ngIf="paginatorOnBottom && gridConfig.paging">
+    <ng-container *ngTemplateOutlet="paginator">
+    </ng-container>
+</div>
+
+
+<ng-template #paginator>
+    <div class="paginator-label"> Showing
+        {{gridData.length > 0 ? start + 1: start}} to {{ start + gridData.length}} </div>
+    <span>
+        <p-button type="button" icon="pi pi-angle-double-left" (onClick)="refreshGrid()" styleClass="p-button-text">
+        </p-button>
+        <p-button type="button" icon="pi pi-angle-left" class="paginator-btn-prev" (onClick)="previousPage()"
+            styleClass="p-button-text" [disabled]="(start == 0)"></p-button>
+        <p-button type="button" icon="pi pi-refresh" (onClick)="refreshCurrentPage()" styleClass="p-button-text">
+        </p-button>
+        <p-button type="button" icon="pi pi-angle-right" class="paginator-btn-next" (onClick)="nextPage()"
+            [disabled]="(total <= filtered)" styleClass="p-button-text"></p-button>
+    </span>
+</ng-template>

@@ -1,0 +1,25 @@
+{
+  "name": "UI",
+  "type": "module",
+  "devDependencies": {
+    "@wdio/allure-reporter": "^8.32.2",
+    "@wdio/cli": "^8.33.1",
+    "@wdio/local-runner": "^8.33.1",
+    "@wdio/mocha-framework": "^8.33.1",
+    "@wdio/spec-reporter": "^8.32.4",
+    "del-cli": "^5.1.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.1.6"
+  },
+  "scripts": {
+    "run-all": "npm run delete-allure && npm run wdio && allure-report",
+    "wdio": "wdio run ./wdio.conf.ts",
+    "allure-report": "allure generate --clean && allure open -h localhost -p 8080",
+    "delete-allure": "del-cli --force allure-report && del-cli --force allure-results",
+    "runsingle": "wdio wdio.conf.js --spec ./test/specs/basetableonensfonedetail.ts"
+  },
+  "dependencies": {
+    "chai": "^5.1.0",
+    "node-fetch": "^3.3.2"
+  }
+}

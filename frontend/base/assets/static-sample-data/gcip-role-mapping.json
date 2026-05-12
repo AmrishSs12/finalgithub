@@ -1,0 +1,103 @@
+[
+    {
+        "syncTime": 1749200369453,
+        "sid": "Sid0",
+        "rolename": "Role Name6",
+        "createdDate": 1749200369453,
+        "createdBy": "Created By3",
+        "modifiedDate": 1749200369453,
+        "modifiedBy": "Modified By3",
+        "domainname": "domain.com2"
+    },
+    {
+        "syncTime": 1749200369453,
+        "sid": "Sid1",
+        "rolename": "Role Name0",
+        "createdDate": 1749200369453,
+        "createdBy": "Created By4",
+        "modifiedDate": 1749200369453,
+        "modifiedBy": "Modified By8",
+        "domainname": "domain.com8"
+    },
+    {
+        "syncTime": 1749200369453,
+        "sid": "Sid2",
+        "rolename": "Role Name2",
+        "createdDate": 1749200369453,
+        "createdBy": "Created By9",
+        "modifiedDate": 1749200369453,
+        "modifiedBy": "Modified By4",
+        "domainname": "domain.com1"
+    },
+    {
+        "syncTime": 1749200369453,
+        "sid": "Sid3",
+        "rolename": "Role Name8",
+        "createdDate": 1749200369453,
+        "createdBy": "Created By3",
+        "modifiedDate": 1749200369453,
+        "modifiedBy": "Modified By8",
+        "domainname": "domain.com1"
+    },
+    {
+        "syncTime": 1749200369453,
+        "sid": "Sid4",
+        "rolename": "Role Name2",
+        "createdDate": 1749200369453,
+        "createdBy": "Created By0",
+        "modifiedDate": 1749200369453,
+        "modifiedBy": "Modified By2",
+        "domainname": "domain.com1"
+    },
+    {
+        "syncTime": 1749200369453,
+        "sid": "Sid5",
+        "rolename": "Role Name0",
+        "createdDate": 1749200369453,
+        "createdBy": "Created By4",
+        "modifiedDate": 1749200369453,
+        "modifiedBy": "Modified By8",
+        "domainname": "domain.com7"
+    },
+    {
+        "syncTime": 1749200369453,
+        "sid": "Sid6",
+        "rolename": "Role Name0",
+        "createdDate": 1749200369453,
+        "createdBy": "Created By7",
+        "modifiedDate": 1749200369453,
+        "modifiedBy": "Modified By7",
+        "domainname": "domain.com4"
+    },
+    {
+        "syncTime": 1749200369453,
+        "lastName": "Last Name6",
+        "sid": "Sid7",
+        "rolename": "Role Name8",
+        "createdDate": 1749200369453,
+        "createdBy": "Created By9",
+        "modifiedDate": 1749200369453,
+        "modifiedBy": "Modified By9",
+        "domainname": "domain.com8"
+    },
+    {
+        "syncTime": 1749200369453,
+        "sid": "Sid8",
+        "rolename": "Role Name3",
+        "createdDate": 1749200369453,
+        "createdBy": "Created By3",
+        "modifiedDate": 1749200369453,
+        "modifiedBy": "Modified By4",
+        "domainname": "domain.com0"
+    },
+    {
+        "syncTime": 1749200369453,
+        "sid": "Sid9",
+        "rolename": "Role Name9",
+        "createdDate": 1749200369453,
+        "createdBy": "Created By9",
+        "modifiedDate": 1749200369453,
+        "modifiedBy": "Modified By0",
+        "domainname": "domain.com5"
+    }
+]

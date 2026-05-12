@@ -1,0 +1,200 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "finalGithub": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        },
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets",
+              "src/manifest.webmanifest"
+            ],
+            "styles": [
+				 "node_modules/bootstrap/dist/css/bootstrap.min.css",
+				 "node_modules/primeng/resources/themes/saga-blue/theme.css",
+				 "node_modules/primeng/resources/primeng.min.css",
+				 "node_modules/primeicons/primeicons.css",
+				 "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+				 "node_modules/tippy.js/dist/tippy.css",
+				 "node_modules/datatables.net-dt/css/jquery.dataTables.css",
+				 "node_modules/datatables.net-colreorder-dt/css/colReorder.dataTables.css",
+				 "node_modules/datatables.net-fixedcolumns-dt/css/fixedColumns.dataTables.css",
+				 "node_modules/datatables.net-responsive-dt/css/responsive.dataTables.css",
+				 "node_modules/datatables.net-rowgroup-dt/css/rowGroup.dataTables.css",
+				 "node_modules/datatables.net-scroller-dt/css/scroller.dataTables.css",
+				 "node_modules/datatables.net-select-dt/css/select.dataTables.css",
+				 "node_modules/firebaseui/dist/firebaseui.css",
+				 "base/base-styles.scss",
+				 "src/styles.scss"
+            ],
+            "scripts": [
+                 "node_modules/jquery/dist/jquery.js",
+                 "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+                 "node_modules/@fortawesome/fontawesome-free/js/all.min.js",
+                 "node_modules/datatables.net/js/jquery.dataTables.js",
+                 "node_modules/datatables.net-dt/js/dataTables.dataTables.js",
+                 "src/assets/lib/datatables-reorder/dataTables.colReorder.js",
+                 "node_modules/datatables.net-fixedcolumns/js/dataTables.fixedColumns.js",
+                 "node_modules/datatables.net-fixedcolumns-dt/js/fixedColumns.dataTables.js",
+                 "node_modules/datatables.net-responsive/js/dataTables.responsive.js",
+                 "node_modules/datatables.net-responsive-dt/js/responsive.dataTables.js",
+                 "node_modules/datatables.net-rowgroup/js/dataTables.rowGroup.js",
+                 "node_modules/datatables.net-rowgroup-dt/js/rowGroup.dataTables.js",
+                 "node_modules/datatables.net-scroller/js/dataTables.scroller.js",
+                 "node_modules/datatables.net-scroller-dt/js/scroller.dataTables.js",
+                 "node_modules/datatables.net-select/js/dataTables.select.js",
+                 "node_modules/datatables.net-select-dt/js/select.dataTables.js",
+                 "node_modules/popper.js/dist/umd/popper.min.js",
+                 "node_modules/bootstrap/dist/js/bootstrap.min.js"
+            ],
+            "serviceWorker": true,
+            "ngswConfigPath": "ngsw-config.json"
+          },
+          "configurations": {
+            "prototype": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true,
+			  "fileReplacements": [
+					{
+						"replace": "src/environments/environment.ts",
+						"with": "src/environments/environment.prototype.ts"
+					},
+                    {
+                        "replace": "src/app/auth/authentication.resolver.ts",
+                        "with": "src/app/auth/authentication.prototype.resolver.ts"
+                    }
+				]
+			},
+             "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "10mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "5mb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all",
+              "vendorChunk": true,
+              "sourceMap": false
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "outputHashing": "all"
+            },
+            "hmrproxy": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.hmrproxy.ts"
+                }
+              ]
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "prototype": {
+			  "browserTarget": "finalGithub:build:prototype"
+			},
+            "production": {
+              "browserTarget": "finalGithub:build:production"
+            },
+            "development": {
+              "browserTarget": "finalGithub:build:development"
+            },
+            "hmrproxy": {
+        	    "browserTarget": "finalGithub:build:hmrproxy"
+      		  }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "finalGithub:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "src/test.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.spec.json",
+            "karmaConfig": "karma.conf.js",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets",
+              "src/manifest.webmanifest"
+            ],
+            "styles": [
+              "src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "finalGithub",
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
+  }
+}

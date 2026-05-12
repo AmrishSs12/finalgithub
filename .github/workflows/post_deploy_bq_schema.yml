@@ -1,0 +1,89 @@
+name: BQ Table creation
+
+on: workflow_dispatch
+
+jobs:
+  bq_table_create_prod:
+    if: contains(github.ref, 'master')
+    environment: prod
+    runs-on: ubuntu-latest
+    container: google/cloud-sdk:alpine
+
+    steps:
+    - name: Generating schema...
+      run: |
+        apk add curl
+        echo "[*] BQ Table creation started..."
+        export CLOUDSDK_CORE_DISABLE_PROMPTS=1
+        echo '${{ secrets.SERVICE_ACCOUNT_KEYFILE_JSON }}' > client-secret.json
+        gcloud auth activate-service-account --key-file client-secret.json
+        gcloud config set project vb-eva-gen
+        cloud_run_url=$(gcloud run services describe finalgithub --platform managed --region europe-west1 --format 'value(status.url)')
+        echo "[*] Cloud Run url : ${cloud_run_url}"
+        echo "[*] Triggering the BQ Table creation api..."
+        curl -X POST "${cloud_run_url}/rest/deploy/setup?action=ANALYTICAL" --fail-with-body
+        echo "[*] Completed BQ Table creation"
+
+  bq_table_create_dev:
+    if: contains(github.ref, 'development')
+    environment: dev
+    runs-on: ubuntu-latest
+    container: google/cloud-sdk:alpine
+
+    steps:
+    - name: Generating schema...
+      run: |
+        apk add curl
+        echo "[*] BQ Table creation started..."
+        export CLOUDSDK_CORE_DISABLE_PROMPTS=1
+        echo '${{ secrets.SERVICE_ACCOUNT_KEYFILE_JSON }}' > client-secret.json
+        gcloud auth activate-service-account --key-file client-secret.json
+        gcloud config set project vb-eva-gen
+        cloud_run_url=$(gcloud run services describe finalgithub --platform managed --region europe-west1 --format 'value(status.url)')
+        echo "[*] Cloud Run url : ${cloud_run_url}"
+        echo "[*] Triggering the BQ Table creation api..."
+        curl -X POST "${cloud_run_url}/rest/deploy/setup?action=ANALYTICAL" --fail-with-body
+        echo "[*] Completed BQ Table creation"
+
+  bq_table_create_test:
+    if: contains(github.ref, 'release')
+    environment: test
+    runs-on: ubuntu-latest
+    container: google/cloud-sdk:alpine
+
+    steps:
+    - name: Generating schema...
+      run: |
+        apk add curl
+        echo "[*] BQ Table creation started..."
+        export CLOUDSDK_CORE_DISABLE_PROMPTS=1
+        echo '${{ secrets.SERVICE_ACCOUNT_KEYFILE_JSON }}' > client-secret.json
+        gcloud auth activate-service-account --key-file client-secret.json
+        gcloud config set project vb-eva-gen
+        cloud_run_url=$(gcloud run services describe finalgithub --platform managed --region europe-west1 --format 'value(status.url)')
+        echo "[*] Cloud Run url : ${cloud_run_url}"
+        echo "[*] Triggering the BQ Table creation api..."
+        curl -X POST "${cloud_run_url}/rest/deploy/setup?action=ANALYTICAL" --fail-with-body
+        echo "[*] Completed BQ Table creation"
+
+  bq_table_create_pre-prod:
+    if: contains(github.ref, 'preproduction')
+    environment: pre-prod
+    runs-on: ubuntu-latest
+    container: google/cloud-sdk:alpine
+
+    steps:
+    - name: Generating schema...
+      run: |
+        apk add curl
+        echo "[*] BQ Table creation started..."
+        export CLOUDSDK_CORE_DISABLE_PROMPTS=1
+        echo '${{ secrets.SERVICE_ACCOUNT_KEYFILE_JSON }}' > client-secret.json
+        gcloud auth activate-service-account --key-file client-secret.json
+        gcloud config set project vb-eva-gen
+        cloud_run_url=$(gcloud run services describe finalgithub --platform managed --region europe-west1 --format 'value(status.url)')
+        echo "[*] Cloud Run url : ${cloud_run_url}"
+        echo "[*] Triggering the BQ Table creation api..."
+        curl -X POST "${cloud_run_url}/rest/deploy/setup?action=ANALYTICAL" --fail-with-body
+        echo "[*] Completed BQ Table creation"
+

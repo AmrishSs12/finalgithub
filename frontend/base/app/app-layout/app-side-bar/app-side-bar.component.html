@@ -1,0 +1,120 @@
+<div class="app-main w-100 d-flex h-100">
+
+  <div class="app-sidebar sidebar-shadow h-100" id="app-sidebar-container"
+    *ngIf="fixedItems?.menuType === 'fixed' && !isMobile  && fixedItems?.children?.length > 0"
+    [style.right]="(fixedItems?.element==='rightMenu' || fixedItems?.element == 'leftMenu' && !fixedItems?.children)? 0 :''"
+    [ngClass]="{'sidebar-shrink': ((fixedMenuType == 'left') ? !displayLeftMenu : !displayRightMenu)}">
+    <div class="scrollbar-sidebar d-none d-md-block"
+      [ngClass]="{'hide-sidebar':fixedItems.hideSidebarOnCollapse === true }">
+      <div class="pr-2 pb-3 pt-3 pl-2 sidebar-shrink-rel-0">
+        <ul class="vertical-nav-menu">
+          <ng-container *ngTemplateOutlet="
+              recursiveMenuList;
+              context: { items: fixedItems?.children, level: 0, rootIndex:0, sideBarMenuType:0}">
+          </ng-container>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="d-block"
+    *ngIf="fixedItems?.menuType === 'fixed' && isMobile && fixedItems?.children?.length > 0">
+    <p-sidebar [(visible)]="fixedSideBar" (onHide)="onBeforeDialogHide()" [position]="fixedMenuType">
+      <div class="pr-2 pb-3 pt-3 pl-2 sidebar-shrink-rel-0">
+        <ul class="vertical-nav-menu">
+          <ng-container *ngTemplateOutlet="
+            recursiveMenuList;
+            context: { items: fixedItems?.children, level: 0, rootIndex:0, sideBarMenuType:0 }">
+          </ng-container>
+        </ul>
+      </div>
+    </p-sidebar>
+  </div>
+
+  <div *ngIf="floatItems?.menuType ==='float'">
+    <p-dialog appendTo="body" [(visible)]="floatDialog" position="{{ floatDirection }}" [baseZIndex]="999999"
+      (onHide)="onBeforeDialogHide()" dismissableMask="true" modal="true" showHeader="false"
+      styleClass="app-sidebar-dialog">
+      <div class="scrollbar-sidebar sidebar-float">
+        <div class="">
+          <ul class="vertical-nav-menu">
+            <ng-container
+              *ngTemplateOutlet="recursiveMenuList;  context: { items: floatItems?.children, level: 0,rootIndex:0, sideBarMenuType:1 }">
+            </ng-container>
+          </ul>
+        </div>
+      </div>
+    </p-dialog>
+  </div>
+
+</div>
+
+<ng-template #recursiveMenuList let-items="items" let-level="level" let-rootIndex="rootIndex"
+  let-sideBarMenuType="sideBarMenuType">
+  <li *ngFor="let item of items;let itemIndex = index;" (mouseenter)="onMouseEnter($event, level)"
+    [ngClass]="[ ((fixedMenuType == 'left') ? !displayLeftMenu : !displayRightMenu)? 'popover-wrapper popover-wrapper'+level:'']"
+    (click)="mainMenuClick($event)">
+    <a [routerLink]="isCrossAppNavigation(item) ? null : ((item?.children && item?.children.length > 0 && (item?.children[0]?.element !== 'tabItem' && item.children[0]?.element !=='tabGroup')) ? null : item?.page?.url ? item?.page?.url : (item?.customUrl)?item?.customUrl: ((item.element == 'menuGroup' && item?.children?.length > 0 && item?.children[0]?.element == 'tabGroup') ? getPageUrl(item?.children[0]) : null))"
+      (isActiveChange)="activeChange(item,$event,level)" [id]="item.label+level" [routerLinkActive]="['menu-active']"
+      class="d-flex flex-column justify-content-center sidebar-menu-items"
+      [ngClass]="[handleActiveRoute(item,level),level === 0 ? 'sidebar-item-level-' + itemIndex + '-' + sideBarMenuType + '-' + item.menuRecursiveCount + ' sidebar-heading-menu-items': 'sidebar-item-level-' + rootIndex + '-' + sideBarMenuType + '-' + item.menuRecursiveCount + ' sidebar-submenu-menu-items'] "
+      (click)="isCrossAppNavigation(item) ? navigateWithContextPath(item) : toggleList(rootIndex, level, itemIndex,
+      sideBarMenuType, item);">
+
+      <span class="d-flex sidebar-shrink-rel-1">
+        <span class="d-flex flex-column justify-content-center image_icon text-center">
+          <i class="fa {{item.icon?.icon?.value}} p-mr-4 opacity d-block menu-icon-level-{{level}}"
+            *ngIf="item?.icon?.type == 'icon'" [ngClass]="level === 0 ? 'menu-heading-icon' : 'submenu-heading-icon'"
+            [style.color]="item.icon?.iconColor" [style.font-size]="item.icon?.iconSize">
+          </i>
+          <ng-container *ngIf="isSvgImage(item); else imageTag">
+            <div [innerHTML]="svgContents[item?.iconFileName]" class="menu-item-svg-icon"></div>
+          </ng-container>
+          <ng-template #imageTag>
+            <img [src]="getMenuImage(item)" *ngIf="item?.iconFileName" class="menu-image" [ngStyle]="bs.getStyles(item)"
+            alt="Menu" />
+          </ng-template>
+        </span>
+
+        <span [ngClass]="{'sidebar-shrinked-display':showSideBar(sideBarMenuType), 'w-100':!item?.icon}"
+          class="sidebar-list">
+          <span
+            [ngClass]="level === 0 ? 'app-sidebar__heading main-heading menu-heading-label' : 'pl-3 submenu-heading-label'"
+            class="menu-heading-level-{{level}} d-flex pl-3 w-100 d-flex flex-row justify-content-between"
+            [hidden]="(item.showOnlyIcon === 'true' || item.showOnlyIcon === true)">
+            <span [innerHTML]="item.label | translate" title="{{item.label | translate}}" [ngStyle]="bs.getStyles(item)"
+              [ngClass]="level === 0 ? 'menu-heading-label' : 'submenu-heading-label'"></span>
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill icon-badge"
+              *ngIf="item.badge || item.badge === 'true'" [ngStyle]="bs.getStyles(item)"
+              [textContent]="getBadgeValue()"></span>
+            <span class="d-flex flex-column justify-content-center collapsible-icon"
+              [ngClass]="{'pr-2':(floatItems?.menuType == 'float' && sideBarMenuType == 1)}">
+              <i class="metismenu-state-icon fa fa-chevron-up" [ngStyle]="bs.getStyles(item)"
+                *ngIf="item.children && item.children.length > 0 && item.children[0].element !== 'tabItem' && item.children[0].element !=='tabGroup'"></i>
+            </span>
+          </span>
+        </span>
+      </span>
+
+    </a>
+
+    <span [ngClass]="{'sidebar-shrinked-display':showSideBar(sideBarMenuType)}" class="u-list"
+      *ngIf="item.children && item.children.length > 0 && item.children[0].element !== 'tabItem' && item.children[0].element !=='tabGroup'">
+      <ul class="collapse show"
+        id="{{level === 0 ? 'sidebar-item-level-' + itemIndex + '-' + sideBarMenuType + '-' + item.menuRecursiveCount : 'sidebar-item-level-' + rootIndex + '-' + sideBarMenuType + '-' + item.menuRecursiveCount}}">
+        <ng-container
+          *ngTemplateOutlet="recursiveMenuList;  context: { items: item.children, level: (level + 1), rootIndex:((level == 0) ? itemIndex : rootIndex), sideBarMenuType:sideBarMenuType }">
+        </ng-container>
+      </ul>
+    </span>
+
+    <span class="popover-content popover-content{{(level)}}"
+    *ngIf="(fixedItems?.hideSidebarOnCollapse =='false'|| !fixedItems?.hideSidebarOnCollapse) && item.children && item.children.length > 0 && item.children[0].element !== 'tabItem' && item.children[0].element !=='tabGroup'">
+      <!-- <ul 
+            id="{{level === 0 ? 'sidebar-item-level-' + itemIndex + '-' + sideBarMenuType + '-' + item.menuRecursiveCount : 'sidebar-item-level-' + rootIndex + '-' + sideBarMenuType + '-' + item.menuRecursiveCount}}"> -->
+      <ng-container
+        *ngTemplateOutlet="recursiveMenuList;  context: { items: item.children, level: (level + 1), rootIndex:((level == 0) ? itemIndex : rootIndex), sideBarMenuType:sideBarMenuType }">
+      </ng-container>
+      <!-- </ul> -->
+    </span>
+  </li>
+</ng-template>

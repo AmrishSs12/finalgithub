@@ -1,0 +1,78 @@
+<div class="detail row">
+    <div class="ev-detail-view">
+        <p-messages></p-messages>
+        <form class="ev-form " [formGroup]="detailFormControls" #detailForm>
+            <div class="row form-body">
+                <div class="form-row vg-col-1">
+                    <div class="form-col ">
+                        <div class="field-row required ">
+                            <label for="actor" class="col-form-label actor-label "
+                                [textContent]=" 'ACTOR'|translate "></label>
+                            <p-multiSelect [options]="actorFieldConfig" formControlName="actor" optionLabel="label"
+                                optionValue="formattedValue" appendTo="body" placeholder="Select Item" [filter]="true"
+                                display="chip">
+                            </p-multiSelect>
+                        </div>
+
+                        <div class="field-row required">
+                            <label for="status" class="col-form-label status-label "
+                                [textContent]=" 'STATUS'|translate "></label>
+                            <p-dropdown [options]="statusFieldConfig?.options" formControlName="status"
+                                [showClear]="true" optionLabel="value" optionValue="label" styleClass="dropdown"
+                                appendTo="body" placeholder="Select Item">
+                                <ng-template pTemplate="selectedItem">
+                                    <ng-template #statusSelectedRef let-conditions="conditions" let-option="option">
+                                        <div class="selected-item" [ngStyle]="conditions?.cellStyle">
+                                            <img [src]="conditions?.image" class="img" *ngIf="conditions?.image" />
+                                            <span *ngIf="conditions?.iconClass" class="icon"
+                                                [ngStyle]="conditions?.iconStyle">
+                                                <i [ngClass]="conditions?.iconClass"></i>
+
+                                            </span>
+                                            <div class="value"
+                                                *ngIf="!conditions || (conditions && conditions?.showText)">
+                                                {{option.value| translate}}</div>
+                                        </div>
+                                    </ng-template>
+                                    <ng-container *ngIf="detailFormControls.controls.status.value; let selected;">
+                                        {{log(selected)}}
+                                        <ng-template
+                                            *ngTemplateOutlet="statusSelectedRef;context:{conditions :statusFieldConfig?.optionConditions?.[(getSelectedObject(selected,statusFieldConfig?.options)).value], option:(getSelectedObject(selected,statusFieldConfig?.options))}">
+                                        </ng-template>
+                                    </ng-container>
+                                </ng-template>
+
+                                <ng-template let-dropdownItem pTemplate="item">
+                                    <ng-template #statusListRef let-conditions="conditions" let-option="option">
+                                        <div class="select-list-item" [ngStyle]="conditions?.cellStyle">
+                                            <img [src]="conditions?.image" class="list-image"
+                                                *ngIf="conditions?.image" />
+                                            <span *ngIf="conditions?.iconClass" [ngStyle]="conditions?.iconStyle">
+                                                <i [ngClass]="conditions?.iconClass"></i>
+
+                                            </span>
+                                            <div *ngIf="!conditions || (conditions && conditions?.showText)">
+                                                {{option.value| translate}}</div>
+                                        </div>
+                                    </ng-template>
+
+                                    <ng-container>
+                                        <ng-template
+                                            *ngTemplateOutlet="statusListRef;context:{conditions :statusFieldConfig?.optionConditions?.[dropdownItem.value], option:dropdownItem}">
+                                        </ng-template>
+                                    </ng-container>
+                                </ng-template>
+                            </p-dropdown>
+                        </div>
+                        <div class="field-row align-right btn-row">
+                            <button pButton type="button" label="Submit" (click)="loadWorkflow()"></button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+</div>

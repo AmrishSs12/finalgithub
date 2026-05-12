@@ -1,0 +1,27 @@
+<div class="logout-container">
+    <div class="logout-wrapper">
+        <div class="">
+            <div class="logo">
+                <img [src]="logo" class="logo d-none d-md-block cursor-pointer" alt="Logo" />
+            </div>
+            <div class="logout-header">
+                <h4>
+                    {{"You_have_been_logged_out" | translate}}
+                </h4>
+            </div>
+            <div class="col-12">
+                <span class="content">
+                    {{"A_bit_more_to_do" | translate}}
+                </span>
+
+                <div class="d-flex btns">
+                    <button class="btn btn-primary btn-block sign-out-btn" (click)="login()">
+                        <span translate>
+                            {{"Sign_in_Again" | translate}}
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

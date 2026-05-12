@@ -1,0 +1,140 @@
+<div class="detail provider-mapping-detail admin-popup">
+
+    <div *ngIf="loading" class="loading-container">
+        <p-progressSpinner strokeWidth="1"></p-progressSpinner>
+    </div>
+
+    <div class="ev-detail-view" id="detail-view-container" *ngIf="!loading">
+        <button type="button" class="p-dialog-header-icon p-dialog-header-maximize p-link" (click)="cancel()" >
+            &times;
+          </button>
+        <div class="flex align-items-center justify-content-center form-container">
+            <form class="ev-form " [formGroup]="ProviderMappingFormControl" #detailForm>
+
+                <div class="row form-body">
+                    <div class=" vg-col-2">
+                        <div class="form-col" id="providerName">
+                            <div class="field-row">
+                                <label for="providerName" class="col-form-label providerName-label"
+                                    [textContent]="'Provider_Name'|translate"></label>
+                                <input type="text" pInputText class="form-control" formControlName="providerName"
+                                    readonly="true">
+                            </div>
+                        </div>
+
+                        <div class="form-col" id="authenticationMode">
+                            <div class="field-row">
+                                <label for="authenticationMode" class="col-form-label authenticationMode-label"
+                                    [textContent]="'Authentication_Mode' | translate"></label>
+                                <p-dropdown 
+                                    [options]="formFieldConfig.authenticationMode?.options"
+                                    formControlName="authenticationMode"
+                                    readonly="true"
+                                    [disabled]="true">
+                                    <ng-template let-item pTemplate="item">
+                                        {{ item.label | translate }}
+                                    </ng-template>
+                                    <ng-template let-selectedItem pTemplate="selectedItem">
+                                        {{ selectedItem.label | translate }}
+                                    </ng-template>
+                                </p-dropdown>
+                            </div>
+                        </div>
+
+                        <div class="form-col" *ngIf="showFields.includes('clientId')"  id="clientId">
+                            <div class="field-row required">
+                                <label for="clientId" class="col-form-label clientId-label"
+                                    [textContent]=" 'Client_Id'|translate "></label>
+                                <input type="text" pInputText class="form-control" formControlName="clientId"
+                                type="password" [disabled]="true">
+                            </div>
+                        </div>
+                        <div class="form-col" *ngIf="showFields.includes('clientSecret')" id="clientSecret">
+                            <div class="field-row required">
+                                <label for="clientSecret" class="col-form-label clientSecret-label"
+                                    [textContent]=" 'Client_Secret'|translate "></label>
+                                <input type="text" pInputText class="form-control" formControlName="clientSecret"
+                                type="password" [disabled]="true">
+                            </div>
+                        </div>
+                        <div class="form-col" *ngIf="showFields.includes('issuerURL')" id="issuerURL">
+                            <div class="field-row">
+                                <label for="issuerURL" class="col-form-label issuerURL-label"
+                                    [textContent]=" 'Issuer_URL'|translate "></label>
+                                <input type="text" pInputText class="form-control" formControlName="issuerURL"
+                                     >
+                            </div>
+                        </div>
+                        <div class="form-col" *ngIf="showFields.includes('tokenURL')" id="tokenURL">
+                            <div class="field-row required">
+                                <label for="tokenURL" class="col-form-label tokenURL-label"
+                                    [textContent]=" 'Token_URL'|translate "></label>
+                                <input type="text" pInputText class="form-control" formControlName="tokenURL"
+                                     >
+                            </div>
+                        </div>
+                        <div class="form-col" *ngIf="showFields.includes('apiKey')" id="apiKey">
+                            <div class="field-row required">
+                                <label for="apiKey" class="col-form-label apiKey-label"
+                                    [textContent]=" 'Api_Key'|translate "></label>
+                                <input  type="password" pInputText class="form-control" formControlName="apiKey"
+                                     >
+                            </div>
+                        </div>
+                        <div class="form-col" *ngIf="showFields.includes('username')" id="username">
+                            <div class="field-row required">
+                                <label for="username" class="col-form-label username-label"
+                                    [textContent]=" 'Username'|translate "></label>
+                                <input type="text" pInputText class="form-control" formControlName="username"
+                                     >
+                            </div>
+                        </div>
+                        <div class="form-col" *ngIf="showFields.includes('password')" id="password">
+                            <div class="field-row required">
+                                <label for="password" class="col-form-label password-label"
+                                    [textContent]=" 'Password'|translate "></label>
+                                <input  type="password" pInputText class="form-control" formControlName="password"
+                                     >
+                            </div>
+                        </div>
+                        <div class="form-col" *ngIf="showFields.includes('baseURL')" id="baseURL">
+                            <div class="field-row required">
+                                <label for="baseURL" class="col-form-label baseURL-label"
+                                    [textContent]=" 'Base_URL'|translate "></label>
+                                <input type="text" pInputText class="form-control" formControlName="baseURL"
+                                     >
+                            </div>
+
+                    </div>
+                    <div class="form-col" *ngIf="showFields.includes('saEmail')" id="saEmail">
+                        <div class="field-row required">
+                            <label for="saEmail" class="col-form-label saEmail-label "
+                                [textContent]="'Service_Account_Mail'|translate"></label>
+                            <input type="text" pInputText class="form-control" formControlName="saEmail"
+                                [placeholder]="'Enter_mail' | translate">
+                        </div>
+                    </div>
+                    <div class="form-col" id="additionalInfo">
+                        <div class="field-row">
+                            <label for="additionalInfo" class="col-form-label additionalInfo-label "
+                                [textContent]="'Additional_Info'|translate"></label>
+                                <textarea
+                                class="form-control"
+                                rows="10"
+                                columns="50"
+                                name="additionalInfo"
+                                formControlName="additionalInfo"
+                                [placeholder]="'Enter_additional_Info_JSON_here_DOT_DOT_DOT'| translate"
+                              ></textarea>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="footer" *ngIf="!loading">
+        <p-button icon="pi pi-check" class="import-btn" type="submit" (onClick)="updateValues()" [label]="('Save' | translate )">
+        </p-button>
+    </div>
+</div>

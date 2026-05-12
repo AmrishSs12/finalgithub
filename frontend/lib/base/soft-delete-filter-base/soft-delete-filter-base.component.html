@@ -1,0 +1,62 @@
+<form [formGroup]="quickFilterControls" class="quick-filter-fields-list">
+    <div class="row align-filter quick-filter-fields" [id]="localStorageStateKey"
+        [ngClass]="quickFilterConfig.style ==='style_2'? 'rowfiltercolumnfilter':'columnfilter'">
+        <div class="form-col field-as-dropdown" [hidden]="hiddenFields.show" id="show" (click)="showF.show()"
+            [ngClass]="{'form-col-inactive' : !quickFilterControls.controls['show'].value, 'form-col-active': quickFilterControls.controls['show'].value, 'pe-none':quickFilterControls.controls['show']?.disabled}">
+            <div class="field-row"
+                [ngClass]="{'required': quickFilterFieldConfig?.show?.isRequired, 'error':inValidFields.show}">
+                <p-dropdown [options]="quickFilterFieldConfig.show?.options" #showF formControlName="show"
+                    [showClear]="!quickFilterControls.controls.show.value?false:true" optionLabel="value"
+                    optionValue="label" [placeholder]="quickFilterFieldConfig?.show?.placeHolder || 'Select'"
+                    styleClass="dropdown qf-label-dropdown-panel" appendTo="body">
+                    <ng-template pTemplate="selectedItem">
+                        <ng-template #showSelectedRef let-conditions="conditions" let-option="option">
+                            <div class="selected-item" [ngStyle]="conditions?.cellStyle">
+                                <img [src]="conditions?.image" class="img" *ngIf="conditions?.image" />
+                                <span *ngIf="conditions?.iconClass" class="icon" [ngStyle]="conditions?.iconStyle">
+                                    <i [ngClass]="conditions?.iconClass"></i>
+
+                                </span>
+                                <div class="value" *ngIf="!conditions || (conditions && conditions?.showText)">
+                                    {{option.label| translate}}</div>
+                            </div>
+                        </ng-template>
+                        <ng-container *ngIf="getValue(quickFilterControls,'show'); let selected;">
+                            <ng-template
+                                *ngTemplateOutlet="showSelectedRef;context:{conditions :quickFilterFieldConfig.show?.optionConditions?.[(getSelectedObject(selected,quickFilterFieldConfig.show?.options)).value], option:(getSelectedObject(selected,quickFilterFieldConfig.show?.options))}"></ng-template>
+                        </ng-container>
+                    </ng-template>
+
+                    <ng-template let-dropdownItem pTemplate="item">
+                        <ng-template #showListRef let-conditions="conditions" let-option="option">
+                            <div class="select-list-item" [ngStyle]="conditions?.cellStyle">
+                                <img [src]="conditions?.image" class="list-image" *ngIf="conditions?.image" />
+                                <span *ngIf="conditions?.iconClass" [ngStyle]="conditions?.iconStyle">
+                                    <i [ngClass]="conditions?.iconClass"></i>
+
+                                </span>
+                                <div *ngIf="!conditions || (conditions && conditions?.showText)">
+                                    {{option.label| translate}}</div>
+                            </div>
+                        </ng-template>
+
+                        <ng-container>
+                            <ng-template
+                                *ngTemplateOutlet="showListRef;context:{conditions :quickFilterFieldConfig.show?.optionConditions?.[dropdownItem.value], option:dropdownItem}"></ng-template>
+                        </ng-container>
+                    </ng-template>
+                </p-dropdown>
+                <label for="show" class="col-form-label show-label" [textContent]="'Show'|translate"></label>
+                <!-- <span class="qf-operator" [textContent]="onOperatorSelect(quickFilterFieldConfig?.show)"></span> -->
+                <span class="qf-label-value"
+                    title="{{this.appUtilBaseService.formatAllowedValues(quickFilterControls.controls['show'].value, '')}}">{{this.appUtilBaseService.formatAllowedValues(quickFilterControls.controls['show'].value, '')}}</span>
+                <span class="qf-dropdown-icon ml-2 mr-2"><i class="pi pi-angle-down"></i></span>
+                <!-- <span class="qf-dropdown-icon ml-2 mr-2" *ngIf="quickFilterControls.controls.show.value"
+                    (click)="quickFilterControls.controls['show'].setValue('');"><i class="pi pi-times"></i></span> -->
+                <span class="info-bubble mr-2" *ngIf="quickFilterFieldConfig?.show?.infoBubble"
+                    [pTooltip]="quickFilterFieldConfig?.show?.infoBubble || ''"><i class="fa fa-circle-info"></i></span>
+                <div class="fst-italic fs-5 help-text">{{quickFilterFieldConfig?.show?.helpText || ''}}</div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,28 @@
+.global-search {
+  position: relative;
+  z-index: 999;
+  width: 50%;
+  margin-left: auto;
+}
+
+.advanced-search {
+  position: absolute;
+  background: #fff;
+  right: 56px;
+  z-index: 99;
+  border-radius: 5px;
+  box-shadow: 0px 5px 5px grey;
+  padding: 10px;
+  max-width: 50%;
+
+  .adv-search-header {
+    height: 34px;
+    line-height: 34px;
+  }
+
+  .search-actions {
+    margin-right: 0px;
+    margin-left: 0px;
+    padding: 10px;
+  }
+}

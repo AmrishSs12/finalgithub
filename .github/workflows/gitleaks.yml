@@ -1,0 +1,27 @@
+name: Gitleaks Secret Scan
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+  workflow_dispatch:    # <-- This enables the "Run workflow" button
+
+jobs:
+  gitleaks:
+    name: Run Gitleaks
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Gitleaks
+        uses: zricethezav/gitleaks-action@v2
+        with:
+          args: detect --no-git --config=.gitleaks.toml --report-format json --report-path gitleaks-report.json --redact --exit-code 1
+
+      - name: Upload Gitleaks Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: gitleaks-report
+          path: gitleaks-report.json

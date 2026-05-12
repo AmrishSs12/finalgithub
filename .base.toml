@@ -1,0 +1,32 @@
+# ============================================================
+#  BASE GITLEAKS CONFIGURATION
+#  This file contains base rules and allowlists for generated application.
+#  
+#  For app-specific customizations, edit .gitleaks.toml
+# ============================================================
+
+title = "Base Gitleaks Configuration"
+description = "Base rules and allowlists for generated applications"
+
+# ------------------------------------------------------------
+#  Extend the official Gitleaks default rules
+# ------------------------------------------------------------
+[extend]
+useDefault = true
+
+# ------------------------------------------------------------
+#  BASE ALLOWLISTS
+#  Patterns for known false positives in generated files
+# ------------------------------------------------------------
+[allowlist]
+  description = "Allow known false positives in test files"
+
+  # Path-based allowlists - files matching these patterns are ignored
+  paths = [
+    # FrontendAutomation and nested test/mock data
+    '''(?i).*FrontendAutomation[/\\]test[/\\].*\.json$''',
+    # BackendApp: ignore any JSON files under test directories
+    '''(?i).*BackendApp[/\\].*test[s]?[/\\].*\.json$''',
+    # Allow specific i18n en.json files
+    '''(?i).*Frontend[/\\]src[/\\]assets[/\\]i18n(-base)?[/\\]en\.json$'''
+  ]

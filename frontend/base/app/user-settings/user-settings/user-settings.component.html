@@ -1,0 +1,51 @@
+<!-- <p-toast></p-toast> -->
+<div id="table-container" class="user-settings ">
+    <button pButton type="button" label="Add" icon="pi pi-plus" (click)="addNewRow()"
+        class="new-btn mb-4 mt-2"></button>
+    <p-table [value]="groups" dataKey="sid" editMode="row" styleclass="table-container-style_1">
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width:40%">Group Name</th>
+                <th style="width:40%">Roles</th>
+
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-group let-rowData let-editing="editing" let-ri="rowIndex">
+            <tr [pEditableRow]="group">
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="group.groupId">
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{group.groupId}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <p-multiSelect [options]="roles" [(ngModel)]="group.roleId" defaultLabel="Select"
+                                display="chip"></p-multiSelect>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{group.roleId}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td style="text-align:center" class="row-buttons">
+                    <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil"
+                        (click)="onRowEditInit(rowData)" class="p-button-rounded p-button-text edit-btn"></button>
+                    <button *ngIf="!editing" pButton pRipple type="button" icon="pi pi-trash"
+                        (click)="onRowDelete(rowData)" class="p-button-rounded p-button-text delete-btn"></button>
+                    <button *ngIf="editing && (selectedRow === group.sid || group.isNewRow)" pButton pRipple
+                        type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(group)"
+                        class="p-button-rounded p-button-text p-button-success p-mr-2 editSave-btn"></button>
+                    <button *ngIf="editing && (selectedRow === group.sid || group.isNewRow)" pButton pRipple
+                        type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(rowData)"
+                        class="p-button-rounded p-button-text p-button-danger editCancel-btn"></button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

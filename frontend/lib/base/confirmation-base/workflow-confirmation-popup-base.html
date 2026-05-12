@@ -1,0 +1,14 @@
+<p-messages></p-messages>
+<div class="confirm-popup-container" id="confirmation-popup">
+    <div class="confirmation-msg">{{config.data.confirmationMsg}}</div>
+    <div [ngClass]="{'required': config.data.isRequired,'error':inValid}">
+        <label class="field-label" [innerHTML]="'Comments' | translate"></label>
+    </div>
+    <textarea [rows]="5" [cols]="70" pInputTextarea [(ngModel)]="comments" class="workflow-comments"></textarea>
+    <div class="action-ele">
+        <button type="button" class="action-btn reject" pButton icon="pi pi-times" [label]="'Cancel' | translate"
+            (click)="cancel()"></button>
+        <button type="button" class="action-btn accept" pButton icon="pi pi-check"
+            [label]="config.data.action| translate" (click)="submit()"></button>
+    </div>
+</div>

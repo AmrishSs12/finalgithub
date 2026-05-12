@@ -1,0 +1,88 @@
+.filetype-checkbox {
+    margin-right: 45px;
+    display: flex;
+    align-items: center;
+}
+
+.filetype-radiobtn-container {
+    display: flex;
+}
+
+.radiobtn-label {
+    margin-left: 5px;
+}
+
+.field-row {
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.export-popup-container {
+
+    display: block;
+    height: 100%;
+}
+
+
+.detail-flex-box .form-container {
+    box-shadow: none !important;
+}
+
+.exports-page {
+    height: 100%;
+}
+
+.ev-detail-view .ev-form p-radioButton~label {
+    display: inline-block;
+}
+
+.ev-detail-view .ev-form p-radioButton {
+    margin-right: 5px;
+}
+
+.export-btn {
+    margin: 15px;
+}
+
+.upload-btn {
+    margin: 20px;
+}
+
+.footer {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+}
+
+.p-button:hover {
+    background-color: inherit;
+    border-color: #0d89ec;
+    color: #ffff;
+    background: #0d89ec;
+}
+
+.p-dialog .p-dialog-content {
+    padding: 0;
+}
+
+.export-popup-container {
+    .detail-flex-box .form-container {
+        border-radius: 8px;
+
+    }
+
+    .p-fileupload .p-fileupload-row>div {
+        padding: 0;
+    }
+}
+
+.ev-detail-view .ev-form .field-row.required .col-form-label:after {
+    content: "*";
+    color: #f00;
+}
+
+.download-link {
+    display: inline-flex;
+    align-content: center;
+    flex-wrap: wrap;
+}

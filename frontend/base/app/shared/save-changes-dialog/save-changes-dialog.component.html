@@ -1,0 +1,28 @@
+<div class="save-changes-dialog-content">
+  <div class="dialog-message">
+    <span class="message-text">{{ message }}</span>
+  </div>
+  <div class="dialog-footer">
+    <button
+      type="button"
+      pButton
+      class="save-dialog-cancel-btn"
+      [label]="cancelLabel"
+      (click)="onCancel()">
+    </button>
+    <button
+      type="button"
+      pButton
+      class="save-dialog-dont-save-btn"
+      [label]="dontSaveLabel"
+      (click)="onDontSave()">
+    </button>
+    <button
+      type="button"
+      pButton
+      class="save-dialog-save-btn"
+      [label]="saveLabel"
+      (click)="onSave()">
+    </button>
+  </div>
+</div>

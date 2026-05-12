@@ -1,0 +1,73 @@
+<div class="vh-100 login-container" [ngStyle]="currentStyles">
+  <div class="signin-card" *ngIf="!emailSent">
+    <h2 class="title">{{ appTitle }}</h2>
+    <p class="sub-title">Sign in to access your application</p>
+    <form [formGroup]="signinForm">
+      <div class="field">
+        <label for="email">Email Address</label>
+        <input id="email" type="email" pInputText formControlName="email" placeholder="Enter your email" />
+      </div>
+
+      <p-button type="submit" label="Continue" class="continue-btn" [disabled]="isContinueDisabled"
+        (onClick)="onSubmit()"></p-button>
+    </form>
+
+    <a class="project-link" (click)="signInWithProject()">
+      Click to access Admin Login
+    </a>
+  </div>
+
+  <div class="signin-card success-card" *ngIf="emailSent">
+    <h2 class="title">{{ appTitle }}</h2>
+    <div id="firebaseui-auth-container" lang="en">
+
+      <div class="mdl-card mdl-shadow--2dp firebaseui-container firebaseui-id-page-email-link-sign-in-sent" *ngIf="!showEmailInstructions">
+        <form onsubmit="return false;">
+          <div class="firebaseui-card-header">
+            <h1 class="firebaseui-title">Sign-in email sent</h1>
+          </div>
+          <div class="firebaseui-card-content">
+            <div class="firebaseui-email-sent"></div>
+            <p class="firebaseui-text">A sign-in email with additional instructions was sent to
+              <strong>{{ userEmail }}</strong>. Check your email to complete sign-in.
+            </p>
+          </div>
+          <div class="firebaseui-card-actions">
+            <div class="firebaseui-form-links"><a class="firebaseui-link firebaseui-id-trouble-getting-email-link"
+                href="javascript:void(0)" (click)="openInstructions()">Trouble getting email?</a></div>
+            <div class="firebaseui-form-actions"><button
+                class="firebaseui-id-secondary-link firebaseui-button mdl-button mdl-js-button mdl-button--primary"
+                (click)="goBack()">Back</button></div>
+          </div>
+        </form>
+      </div>
+
+      <div class="mdl-card mdl-shadow--2dp firebaseui-container firebaseui-id-page-email-not-received" *ngIf="showEmailInstructions">
+        <form onsubmit="return false;">
+          <div class="firebaseui-card-header">
+            <h1 class="firebaseui-title">Trouble getting email?</h1>
+          </div>
+          <div class="firebaseui-card-content">
+            <p class="firebaseui-text">Try these common fixes:</p>
+            <ul>
+              <li>Check if the email was marked as spam or filtered.</li>
+              <li>Check your internet connection.</li>
+              <li>Check that you did not misspell your email - <strong>{{ userEmail }}</strong>.</li>
+              <li>Check that your inbox space is not running out or other inbox settings related issues.</li>
+            </ul>
+            <p></p>
+            <p class="firebaseui-text">If the steps above didn't work, you can go back and try again. Note that this will
+              deactivate the link in the older email.</p>
+          </div>
+          <div class="firebaseui-card-actions">
+            <div class="firebaseui-form-actions"><button
+                class="firebaseui-id-secondary-link firebaseui-button mdl-button mdl-js-button mdl-button--primary"
+                (click)="goBack()">Back</button></div>
+          </div>
+          <div class="firebaseui-card-footer"></div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>

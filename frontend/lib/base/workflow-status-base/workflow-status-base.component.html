@@ -1,0 +1,52 @@
+<form class="ev-form workflow-status" [formGroup]="detailFormControls">
+    <div class="form-col" id="wstatus">
+        <div class="field-row d-flex"
+            [ngClass]="{'required': formFieldConfig?.status?.isRequired, 'error':inValidFields.status}">
+            <label for="status" class="col-form-label status-label mr-2">{{'Change' | translate}}&nbsp;<span
+                    [textContent]=" formFieldConfig.status?.label | translate"></span></label>
+            <span class="info-bubble" *ngIf="formFieldConfig?.status?.infoBubble"
+                [pTooltip]="formFieldConfig?.status?.infoBubble || ''"><i class="fa fa-circle-info"></i></span>
+            <p-dropdown [options]="formFieldConfig.status?.options" formControlName="status" optionLabel="value"
+                optionValue="label" [placeholder]="formFieldConfig?.status?.placeHolder || 'Select'"
+                styleClass="dropdown" appendTo="body">
+                <ng-template pTemplate="selectedItem">
+                    <ng-template #statusSelectedRef let-conditions="conditions" let-option="option">
+                        <div class="selected-item" [ngStyle]="conditions?.cellStyle">
+                            <img [src]="conditions?.image" class="img" *ngIf="conditions?.image" />
+                            <span *ngIf="conditions?.iconClass" class="icon" [ngStyle]="conditions?.iconStyle">
+                                <i [ngClass]="conditions?.iconClass"></i>
+
+                            </span>
+                            <div class="value" *ngIf="!conditions || (conditions && conditions?.showText)">
+                                {{option.label| translate}}</div>
+                        </div>
+                    </ng-template>
+                    <ng-container *ngIf="getValue(detailFormControls,'status'); let selected;">
+                        <ng-template
+                            *ngTemplateOutlet="statusSelectedRef;context:{conditions :formFieldConfig.status?.optionConditions?.[(getSelectedObject(selected,formFieldConfig.status?.options)).value], option:(getSelectedObject(selected,formFieldConfig.status?.options))}"></ng-template>
+                    </ng-container>
+                </ng-template>
+
+                <ng-template let-dropdownItem pTemplate="item">
+                    <ng-template #statusListRef let-conditions="conditions" let-option="option">
+                        <div class="select-list-item" [ngStyle]="conditions?.cellStyle">
+                            <img [src]="conditions?.image" class="list-image" *ngIf="conditions?.image" />
+                            <span *ngIf="conditions?.iconClass" [ngStyle]="conditions?.iconStyle">
+                                <i [ngClass]="conditions?.iconClass"></i>
+
+                            </span>
+                            <div *ngIf="!conditions || (conditions && conditions?.showText)">{{option.label| translate}}
+                            </div>
+                        </div>
+                    </ng-template>
+
+                    <ng-container>
+                        <ng-template
+                            *ngTemplateOutlet="statusListRef;context:{conditions :formFieldConfig.status?.optionConditions?.[dropdownItem.value], option:dropdownItem}"></ng-template>
+                    </ng-container>
+                </ng-template>
+            </p-dropdown>
+            <div class="fst-italic fs-5 help-text">{{formFieldConfig?.status?.helpText || ''}}</div>
+        </div>
+    </div>
+</form>

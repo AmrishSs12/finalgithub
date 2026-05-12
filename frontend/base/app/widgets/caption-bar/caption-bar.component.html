@@ -1,0 +1,17 @@
+<ul class="nav justify-content-end caption-bar">
+
+    <li class="nav-item" *ngFor="let item of captionbarConfig.items">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{item.title}}</h5>
+                <div [ngSwitch]="item.type">
+                    <h6 class="card-subtitle mb-2 text-muted" *ngSwitchCase="'Data'">{{item.value}}</h6>
+                    <p-progressBar [value]="item.value" *ngSwitchCase="'Progress'"></p-progressBar>
+                    <div *ngSwitchCase="'html'">
+                        <div [innerHtml]="renderHtml(item)"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </li>
+</ul>

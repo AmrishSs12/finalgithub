@@ -1,0 +1,260 @@
+// Predefined variables 
+$primary-font-family: var(--base-theme-font);
+
+$primary-color: hsl(var(--base-color), var(--base-saturation), var(--base-lightness));
+$primary-color-1: hsl(var(--base-color), var(--base-saturation), 75%);
+$primary-color-2: hsl(var(--base-color), var(--base-saturation), 85%);
+$primary-color-3: hsl(var(--base-color), var(--base-saturation), 90%);
+$primary-color-4: hsl(var(--base-color), var(--base-saturation), 95%);
+$primary-color-5: hsl(var(--base-color), var(--base-saturation), 98%);
+
+$primary-font-size: 1.6rem;
+$primary-font-size-1: 1.5rem;
+$primary-font-size-2: 1.4rem;
+
+$primary-font-style: "normal";
+
+$primary-font-weight: normal;
+$primary-font-weight-1: 500;
+$primary-font-weight-2: 600;
+
+$secondary-color: #ffffff;
+$secondary-color-1: #e6e6e6;
+$secondary-color-2: #f4f4f4;
+$secondary-color-3: #F1F4F9;
+$secondary-color-4: #e8f0fd;
+$secondary-color-5: #dadce0;
+
+$secondary-font-size: 1.3rem;
+$secondary-font-size-1: 1.2rem;
+
+$ternary-color: #72767b;
+$ternary-color-1: #9f9f9f;
+$ternary-color-2: #a5a5a5;
+$ternary-color-3: #4c576d;
+$ternary-color-4: #f00;
+$ternary-color-5: #000;
+
+$ternary-font-size: 1rem;
+//
+
+$form-input-font-family: $primary-font-family;
+$form-label-font-family: $primary-font-family;
+
+//topbar
+$header-background-color: $secondary-color;
+$header-font-family: $primary-font-family;
+$header-font-style: $primary-font-style;
+$header-font-weight: $primary-font-weight;
+$header-font-size: $primary-font-size;
+
+$header-primary-color: $primary-color;
+$header-secondary-color: $ternary-color;
+
+$header-primary-font-size: $ternary-font-size;
+$header-secondary-font-size: $primary-font-size-1;
+
+$primary-icon-size: 2rem;
+
+$header-primary-icon-font-size: $primary-font-size-1;
+$header-secondary-icon-font-size: $ternary-font-size;
+
+$header-primary-icon-color: $primary-color;
+$header-secondary-icon-color: $ternary-color;
+
+$app-title-color: $ternary-color;
+$app-title-font-size: 2.1rem;
+$app-theme-background-color: $primary-color-5;
+
+$sidebar-font-family: $primary-font-family;
+$sidebar-font-style: $primary-font-style;
+$sidebar-font-weight: $primary-font-weight;
+$sidebar-font-size: $primary-font-size-2;
+
+$sidebar-background-color: $secondary-color;
+$sidebar-active-menu-background-color: $secondary-color-4;
+
+$sidebar-menu-font-color: $ternary-color;
+$sidebar-menu-font-size: $primary-font-size-2;
+$sidebar-menu-icon-color: $ternary-color;
+
+$sidebar-float-menu-font-color: $primary-color;
+$sidebar-float-menu-font-size: $primary-font-size-2;
+$sidebar-float-menu-icon-color: $primary-color;
+
+$sidebar-submenu-font-color: $ternary-color;
+$sidebar-submenu-font-size: $primary-font-size-2;
+$sidebar-submenu-icon-color: $ternary-color;
+$sidebar-submenu-background-color-hover: $secondary-color-4;
+
+$sidebar-float-submenu-font-color: $ternary-color;
+$sidebar-float-submenu-font-size: $primary-font-size-2;
+$sidebar-float-submenu-icon-color: $ternary-color;
+
+$app-title-fontsize: 24px;
+
+//Detail Form
+$form-control-border-radius: 0.6rem;
+$form-control-height: 3.2rem;
+$form-control-font-size: $secondary-font-size;
+
+// Home page
+$home-page-card-title-font-color: $primary-color;
+$home-page-card-title-font-size: $primary-font-size;
+$home-page-card-desc-font-color: $ternary-color-1;
+$home-page-card-desc-font-size: $ternary-font-size;
+$home-page-card-background-color: $secondary-color;
+$home-page-card-button-background-color: $primary-color;
+$home-page-card-button-font-color: $secondary-color;
+$home-page-card-button-font-size: $secondary-font-size-1;
+$home-page-font-family: $primary-font-family;
+$home-page-font-style: $primary-font-style;
+$home-page-font-weight: $primary-font-weight;
+$home-page-font-size: $primary-font-size;
+
+//Grid Variables
+
+$list-header-font-family: $primary-font-family;
+$list-header-background-color: $primary-color-4;
+$list-header-font-size: $secondary-font-size;
+$list-header-text-color: $primary-color;
+$list-header-font-weight: $primary-font-weight-1;
+$list-header-font-style: $primary-font-style;
+
+$list-body-font-family: $primary-font-family;
+$list-body-background-color: $secondary-color;
+$list-body-hover-background-color: $secondary-color-2;
+$list-body-text-color: $ternary-color;
+$list-body-font-size: $secondary-font-size-1;
+$list-body-font-weight: $primary-font-weight;
+$list-body-font-style: $primary-font-style;
+
+$list-checkbox-header-background-color: $secondary-color;
+$list-checkbox-header-selection-color: $secondary-color;
+$list-checkbox-body-background-color: $secondary-color;
+$list-checkbox-body-selection-color: $primary-color;
+$list-checkbox-body-border-color: $secondary-color-5;
+
+$list-row-hover-border-color: $primary-color;
+$scroll-bar-track-background-color: $secondary-color;
+$scroll-bar-thumb-background-color: $primary-color;
+
+$sort-active: $primary-color;
+$sort-inactive: $primary-color-2;
+$sort-badge-color: $secondary-color;
+
+$list-subheader-background: transparent;
+$list-subheader-text-color: $ternary-color;
+$list-subheader-font-size: $secondary-font-size;
+$list-subheader-font-weight: $primary-font-weight-2;
+$list-subheader-row-height: $primary-font-size-1;
+$list-subheader-font-family: $primary-font-family;
+$list-subheader-font-style: $primary-font-style;
+
+$list-navigation-icon-color: $primary-color;
+$list-grid-border-color: $secondary-color-1;
+
+//Title Bar
+
+$list-titlebar-background-color: $secondary-color;
+$detail-titlebar-background-color: #ffffff00;
+$list-page-title-color: $ternary-color;
+$detail-page-title-color: $ternary-color;
+$page-title-font-size: 1.8rem;
+$page-title-font-family: $primary-font-family;
+$page-title-font-weight: $primary-font-weight-1;
+$page-title-font-style: $primary-font-style;
+
+//Buttons - Detail
+$detail-button-background-color: $primary-color;
+$detail-button-text-color: $secondary-color;
+$list-button-background-color: $primary-color;
+$list-button-text-color: $secondary-color;
+$button-font-family: $primary-font-family;
+$button-font-size: 1.35rem;
+
+//Search
+
+$search-background-color: $primary-color;
+$search-border-color: $secondary-color-5;
+$search-text-color: $ternary-color;
+$search-font-family: $primary-font-family;
+$search-font-size: $secondary-font-size;
+$search-font-style: $primary-font-style;
+$search-font-weight: $primary-font-weight;
+$search-placeholder-text-color: $ternary-color;
+$search-placeholder-font-size: $secondary-font-size-1;
+
+// Advanced-search
+$advanced-search-background-color: $secondary-color;
+$advanced-search-title-color: $primary-color;
+$advanced-search-primary-button-background-color: $primary-color;
+$advanced-search-secondary-button-background-color: $secondary-color;
+$advanced-search-primary-button-label-color: $secondary-color;
+$advanced-search-secondary-button-label-color: $ternary-color;
+
+//Caption Bar
+
+$caption-title-font-size: $secondary-font-size-1;
+$caption-subtitle-font-size: $secondary-font-size;
+$caption-font-color: $ternary-color;
+$caption-font-family: $primary-font-family;
+$caption-font-size: $secondary-font-size-1;
+$caption-font-style: $primary-font-style;
+$caption-font-weight: $primary-font-weight;
+
+$detail-form-background-color: $secondary-color;
+$detail-form-text-color: $ternary-color-2;
+$detail-form-control-text-color: $ternary-color;
+$detail-form-button-background-color: $primary-color;
+$detail-form-button-color: $ternary-color-5;
+$detail-form-button-hover-background-color: $primary-color;
+$detail-form-button-font-color: $primary-color;
+$detail-form-button-box-shadow-color: $secondary-color-1;
+$detail-form-primary-button-background-color: $secondary-color-5;
+$detail-form-primary-button-border-color: $ternary-color;
+$detail-form-control-border-color: $secondary-color-1;
+$detail-form-radio-border-color: $secondary-color-5;
+$detail-form-error-background-color: #f6a09d33;
+$detail-form-error-border-color: $ternary-color-4;
+$detail-form-control-border-radius: 0.8rem;
+$detail-form-section-header-font-color: $primary-color;
+$detail-form-section-header-border-color: $primary-color;
+$detail-form-tab-link-color: $primary-color;
+$detail-form-outer-tab-background-color: $secondary-color-3;
+$detail-form-tab-background-color: $secondary-color;
+$detail-form-tab-nav-background-color: $secondary-color;
+$detail-form-inner-tab-background-color: $secondary-color;
+$detail-form-inner-tab-font-color: $primary-color;
+$detail-form-control-error-border-color: #f44336;
+$detail-form-inner-section-header-font-color: $ternary-color-1;
+$detail-form-inner-section-header-border-color: $ternary-color-1;
+
+$actionbar-default-button-background-color: $primary-color;
+$actionbar-default-button-border-color: $secondary-color;
+$actionbar-primary-button-border-color: $primary-color;
+
+$base-box-shadow-display: none;
+$base-disable-mask-position: unset;
+$base-disable-mask-z-index: unset;
+$base-disable-mask-width: unset;
+$base-disable-mask-height: unset;
+$spinner-color: $primary-color;
+$detail-form-help-text-font-color: #555;
+$detail-form-help-info-bubble-font-color: $primary-color-2;
+
+$list-button-border-color: $primary-color;
+$sidebar-submenu-hover-font-color: #212529;
+$breadcrumb-font-color: #dee2e6;
+$breadcrumb-font-weight: $primary-font-weight;
+$breadcrumb-font-size: 15px;
+$sidebar-active-sub-menu-background-color: $primary-color-4;
+
+$reset-columns-icon-color: $primary-color;
+$reset-columns-modal-bg-color: $secondary-color;
+
+$primary-highlight-color: $primary-color;
+$primary-form-bg-color: $secondary-color;
+$error-bg-color: $ternary-color-4;
+$error-border-color: $ternary-color-4;
+$white-color: $secondary-color;

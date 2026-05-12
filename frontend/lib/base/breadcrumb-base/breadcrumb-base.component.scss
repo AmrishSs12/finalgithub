@@ -1,0 +1,45 @@
+@import "../../../base/sass-base/base-variables";
+
+:host ::ng-deep {
+    .p-breadcrumb {
+        background: transparent;
+        padding: 0;
+        border: 0;
+        padding-left: 20px;
+        padding-top: 5px;
+
+        .p-menuitem-link,
+        .p-menuitem-text,
+        .p-breadcrumb-chevron,
+        .p-menuitem-icon {
+            color: #adb4bc !important;
+        }
+
+        .p-menuitem-link{
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .p-icon{
+            width:1.5rem;
+            height: 12px;
+            display:flex;
+            align-items: center;
+        }
+
+        .p-breadcrumb-chevron {
+            font-size: $breadcrumb-font-size;
+            display:flex;
+            align-items: center;
+        }
+
+        .p-menuitem-text {
+            font-weight: $breadcrumb-font-weight;
+            font-size: 12px;
+            text-transform: capitalize;
+        }
+
+        //.p-breadcrumb ul li .p-menuitem-link .p-menuitem-text
+    }
+}

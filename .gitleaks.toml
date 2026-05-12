@@ -1,0 +1,9 @@
+title = "App Gitleaks Config"
+description = "Application-specific rules and allowlists; extends base configuration; developers can append custom rules and allowlists here."
+
+# ------------------------------------------------------------
+#  Extend the base configuration (organization rules)
+#  This inherits all rules and allowlists from base config
+# ------------------------------------------------------------
+[extend]
+path = ".base.toml"

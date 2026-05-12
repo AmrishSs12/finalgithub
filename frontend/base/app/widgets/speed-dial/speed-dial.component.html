@@ -1,0 +1,24 @@
+<!-- Click Anywhere Hides Speed Dial -->
+
+<!-- <div id="fab-dismiss" *ngIf="fabTogglerState === 'active'" (click)="onToggleFab2()"></div> -->
+
+
+
+<div class="fab-container2">
+    <button class="fab-toggler" (click)="onToggleFab()">
+        <i class="pi pi-plus" [@fabToggler]="{ value: fabTogglerState }"></i>
+    </button>
+    <div [@speedDialStagger]="buttons.length">
+        <button *ngFor="let btn of buttons" (click)="onClick(btn)" class="speed-dial-icon-text" [id]="btn.label"
+            [ngClass]="btn.buttonType !== 'icon_only'?'speed-dial-text':'speed-dial-icon'"
+            [disabled]="btn.buttonEnabled =='no'" [hidden]="hideActions(btn)" [style.borderColor]=" btn.outlineColor "
+            [style.borderColor]="btn.outlineColor" [style.backgroundColor]="btn.backgroundColor"
+            [style.fontFamily]="btn.font?.fontFamily?.code" [style.color]="btn.font?.fontColor"
+            [style.fontWeight]="btn.font?.fontWeight">
+
+            <i *ngIf="btn.icon?.icon && btn.buttonType !== 'text_only'" class="{{btn.icon?.icon?.label}}"
+                [ngClass]="{'pl-2': btn.buttonType !== 'icon_only'}"></i>
+            <span *ngIf="btn.buttonType !== 'icon_only'" class="btn-label">{{ btn.label| translate }}</span>
+        </button>
+    </div>
+</div>

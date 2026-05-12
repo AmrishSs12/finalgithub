@@ -1,0 +1,30 @@
+<!--div style="display: none;" *ngIf="isPrototype">
+    <iframe [src]="safeSrc" width="0" height="0" width="0" height="0" frameborder="0" style="visibility: hidden;"></iframe>
+</div-->
+<div *ngIf="isAuthenticated">
+    <router-outlet></router-outlet>
+</div>
+<div>
+    <p-toast [baseZIndex]="5000" life="5000" position="top-center" styleClass="notify-toast">
+        <ng-template let-message pTemplate="message">
+            <div class="message-wrap">
+                <span class="notify-message" [innerHtml]="message.detail"> </span>
+            </div>
+        </ng-template>
+    </p-toast>
+
+    <p-messages styleClass="errorMsg" [(value)]="msgs" [enableService]="false"></p-messages>
+    <p-blockUI [blocked]="blocked">
+        <p-progressSpinner></p-progressSpinner>
+    </p-blockUI>
+</div>
+
+<div *ngIf="(!isAuthenticated && isAPITrigered) || (isAPITrigered && !isPagesConfigured)"
+    class="access-denied-container">
+    <div class="container">
+        <div class="content">
+            <p>{{'YOU_HAVE_SUCCESSFULLY_LOGGED_IN,_BUT_YOU_DO_NOT_HAVE_PERMISSION_TO_ACCESS_ANY_PAGES_WITHIN_THIS_APPLICATION'
+                | translate}}</p>
+        </div>
+    </div>
+</div>
