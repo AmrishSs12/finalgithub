@@ -1,0 +1,93 @@
+@import "../../base/sass-base/base-variables";
+
+@mixin box-layout {
+    background-color: $primary-form-bg-color;
+    border: 1px solid #ccc;
+    box-shadow: 0px 0px 5px 0px #ddd;
+}
+
+@mixin for-size($size) {
+    @if $size==phone-only {
+        @media (max-width: 599px) {
+            @content;
+        }
+    }
+
+    @else if $size==tablet-portrait-up {
+        @media (min-width: 600px) {
+            @content;
+        }
+    }
+
+    @else if $size==tablet-landscape-up {
+        @media (min-width: 900px) {
+            @content;
+        }
+    }
+
+    @else if $size==desktop-up {
+        @media (min-width: 1200px) {
+            @content;
+        }
+    }
+
+    @else if $size==big-desktop-up {
+        @media (min-width: 1800px) {
+            @content;
+        }
+    }
+}
+
+@mixin form-col-layout-loop($count) {
+    @for $i from 1 through $count {
+        &.vg-col-#{$i} {
+            /*  .form-section {
+                .contents {
+                    .form-col {
+                        width: calc(100% / $i);
+                    }
+                }
+            } */
+
+            >.form-col {
+                width: calc(100% / $i);
+            }
+
+            >.section-col {
+                width: calc(100% / $i);
+            }
+        }
+    }
+}
+
+
+
+@mixin form-control-value {
+    font-size: $form-control-font-size;
+    font-weight: 400;
+    line-height: 2rem;
+    color: $detail-form-text-color;
+    border-radius: $form-control-border-radius;
+
+
+}
+
+@mixin form-control-name {
+    font-size: $form-control-font-size;
+    font-weight: 500;
+    line-height: 1.8rem;
+    color: $detail-form-text-color;
+    letter-spacing: 0.05em;
+    margin-bottom: 0;
+}
+
+@mixin checkbox-radio-size {
+    width: 1.6rem;
+    height: 1.6rem;
+}
+
+@mixin checkbox-radio-highlight {
+    &.p-highlight {
+        background-color: $primary-color;
+    }
+}

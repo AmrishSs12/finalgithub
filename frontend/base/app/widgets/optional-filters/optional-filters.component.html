@@ -1,0 +1,230 @@
+<div id="optional-filters">
+
+    <div class="filter-container-header">{{title| translate}}
+    </div>
+
+    <div class="ev-detail-view">
+        <form [formGroup]="dynamicFilterForm" class="ev-form">
+            <div class="row form-body">
+                <div class="form-row vg-col-3" *ngIf="fields.length > 0">
+                    <div class="form-col" *ngFor="let field of fields" [hidden]="hiddenFields[field.name]"
+                        [id]="field.name" [ngClass]="field.uiType =='checkbox'?'checkbox-align':''">
+                        <div class="field-row">
+                            <label [hidden]="field.uiType =='link' || field.uiType =='checkbox'" [for]="field.name"
+                                class="col-form-label {{field.name}}-label"
+                                [textContent]="field.label | translate "></label>
+                            <span class="info-bubble" *ngIf="filterFieldConfig[field.name]?.infoBubble"
+                                [pTooltip]="filterFieldConfig[field.name]?.infoBubble || ''"><i
+                                    class="fa fa-circle-info"></i></span>
+                            <div class="w-100">
+
+                                <ng-container
+                                    *ngTemplateOutlet="Elements;context: { field: field, form: dynamicFilterForm}">
+                                </ng-container>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+<ng-template #Elements let-field="field" let-form='form'>
+    <div [formGroup]="form">
+        <div *ngIf="field.uiType=='text'">
+            <input type="text" pInputText class="form-control" [formControlName]="field.name"
+                [placeholder]="filterConfig[field.name]?.placeHolder || ''" />
+        </div>
+        <div *ngIf="field.uiType=='textarea'">
+            <textarea pInputTextarea id="detail" class="form-input" [formControlName]="field.name"
+                [placeholder]="filterConfig[field.name]?.placeHolder || ''"></textarea>
+        </div>
+
+        <!-- double -number -->
+        <div *ngIf="field.uiType=='double'" [formGroupName]="field.name">
+            <div class="d-flex range w-100">
+                <div class="p-inputgroup mr-2">
+                    <span class="p-inputgroup-addon px-3">{{'FROM' | translate}}</span>
+                    <p-inputNumber class="form-input" formControlName="min" mode="decimal"
+                        [minFractionDigits]="field.minFraction || minFraction"
+                        [maxFractionDigits]="field.maxFraction || maxFraction" [placeholder]="field.placeHolder || ''"
+                        [showButtons]="field.showButtons" [suffix]="field.suffix" [min]="field.minVal"
+                        [max]="field.maxVal">
+                    </p-inputNumber>
+                </div>
+                <div class="p-inputgroup">
+                    <span class="p-inputgroup-addon px-3">{{'TO' | translate}}</span>
+                    <p-inputNumber class="form-input" formControlName="max" mode="decimal"
+                        [minFractionDigits]="field.minFraction || minFraction"
+                        [maxFractionDigits]="field.maxFraction || maxFraction" [placeholder]="field.placeHolder || ''"
+                        [showButtons]="field.showButtons" [suffix]="field.suffix" [min]="field.minVal"
+                        [max]="field.maxVal">
+                    </p-inputNumber>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="field.uiType=='currency'">
+            <p-inputNumber class="form-input" [formControlName]="field.name" [placeholder]="field.placeHolder || ''"
+                [currency]="(field.currency).toUpperCase() || currency"
+                [currencyDisplay]="(field.currencyDisplay)?.toLowerCase() || currencyDisplay"
+                [minFractionDigits]="field.minFraction || minFraction"
+                [maxFractionDigits]="field.maxFraction || maxFraction || minFraction" mode="currency"
+                [locale]="defaultLocale"></p-inputNumber>
+        </div>
+        <span *ngIf="field.uiType=='date'">
+            <p-calendar appendTo="body" showButtonBar="true" class="form-input w-100" [formControlName]="field.name"
+                selectionMode="range" [showIcon]="true" inputId="datePicker" [minDate]="field.calendarMinDate"
+                [maxDate]="field.calendarMaxDate" [placeholder]="field.placeHolder || ''"
+                [dateFormat]="field.dateFormatPrimeNG || dateFormatPrimeNG">
+            </p-calendar>
+        </span>
+        <span *ngIf="field.uiType=='datetime'">
+            <p-calendar showButtonBar="true" class="form-input w-100" [formControlName]="field.name" [showIcon]="true"
+                inputId="datetimerangepicker" [showTime]="true" selectionMode="range" [minDate]="field.calendarMinDate"
+                [maxDate]="field.calendarMaxDate" appendTo="body" [placeholder]="field.placeHolder || ''"
+                [showSeconds]="field.timeFormatPrimeNG?.toLowerCase()?.includes('s') || timeFormatPrimeNG?.toLowerCase()?.includes('s')"
+                [hourFormat]="appUtilBaseService.getHourFormat(field.timeFormatPrimeNG) || '24'"
+                [dateFormat]="field.dateFormatPrimeNG || dateFormatPrimeNG">
+            </p-calendar>
+        </span>
+        <div *ngIf="field.uiType=='number'" [formGroupName]="field.name">
+
+            <div class="d-flex range w-100">
+                <div class="p-inputgroup mr-2">
+                    <span class="p-inputgroup-addon px-3">{{'FROM' | translate}}</span>
+                    <p-inputNumber class="form-input" formControlName="min" [useGrouping]="field.useGrouping"
+                        [placeholder]="field.placeHolder || ''" [showButtons]="field.showButtons"
+                        [suffix]="field.suffix" [min]="field.minVal" [max]="field.maxVal"></p-inputNumber>
+                </div>
+                <div class="p-inputgroup">
+                    <span class="p-inputgroup-addon px-3">{{'TO' | translate}}</span>
+                    <p-inputNumber class="form-input" formControlName="max" [useGrouping]="field.useGrouping"
+                        [placeholder]="field.placeHolder || ''" [showButtons]="field.showButtons"
+                        [suffix]="field.suffix" [min]="field.minVal" [max]="field.maxVal"></p-inputNumber>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="field.uiType=='yesno'">
+            <div class="radio-group">
+                <p-radioButton *ngFor="let option of ['YES','NO']" class="form-input" value="{{option}}"
+                    [inputId]="option" [formControlName]="field.name" label="{{option | translate}}">
+                </p-radioButton>
+            </div>
+        </div>
+        <div *ngIf="field.uiType=='color'">
+            <input type="color" class="form-control " id="field.name" [formControlName]="field.name" />
+        </div>
+        <div *ngIf="field.uiType=='checkboxgroup'">
+            <div class="checkbox-control-group">
+                <p-checkbox *ngFor="let option of field.allowedValues?.values" [name]="field.name"
+                    value="{{option.label}}" label="{{option.value| translate}}" [formControlName]="field.name">
+                </p-checkbox>
+            </div>
+
+        </div>
+
+        <div *ngIf="field.uiType=='link'">
+            <app-url-edit [formControlName]="field.name" [label]="field.label |translate" [fieldName]="field.name">
+            </app-url-edit>
+        </div>
+        <div *ngIf="field.uiType=='email'">
+            <input type="text" pInputText class="form-control" [formControlName]="field.name"
+                [placeholder]="field.placeHolder || ''">
+        </div>
+        <div *ngIf="field.uiType=='checkbox'">
+            <p-checkbox class="form-input" [formControlName]="field.name" label="{{field.label | translate}}"
+                binary="true">
+            </p-checkbox>
+        </div>
+        <div *ngIf="field.uiType=='radio'">
+            <div class="radio-group">
+                <p-radioButton *ngFor="let option of field?.allowedValues?.values" [name]="field.name"
+                    class="form-input" value="{{option.label}}" [formControlName]="field.name"
+                    label="{{option.value | translate}}">
+                </p-radioButton>
+            </div>
+        </div>
+
+        <div *ngIf="field.uiType=='select'">
+            <p-multiSelect [options]="field?.options" [formControlName]="field.name" optionLabel="{{label | translate}}"
+                [filter]="false" [showToggleAll]="false"
+                [showClear]="(dynamicFilterForm.controls[field.name]?.value?.length > 0) ? true : false"
+                [placeholder]="field.placeHolder || 'Select'" [disabled]="getDisabled(dynamicFilterForm,field.name)"
+                styleClass="dropdown" optionValue="label" appendTo="body">
+                <ng-template let-value pTemplate="header">
+                    <b>Select Items</b>
+                </ng-template>
+                <ng-template let-value pTemplate="selectedItems">
+                    <ng-template #multipleSelectedRef let-conditions="conditions" let-option="option">
+                        <p-chip
+                            label="{{(!conditions || (conditions && conditions?.showText) ? option.label : '')|translate}}"
+                            [removable]="!getDisabled(dynamicFilterForm,field.name)" styleClass="mr-2 chip-text"
+                            [style]="conditions?.cellStyle" (onRemove)="onRemove($event,option, i,field.name)">
+                            <span class="mr-2" [ngStyle]="conditions?.iconStyle" *ngIf="conditions?.iconClass">
+                                <i [class]="conditions?.iconClass"></i>
+                            </span>
+                            <img *ngIf="conditions?.image" [src]="conditions?.image" alt="">
+                        </p-chip>
+                    </ng-template>
+
+                    <ng-container
+                        *ngFor="let option of (getSelectedMultipleObjects(getValue(dynamicFilterForm,field.name),field?.options)); let i = index;">
+                        <ng-template
+                            *ngTemplateOutlet="multipleSelectedRef;context:{conditions :field?.optionConditions?.[option.value], option:option}">
+                        </ng-template>
+                    </ng-container>
+
+                    <div *ngIf="!getValue(dynamicFilterForm,field.name) || getValue(dynamicFilterForm,field.name).length === 0"
+                        class="multi-placeholder">
+                        Select Items
+                    </div>
+
+                </ng-template>
+                <ng-template let-dropdownItem pTemplate="item">
+                    <ng-template #multiListRef let-conditions="conditions" let-option="option">
+                        <div class="select-list-item" [ngStyle]="conditions?.cellStyle">
+                            <img [src]="conditions?.image" class="list-image" *ngIf="conditions?.image" />
+                            <span *ngIf="conditions?.iconClass" [ngStyle]="conditions?.iconStyle">
+                                <i [ngClass]="conditions?.iconClass"></i>
+
+                            </span>
+                            <div *ngIf="!conditions || (conditions && conditions?.showText)">
+                                {{option.label | translate}}</div>
+                        </div>
+                    </ng-template>
+
+                    <ng-container>
+                        <ng-template
+                            *ngTemplateOutlet="multiListRef;context:{conditions :field.optionConditions?.[dropdownItem.value], option:dropdownItem}">
+                        </ng-template>
+                    </ng-container>
+
+                </ng-template>
+            </p-multiSelect>
+        </div>
+
+        <div *ngIf="field.uiType=='autosuggest'">
+            <p-autoComplete [placeholder]="field.placeHolder || 'Select'" class="form-input"
+                [formControlName]="field.name" [forceSelection]="true"
+                [suggestions]="lookupData[field.name]['filteredItemsfor'+field.name]" completeOnFocus="true"
+                [dropdown]="true" (onShow)="attachInfiniteScrollForAutoComplete(field.name,field.lookupUrl)"
+                (completeMethod)="autoSuggestSearch(field.name,$event,field,field.lookupUrl)" [multiple]="true"
+                (onHide)="clearSearchData(field.name)" [field]="(field.displayField)" appendTo="body"
+                styleClass="optional-filter-control">
+                <ng-template let-item pTemplate="item">
+                    <div [innerHTML]="formatAutoComplete(item,field.displayField,field.name)">
+                    </div>
+                </ng-template>
+            </p-autoComplete>
+        </div>
+
+        <div class="fst-italic fs-5 help-text">
+            {{filterFieldConfig[field.name]?.helpText || ''}}</div>
+    </div>
+
+</ng-template>

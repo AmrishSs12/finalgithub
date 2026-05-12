@@ -1,0 +1,13 @@
+
+:host ::ng-deep {
+    p-dropdown {
+        padding-top: 0px;
+        .p-dropdown {
+            height: 110%;
+            border: none;
+        }
+    }
+    .p-dropdown:hover {
+        border: none !important;
+    }
+}

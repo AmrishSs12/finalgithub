@@ -1,0 +1,104 @@
+	
+<div class="detail application-user-detail">
+ <div class="wrokflow-simulate" *ngIf="showWorkflowSimulator">
+        <span class="arrow_box">Workflow Simulator</span>
+        <button pButton pRipple type="button" icon="pi pi-cog" class="p-button-rounded wrokflow-simulate-btn"  [fitContent]="false"  (click)="openWorkflowSimilator()"></button>
+    </div>
+   	<div class="w-100"  *ngIf="showBreadcrumb"> <app-breadcrumb></app-breadcrumb></div>
+	<div id="title-bar">
+    <div class="display">
+        <div class="col" class="page-title-bar" *ngIf="((isMobile && !isSearchFocused) || !isMobile) && !hideListPageTitle">
+            <!-- <span class="pi pi-arrow-left back-action"></span> -->
+            <span class="page-title" [pTooltip]="isMobile ? (pageViewTitle | translate) : null" [innerHTML]="pageViewTitle | translate"></span>
+        </div>
+
+     	<app-action-bar  [buttons] = "isMobile? combinedActionConfig:leftActionBarConfig.children"
+(onBtnClick)='actionBarAction($event)'
+[style.order]="isMobile?'1':'0'"
+ actionBarName = "leftActionBar"
+[isRowSelected]="isRowSelected" [isChildListpage]="isChildPage"
+[isListPage]="isList" [detailConditionalButtons]="conditionalActions" [filterActionButtons]="filterActions">
+</app-action-bar>
+
+
+<app-workflow-action-bar
+[buttons] = "workflowActionBarConfig.children"
+(onBtnClick)='workflowActionBarAction($event)'
+[workflow]="workflowActions"
+[style.order]="isMobile?'1':'0'" [style.overflow]="'hidden'" *ngIf="!wfNotInitiated "></app-workflow-action-bar>
+
+    </div>
+</div>
+
+	<ul class="nav  caption-bar" *ngIf="detailCaptionBarConfig?.children?.length > 0 && data.sid" [ngStyle]="{width: detailCaptionBarConfig.width, 'justify-content':detailCaptionBarConfig.align}" id="caption-bar">
+ <li class="nav-item" *ngFor="let captionItem of detailCaptionBarConfig.children" [style.display]="((captionItem.showOn =='mobile_only' && isMobile) || (captionItem.showOn =='desktop_only' && !isMobile) ||  (!captionItem.showOn)) &&
+       !hiddenFields[captionItem.field] ? 'block' : 'none'">
+            <div class="card" *ngIf="data && formattedCaptionData && formattedCaptionData[captionItem.field]">
+            <div class="card-body">
+                <h5 class="card-title">{{captionItem.label | translate}}</h5>
+                <div *ngIf="!captionItem.render" class="card-sub-title" [innerHTML]="formattedCaptionData[captionItem.field] | translate">
+                </div>
+                <div *ngIf="captionItem.render" class="card-sub-title">
+                    <div [innerHtml]="captionItem.render(captionItem)"></div>
+                </div>
+            </div>
+        </div>
+    </li>
+</ul>
+
+	<div class="ev-detail-view" id="detail-view-container">
+    <div class="detail-flex-box">
+        <div class="flex align-items-center justify-content-center wizard-container col-2" *ngIf="wizardItems?.length && showScrollSpy" id="detail-wizard">
+            <p-tieredMenu #menu [model]="wizardItems"></p-tieredMenu>
+        </div>
+ <div class="missing-filters-banner" *ngIf="!showForm">
+            <i class="pi pi-exclamation-triangle"></i>
+            <span [innerHtml]="filtersEmptyMsg">
+            </span>
+        </div>
+        <div class="flex align-items-center justify-content-center form-container" *ngIf="showForm">
+            <form class="ev-form " [formGroup]="detailFormControls" #detailForm>
+                <div class="row form-body">
+                    <div class="form-row vg-col-2">
+                        	<div class="form-col" [hidden]="hiddenFields.email" id="email">
+    <div class="field-row"  [ngClass]="{'required': formFieldConfig?.email?.isRequired, 'error':inValidFields.email}">
+        <label for="email" class="col-form-label email-label" [textContent]="'Email'|translate"></label>
+        <span class="info-bubble" *ngIf="formFieldConfig?.email?.infoBubble"   [pTooltip]="(formFieldConfig?.email?.infoBubble|translate) || ''"><i class="fa fa-circle-info"></i></span>
+        <input type="text" pInputText class="form-control"  formControlName="email"  [placeholder]="(formFieldConfig?.email?.placeHolder|translate) || ''">
+        <div class="fst-italic fs-5 help-text">{{(formFieldConfig?.email?.helpText|translate) || ''}}</div>
+    </div>
+</div>
+
+	<div class="form-col" [hidden]="hiddenFields.firstName" id="firstName">
+    <div class="field-row"  [ngClass]="{'required': formFieldConfig?.firstName?.isRequired, 'error':inValidFields.firstName}">
+        <label for="firstName" class="col-form-label firstName-label" [textContent]=" 'First_Name'|translate "></label>
+        <span class="info-bubble" *ngIf="formFieldConfig?.firstName?.infoBubble"   [pTooltip]="(formFieldConfig?.firstName?.infoBubble|translate) || ''"><i class="fa fa-circle-info"></i></span>
+        <input type="text" pInputText class="form-control" formControlName="firstName" [placeholder]="(formFieldConfig?.firstName?.placeHolder|translate) || ''"
+[maxlength]="formFieldConfig?.firstName?.maxLength" />
+        <div class="fst-italic fs-5 help-text">{{(formFieldConfig?.firstName?.helpText|translate) || ''}}</div>
+    </div>
+</div>
+
+	<div class="form-col" [hidden]="hiddenFields.lastName" id="lastName">
+    <div class="field-row"  [ngClass]="{'required': formFieldConfig?.lastName?.isRequired, 'error':inValidFields.lastName}">
+        <label for="lastName" class="col-form-label lastName-label" [textContent]=" 'Last_Name'|translate "></label>
+        <span class="info-bubble" *ngIf="formFieldConfig?.lastName?.infoBubble"   [pTooltip]="(formFieldConfig?.lastName?.infoBubble|translate) || ''"><i class="fa fa-circle-info"></i></span>
+        <input type="text" pInputText class="form-control" formControlName="lastName" [placeholder]="(formFieldConfig?.lastName?.placeHolder|translate) || ''"
+[maxlength]="formFieldConfig?.lastName?.maxLength" />
+        <div class="fst-italic fs-5 help-text">{{(formFieldConfig?.lastName?.helpText|translate) || ''}}</div>
+    </div>
+</div>
+
+                    </div>
+                </div>
+        </form>
+        </div>
+    </div>
+</div>
+<span *ngIf="this.dynamicDialogConfig?.data?.popup" class="detail-popup-close-icon" (click)="onPopupClose()">
+    <i class="pi pi-times"></i>
+</span>
+
+</div>
+
+

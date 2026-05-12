@@ -1,0 +1,38 @@
+<div class="vh-100 redirect-container" [ngStyle]="currentStyles">
+    <div class="p-3 details-container" *ngIf="!isResetPassword && isSignUp; else showLoader">
+        <h2 class="mb-4 login-wrapper">{{ appTitle }}</h2>
+        <form [formGroup]="formDetailGroup">
+            <div class="firebaseui-card-content">
+
+                <div class="firebaseui-textfield mdl-textfield mdl-js-textfield mdl-textfield--floating-label is-upgraded"
+                    [ngClass]="{'is-focused' : isFnFocused, 'is-dirty' : isFnDirty}">
+                    <label class="mdl-textfield__label firebaseui-label" for="ui-sign-in-email-input">First name</label>
+                    <input type="text" name="firstName" id="ui-sign-in-name-input" formControlName="firstName"
+                        (focus)="isFnFocused=true" (blur)="isFnFocused=false" maxlength="50"
+                        class="mdl-textfield__input firebaseui-input firebaseui-id-name">
+                </div>
+
+                <div class="firebaseui-textfield mdl-textfield mdl-js-textfield mdl-textfield--floating-label is-upgraded"
+                    [ngClass]="{'is-focused' : isLnFocused, 'is-dirty' : isLnDirty}">
+                    <label class="mdl-textfield__label firebaseui-label" for="ui-sign-in-email-input">Last name</label>
+                    <input type="text" name="lastName" id="ui-sign-in-name-input" formControlName="lastName"
+                        (focus)="isLnFocused=true" (blur)="isLnFocused=false" maxlength="50"
+                        class="mdl-textfield__input firebaseui-input firebaseui-id-name">
+                </div>
+            </div>
+            <div class="firebaseui-card-actions">
+                <div class="firebaseui-form-actions">
+                    <button type="submit"
+                        class="firebaseui-id-submit firebaseui-button mdl-button mdl-js-button mdl-button--raised mdl-button--colored"
+                        (click)="onSubmit()">Update</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="loader card flex justify-center" #showLoader>
+        <p-progressSpinner strokeWidth="3" fill="transparent" animationDuration="1s"
+            [style]="{ width: '25px', height: '25px' }"></p-progressSpinner>
+        <p style="margin-left: 10px;">Loading...</p>
+    </div>
+</div>

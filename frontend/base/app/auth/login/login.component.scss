@@ -1,0 +1,57 @@
+.login-container {
+    background-color: #1a73e81a;
+}
+
+@keyframes changeBg {
+
+    0%,
+    100% {
+        background-image: url("/assets/images/login_animation_1.png");
+    }
+
+    25% {
+        background-image: url("/assets/images/login_animation_2.png");
+    }
+
+    50% {
+        background-image: url("/assets/images/login_animation_3.png");
+    }
+
+    75% {
+        background-image: url("/assets/images/login_animation_1.png");
+    }
+}
+
+.login-wrapper {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .login-header {
+        h4 {
+            margin-bottom: 2rem;
+
+            p {
+                font-size: 2.5rem;
+            }
+
+            span {
+                font-size: 1.5rem;
+                font-weight: 100;
+            }
+        }
+    }
+}
+
+.btns {
+    justify-content: right;
+    margin-top: 3rem;
+    flex-direction: column;
+
+    .sign-in-btn {
+        font-size: 1.3rem;
+
+    }
+}

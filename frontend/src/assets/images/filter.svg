@@ -1,0 +1,13 @@
+<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<symbol id="filter-button" viewBox="0 0 24 24">
+<path  d="M16.5146 5.36719H19.4602" stroke="currentColor" stroke-width="1.77772" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path  d="M16.5146 7.07002V3.67969" stroke="currentColor" stroke-width="1.77772" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path  d="M8.7334 13.6957V10.3174" stroke="currentColor" stroke-width="1.77772" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path  d="M13.7493 20.3207V16.9424" stroke="currentColor" stroke-width="1.77772" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path  d="M12.6172 11.998H19.458" stroke="currentColor" stroke-width="1.77772" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path  d="M13.7493 18.6309H19.4599" stroke="currentColor" stroke-width="1.77772" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path  d="M4.54004 5.36719H12.6312" stroke="currentColor" stroke-width="1.77772" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path  d="M4.54004 11.999H8.73586" stroke="currentColor" stroke-width="1.77772" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path  d="M4.54004 18.6309H9.63755" stroke="currentColor" stroke-width="1.77772" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+</symbol>
+</svg>

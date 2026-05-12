@@ -1,0 +1,140 @@
+@import "../../sass-base/_base-variables.scss";
+@import "../../../src/sass/variables";
+
+.home-page {
+    // padding: 0 5rem;
+    font-family: $primary-font-family;
+    width: 100%;
+    height: 100% !important;
+    overflow: auto;
+    background: $app-theme-background-color;
+    font-family: $home-page-font-family;
+    font-style: $home-page-font-style;
+    font-weight: $home-page-font-weight;
+    font-size: $home-page-font-size;
+
+    .l-p-content {
+        // height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        .row {
+            justify-content: center;
+            overflow: auto;
+        }
+
+        .l-c-button {
+            background: $home-page-card-button-background-color;
+            color: $home-page-card-button-font-color;
+            font-size: $home-page-card-button-font-size;
+            cursor: pointer;
+            border: 1px solid;
+            padding: 0.5rem 1.5rem;
+            border-radius: 2rem;
+            text-decoration: none;
+        }
+    }
+}
+
+.cards {
+    background-color: $home-page-card-background-color;
+    border-radius: 1.8rem;
+    font-weight: 500;
+    width: 20%;
+    // height: max-content;
+    display: flex;
+    flex-direction: column;
+    min-height: 24rem;
+    min-width: 20rem;
+    max-width: 40rem;
+    text-decoration: none;
+
+    .c-image {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        width: 100%;
+        max-height: 20rem;
+    }
+
+    .c-image img {
+        max-width: 100%;
+        border-radius: 2rem 2rem 0 0;
+        max-height: 100%;
+    }
+
+    .c-image .icon {
+        font-size: 13rem;
+        max-height: 20rem;
+    }
+
+    .c-title {
+        font-size: $home-page-card-title-font-size;
+        color: $home-page-card-title-font-color;
+        font-weight: 500;
+
+        span {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+
+    .c-title-3 {
+        font-weight: 400;
+    }
+
+    .c-description {
+        font-size: $home-page-card-desc-font-size;
+        color: $home-page-card-desc-font-color;
+
+        span {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .cards {
+        width: 40%;
+        min-width: 16rem;
+        min-height: 20rem;
+    }
+}
+
+@media only screen and (max-width: 350px) {
+    .cards {
+        width: 80%;
+    }
+}
+
+/* @media only screen and (min-width: 1600px) {
+    .cards {
+        width: 15%;
+    }
+} */
+
+.tile-bg-image-semi-transparent {
+    opacity: 0.9;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+
+    .c-title {
+        margin-top: unset !important;
+    }
+}
+
+.l-p-background {
+    background-size: cover !important;
+    background-repeat: "no-repeat" !important;
+}

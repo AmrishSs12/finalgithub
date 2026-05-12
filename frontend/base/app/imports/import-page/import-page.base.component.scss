@@ -1,0 +1,113 @@
+.filetype-checkbox {
+    margin-right: 45px;
+    display: flex;
+    align-items: center;
+}
+
+.filetype-radiobtn-container {
+    display: flex;
+}
+
+.runtime-radiobtn-container {
+    display: flex;
+    gap: 20px;
+}
+
+.runtime-radio-option {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.runtime-value-display {
+    padding: 8px 12px;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    color: #495057;
+}
+
+.runtime-rules-container {
+    margin-top: 5px;
+}
+
+.field-row {
+    margin-bottom: 10px;
+    position: relative;
+    .label-sub-text {
+        font-size: 0.9rem;
+        font-style: italic;
+    }
+}
+
+.import-popup-container {
+
+    display: block;
+    height: 100%;
+}
+
+
+.detail-flex-box .form-container {
+    box-shadow: none !important;
+}
+
+.imports-page {
+    height: 100%;
+}
+
+.ev-detail-view .ev-form p-radioButton~label {
+    display: inline-block;
+}
+
+.ev-detail-view .ev-form p-radioButton {
+    margin-right: 5px;
+}
+
+.import-btn {
+    margin: 15px 5px 15px 15px;
+}
+
+.upload-btn {
+    margin: 20px;
+}
+
+.footer {
+    width: 96%;
+    position: fixed;
+    bottom: 0;
+    background-color: white;
+    align-items: unset;
+    display: flex;
+    flex-direction: row-reverse;
+    z-index: 1001;
+}
+
+.p-dialog .p-dialog-content {
+    padding: 0;
+}
+
+.import-popup-container {
+    .detail-flex-box .form-container {
+        border-radius: 8px;
+
+    }
+
+    .p-fileupload .p-fileupload-row>div {
+        padding: 0;
+    }
+}
+
+.ev-detail-view .ev-form .field-row.required .col-form-label:after {
+    content: "*";
+    color: #f00;
+}
+
+.download-link {
+    display: inline-flex;
+    align-content: center;
+    flex-wrap: wrap;
+}
+
+:host ::ng-deep .p-fileupload-buttonbar > :nth-child(2) {
+  display: none !important;
+}

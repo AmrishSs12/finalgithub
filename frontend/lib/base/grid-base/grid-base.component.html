@@ -1,0 +1,168 @@
+<div class=" paginator paginator-top p-mb-3" *ngIf="paginatorOnTop">
+    <ng-container *ngTemplateOutlet="paginator">
+    </ng-container>
+</div>
+<table id="{{dtOptions.id}}" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+    class="cell-border hover stripe display col-render rowH-{{this.gridConfig.rowHeight}} rowS-{{this.gridConfig.rowSpacing}}"
+    cellspacing="0" style="width:100%;"
+    [ngClass]="{'striped' : this.gridConfig.striped == true,'gridlines' : this.gridConfig.showGridlines == true}">
+    <thead>
+        <tr class="complex-grid-header"
+            *ngIf="!gridConfig.colResize && !gridConfig.colReorder && dtOptions.complexHeader && dtOptions.complexHeader.length>0">
+            <th scope="" *ngFor="let header of dtOptions.complexHeader; let i = index" [attr.colspan]="header.colspan"
+                [ngClass]="{'emptyHeader': !header.label}" class="complex-header-{{i}}" [attr.colorder]="i"
+                [attr.data-column-index]="i">
+                {{header.label | translate}}
+            </th>
+        </tr>
+        <tr class="vs-grid-header" [ngClass]="{'hide-table': hideTable}">
+            <th scope="" *ngFor="let col of dtOptions.columns; let i = index" [ngClass]="col.sortDirection" [attr.colorder]="i"
+                [attr.data-column-index]="i" [attr.colspan]="col.colspan">
+                <span>{{col.label | translate}}</span>
+                <span class="sorting-icons"
+                    *ngIf="col.sortOrder && (col.sortOrder == 'asc' || col.sortOrder == 'desc') && !this.selectedRowGroupValue || this.selectedRowGroupValue == col.field">
+                    <i *ngIf="col.sortOrder == 'asc'" class="pi pi-sort-amount-up-alt"></i>
+                    <i *ngIf="col.sortOrder == 'desc'" class="pi pi-sort-amount-down"></i>
+                </span>
+                <span *ngIf="multiColumnSortApplied && col.multiColumnSortOrder && this.multiColumnSortFields?.length > 1"
+                    class="multi-column-sort-order">{{col.multiColumnSortOrder}}</span>
+            </th>
+        </tr>
+    </thead>
+</table>
+<p-overlayPanel #columnSettingsOP
+    [styleClass]="this.gridConfig.displayActiveFilter ? 'table-settings-menu-panel soft-delete-filter': 'table-settings-menu-panel'">
+    <ng-template pTemplate>
+        <div id="filter-container" *ngIf="this.gridConfig.displayActiveFilter">
+            <app-soft-delete-filter (onFilterSelectionClick)="settingsMenuOptionClick($event)"
+                [defaultValue]="this.gridConfig.softDeleteFilterValue"></app-soft-delete-filter>
+        </div>
+        <p-menubar [model]="settingsMenu" *ngIf="this.settingsMenu?.length > 0">
+            <ng-template pTemplate="item" let-item>
+                <a class="p-menuitem-link d-flex justify-content-between align-items-center">
+                    <div>
+                        <span> {{ item.label }}</span>
+                    </div>
+                    <!-- <div class="order-1">
+                        <span [class]="item.icon"></span>
+                    </div> -->
+                </a>
+            </ng-template>
+        </p-menubar>
+    </ng-template>
+</p-overlayPanel>
+
+<p-dialog header="Header" [(visible)]="columnSettingsDPVisible" [modal]="true" [style]="{ width: '400px' }"
+    [draggable]="false" [resizable]="false" class="table-settings-popup" [closable]="true" [closeOnEscape]="true"
+    #columnSettingsDP [dismissableMask]="true" maskStyleClass="table-settings-popup-mask">
+    <ng-template pTemplate="header">
+        <ng-container *ngIf="settingsPopupContentValue == 'toggleOption'">
+            <div class="grid-popover-panel-head">
+                <label class="title-text">{{ 'Toggle_Columns' | translate }}</label>
+                <label class="page-title-text pl-3"> {{ this.gridConfig?.currentPageName | translate }}</label>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="settingsPopupContentValue == 'columnReorder'">
+            <div class="grid-popover-panel-head">
+                <label class="title-text">{{ 'Reorder_Columns' | translate }}</label>
+                <label class="page-title-text pl-3"> {{ this.gridConfig?.currentPageName | translate }}</label>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="settingsPopupContentValue == 'rowGroup'">
+            <div class="grid-popover-panel-head">
+                <label class="title-text">{{ 'Row_Grouping' | translate }}</label>
+                <label class="page-title-text pl-3"> {{ this.gridConfig?.currentPageName | translate }}</label>
+            </div>
+        </ng-container>
+    </ng-template>
+    <div class="grid-popover-panel-body">
+        <span *ngIf="gridConfig?.toggleColumns && settingsPopupContentValue == 'toggleOption'">
+            <div class="column-toggle-settings p-2">
+                <div class="field-checkbox p-1">
+                    <p-checkbox [(ngModel)]="toggleAllColumnCheck" [binary]="true" inputId="binary" label="All"
+                        class="body-text" (onChange)="toggleAllColumns($event)"></p-checkbox>
+                </div>
+                <div *ngFor="let category of gridConfig?.columns; index as index" class="field-checkbox p-1">
+                    <p-checkbox name="toggleColumnsGroup" ngDefaultControl [value]="category.field"
+                        [(ngModel)]="selectedColumnsBackup" [inputId]="category.field"></p-checkbox>
+                    <label [for]="category.field" class="pl-2 body-text">{{ category.label | translate }}</label>
+                </div>
+            </div>
+        </span>
+        <span *ngIf="gridConfig?.toggleColumns && settingsPopupContentValue == 'columnReorder'">
+            <div class="column-toggle-settings p-2">
+                <!--  <div class="field-checkbox p-1">
+                    <p-checkbox [(ngModel)]="toggleAllColumnCheck" [binary]="true" inputId="binary" label="All"
+                        class="body-text" (onChange)="toggleAllColumns()"></p-checkbox>
+                </div> -->
+                <div *ngFor="let category of columnReorderValBackup; index as index" class="p-1"
+                    pDraggable="columnReorderHandle" pDroppable="columnReorderHandle"
+                    (onDragStart)="onDragStartColReorder(index)" (onDrop)="onDropColReorder(index)"
+                    dragHandle=".column-reorder-handle">
+                    <div class="d-flex flex-row align-items-center">
+                        <img src="assets/images/dragdrop_handle.svg" class="column-reorder-handle">
+                        <label class="pl-2 body-text ">{{ category.label | translate }}</label>
+                    </div>
+                </div>
+            </div>
+        </span>
+        <div *ngIf="gridConfig?.rowGroupColumns && settingsPopupContentValue == 'rowGroup'">
+            <div class="p-2 row-group-settings">
+                <div *ngFor="let category of gridConfig?.rowGroupColumns" class="field-checkbox p-1">
+                    <p-radioButton name="rowGroup" ngDefaultControl [value]="category.field"
+                        [(ngModel)]="selectedRowGroupValue" [inputId]="category.field"></p-radioButton>
+                    <label [for]="category.field" class="pl-2 body-text">{{ category.label | translate }}</label>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="!gridConfig?.rowGroupColumns && settingsPopupContentValue == 'rowGroup'">
+            <div>{{'No_columns_are_configured_for_Row_Grouping' | translate}}</div>
+        </div>
+    </div>
+    <ng-template pTemplate="footer">
+        <div class="grid-popover-panel-footer">
+            <div class="d-flex justify-content-end">
+                <button type="button" class="btn btn-secondary search-btn" (click)="columnSettingsDPVisible = false">{{
+                    'Cancel' | translate}}</button>
+                <button type="button" class="btn btn-secondary search-btn ml-2"
+                    (click)="columnSettingsDPVisible = false;resetColumnSettings()">{{
+                    'Reset' | translate}}</button>
+                <button type="submit" class="btn btn-primary search-btn ml-2"
+                    (click)="applySettingsChange();columnSettingsDPVisible = false">{{ 'Apply_Changes' | translate
+                    }}</button>
+            </div>
+        </div>
+    </ng-template>
+</p-dialog>
+
+<div class=" paginator paginator-top p-mb-3" *ngIf="paginatorOnBottom">
+    <ng-container *ngTemplateOutlet="paginator">
+    </ng-container>
+</div>
+
+
+<ng-template #paginator>
+    <div class="d-flex justify-content-between align-items-center w-100">
+        <div class="paginator-left">
+            <div class="paginator-count" *ngIf="countRequired !== false">
+                <span class="total-count">{{this.util.formatNumber(total) || 0}}</span> {{ (total > 1 ? 'Items_found' : 'Item_found') | translate}}
+            </div>
+        </div>
+        <div class="paginator-label">{{'Showing' | translate}}
+            <span *ngIf="gridConfig.paging">{{gridData.length > 0 ? this.util.formatNumber(start + 1) || 0 : this.util.formatNumber(start) || 0 }} {{'to' | translate}} {{ this.util.formatNumber(total ? ((start + gridData.length) < total ? (start + gridData.length) : total) : (start + gridData.length)) || 0 }}</span>
+            <span *ngIf="!gridConfig.paging">{{gridData.length > 0 ? 1: 0}} {{ 'to' | translate}} {{ this.util.formatNumber(gridData.length) || 0}}</span>
+        </div>
+
+        <span *ngIf="gridConfig.paging" class="paginator-icons">
+            <p-button type="button" icon="pi pi-angle-double-left" (onClick)="firstPage()" styleClass="p-button-text"
+                [disabled]="(start == 0)">
+            </p-button>
+            <p-button type="button" icon="pi pi-angle-left" class="paginator-btn-prev" (onClick)="previousPage()"
+                styleClass="p-button-text" [disabled]="(start == 0)"></p-button>
+            <p-button type="button" icon="pi pi-refresh" (onClick)="refreshCurrentPage()" styleClass="p-button-text">
+            </p-button>
+            <p-button type="button" icon="pi pi-angle-right" class="paginator-btn-next" (onClick)="nextPage()"
+                [disabled]="gridData.length === 0 || (total ? (total <= filtered) : (gridData.length < gridConfig.pageLength))" styleClass="p-button-text"></p-button>
+        </span>
+    </div>
+</ng-template>

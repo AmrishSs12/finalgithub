@@ -1,0 +1,124 @@
+<div class="detail client-mapping-detail admin-popup">
+
+    <div class="ev-detail-view" id="detail-view-container">
+        <button type="button" class="p-dialog-header-icon p-dialog-header-maximize p-link" (click)="cancel()" >
+            &times;
+          </button>
+        <div class="flex align-items-center justify-content-center form-container">
+            <form class="ev-form " [formGroup]="ClientMappingFormControls" #detailForm>
+                <div class="row form-body">
+                    <div class=" vg-col-2">
+                        <div class="form-col" id="producer">
+                            <div class="field-row">
+                                <label for="producer" class="col-form-label producer-label"
+                                    [textContent]="'FROM_APP'|translate"></label>
+                                <input type="text" pInputText class="form-control" formControlName="producer"
+                                    readonly="true" [disabled]="true">
+                            </div>
+                        </div>
+
+                        <div class="form-col" id="consumer">
+                            <div class="field-row">
+                                <label for="consumer" class="col-form-label consumer-label"
+                                    [textContent]="'TO_APP'|translate"></label>
+                                <input type="text" pInputText class="form-control" formControlName="consumer"
+                                    readonly="true" [disabled]="true">
+                            </div>
+                        </div>
+
+                        <div class="form-col" id="userContextRequired" *ngIf="currentDefaultValues.authenticationType != 'OAUTH2'">
+                            <div class="field-row">
+                                <label for="userContextRequired" class="col-form-label userContextRequired-label"
+                                    [textContent]=" 'User_Context_Required'|translate "></label>
+                                <input type="text" pInputText class="form-control" formControlName="userContextRequired"
+                                    readonly="true" [disabled]="true">
+                            </div>
+                        </div>
+                        <div class="form-col" id="authenticationType">
+                            <div class="field-row">
+                                <label for="authenticationType" class="col-form-label authenticationType-label"
+                                    [textContent]="'Authentication_Type' | translate"></label>
+                                <p-dropdown 
+                                    [options]="formFieldConfig.authenticationType?.options"
+                                    formControlName="authenticationType"
+                                    readonly="true"
+                                    [disabled]="false">
+                                    <ng-template let-item pTemplate="item">
+                                        {{ item.label | translate }}
+                                    </ng-template>
+                                    <ng-template let-selectedItem pTemplate="selectedItem">
+                                        {{ selectedItem.label | translate }}
+                                    </ng-template>
+                                </p-dropdown>
+                            </div>
+                        </div>
+                        <div class="form-col" id="saEmail" *ngIf="currentDefaultValues.authenticationType != 'OAUTH2' && currentDefaultValues.authenticationType != 'KMS'">
+                            <div class="field-row" class="required">
+                                <label for="saEmail" class="col-form-label saEmail-label "
+                                    [textContent]="'Service_Account_Mail'|translate"></label>
+                                <input type="text" pInputText class="form-control" formControlName="saEmail"
+                                    [placeholder]="'Enter_mail' | translate">
+                            </div>
+                        </div>
+                        <div class="form-col" id="accessTokenExpiry" *ngIf="currentDefaultValues.authenticationType == 'OAUTH2'">
+                            <div class="field-row" class="required">
+                              <label for="accessTokenExpiry" class="col-form-label accessTokenExpiry-label"
+                                     [textContent]="'Access_Token_Expiration_Time_OPENPARAN_in_minutes_CLOSEPARAN'|translate"></label>
+                              <input type="number" pInputText class="form-control" formControlName="accessTokenExpiry"
+                                     [placeholder]="'Enter_Expiration_Time_OPENPARAN_in_minutes_CLOSEPARAN'|translate" min="1" max="600"
+                                     (input)="validateDigits($event)" maxlength="5">
+                            </div>
+                          </div>
+                        <div class="form-col" id="kmsKeyRingId" *ngIf="currentDefaultValues.authenticationType == 'KMS'">
+                            <div class="field-row">
+                                <label for="kmsKeyRingId" class="col-form-label kmsKeyRingId-label"
+                                    [textContent]="'KMS_Key_Ring_Id'|translate"></label>
+                                <input type="text" pInputText class="form-control" formControlName="kmsKeyRingId">
+                            </div>
+                        </div>
+                        <div class="form-col" id="kmsKeyId" *ngIf="currentDefaultValues.authenticationType == 'KMS'">
+                            <div class="field-row">
+                                <label for="kmsKeyId" class="col-form-label kmsKeyId-label"
+                                    [textContent]="'KMS_Key_Id'|translate"></label>
+                                <input type="text" pInputText class="form-control" formControlName="kmsKeyId">
+                            </div>
+                        </div>
+                        <div class="form-col" id="kmsKeyLocationId" *ngIf="currentDefaultValues.authenticationType == 'KMS'">
+                            <div class="field-row">
+                                <label for="kmsKeyLocationId" class="col-form-label kmsKeyLocationId-label"
+                                    [textContent]="'KMS_Key_Location_Id'|translate"></label>
+                                <input type="text" pInputText class="form-control" formControlName="kmsKeyLocationId">
+                            </div>
+                        </div>
+                        <div class="form-col" id="kmsProjectId" *ngIf="currentDefaultValues.authenticationType == 'KMS'">
+                            <div class="field-row">
+                                <label for="kmsProjectId" class="col-form-label kmsProjectId-label"
+                                    [textContent]="'KMS_Project_Id'|translate"></label>
+                                <input type="text" pInputText class="form-control" formControlName="kmsProjectId">
+                            </div>
+                        </div>
+                        <div class="form-col" id="additionalInfo">
+                            <div class="field-row">
+                                <label for="additionalInfo" class="col-form-label additionalInfo-label "
+                                    [textContent]="'Additional_Info'|translate"></label>
+                                    <textarea
+                                    class="form-control"
+                                    rows="10"
+                                    columns="50"
+                                    name="additionalInfo"
+                                    formControlName="additionalInfo"
+                                    [placeholder]="'Enter_additional_Info_JSON_here_DOT_DOT_DOT'|translate"
+                                  ></textarea>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="footer">
+            <p-button icon="pi pi-check" class="import-btn" type="submit" (onClick)="updateValues()" [label]="('Save' | translate )">
+            </p-button>
+        </div>
+    </div>
+</div>

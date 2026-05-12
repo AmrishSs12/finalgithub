@@ -1,0 +1,46 @@
+[
+  {
+    "providerName": "providerName1",
+    "sid": "sid1",
+    "authenticationMode": "OAUTH2",
+    "baseURL": "www.baseURL.com",
+    "clientId": "abcdefg",
+    "clientSecret": "hijklmnop",
+    "apiKey": "key123",
+    "username": "username1",
+    "password": "password1"
+  },
+  {
+    "providerName": "providerName2",
+    "sid": "sid2",
+    "authenticationMode": "BASIC",
+    "baseURL": "www.baseURL.com",
+    "clientId": "abcdefg",
+    "clientSecret": "hijklmnop",
+    "apiKey": "key123",
+    "username": "username1",
+    "password": "password1"
+  },
+  {
+    "providerName": "providerName3",
+    "sid": "sid3",
+    "authenticationMode": "API_KEY",
+    "baseURL": "www.baseURL.com",
+    "clientId": "abcdefg",
+    "clientSecret": "hijklmnop",
+    "apiKey": "key123",
+    "username": "username1",
+    "password": "password1"
+  },
+  {
+    "providerName": "providerName4",
+    "sid": "sid4",
+    "authenticationMode": "SERVICE_ACCOUNT",
+    "baseURL": "www.baseURL.com",
+
+    "apiKey": "key123",
+    "username": "username1",
+    "password": "password1"
+  }
+
+]

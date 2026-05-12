@@ -1,0 +1,43 @@
+<!-- {{test_1}} -->
+<div class="vs-changelog" id="changelog-container">
+    <div class="vs-changelog-wrapper">
+        <div class="vs-changelog-header row no-margin">
+            <div class="heading" translate="CHANGELOG"> </div>
+            <button type="button" class="close" aria-label="Close" (click)="cancelModal()">
+                <span aria-hidden="true" class="icon icon-cross"></span>
+            </button>
+        </div>
+        <!-- <div class="vs-changelog-action row no-margin">
+            <div class="changelog-filter" [hidden]="filterList.length <= 1">
+                <label class="filter-label" translate="CHOOSE_FILTER" translate-default="Choose Filter"></label>
+                <div class="filter-selection">
+                    <select class="form-control" (change)="selectFilter($event.target.value)">
+                      <option *ngFor="let filter of filterList" [value]="filter">
+                      {{ filter.label | translate}}
+                      </option>
+                    </select>
+                </div>
+            </div>
+        </div> -->
+        <div class="vs-changelog-content">
+            <change-logs-grid id="changelogListGrid-grid" [gridConfig]="config" class="table compact order-column">
+            </change-logs-grid>
+            <!-- <div class="changelog-listgrid col-md-4">
+               <change-logs-grid id="changelogListGrid-grid" [gridConfig]="config.changeLogListGrid" [gridType]="CHANGE_LIST" class="table compact order-column"></change-logs-grid>
+            </div>
+            <div class="changelog-comparegrid col-md-8" *ngIf="!isMobile" >
+                 <change-logs-grid  id="changelogCompareGrid-grid" [gridConfig]="config.changeLogCompareGrid" [gridType]="COMPARE_LIST" class="table compact order-column"></change-logs-grid>
+            </div> -->
+        </div>
+    </div>
+</div>
+<ng-template #comparegrid>
+    <button type="button" class="close close-comparegrid-modal" data-dismiss="modal" aria-label="Close"
+        (click)="cancelModal()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <div class="changelog-comparegrid col-md-8" *ngIf="isMobile">
+        <change-logs-grid id="changelogCompareGrid-grid" [gridConfig]="config.changeLogCompareGrid"
+            class="table compact order-column"></change-logs-grid>
+    </div>
+</ng-template>

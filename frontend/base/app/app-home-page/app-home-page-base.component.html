@@ -1,0 +1,46 @@
+<div class="home-page"
+    [ngClass]="{'l-p-background':(tiles.data?.properties?.backgroundImage?.type == 'icon' || tiles.data?.properties?.backgroundImage?.type == 'uploaded')}"
+    [ngStyle]="getStyles()">
+    <div class="l-p-content" [ngClass]="{'h-100':tiles.children.length <= (tilesPerRow * 2)}" *ngIf="tiles?.children">
+        <div class="row m-0">
+            <a class="m-4 p-0 cards" *ngFor="let item of tiles.children"
+                [ngClass]="{'tile-bg-image-semi-transparent':tiles.data?.properties.tileType == 'type_3', 'cursor-pointer':tiles.data?.properties.tileType != 'type_1'}"
+                [style.width]="tileWidth"
+                [attr.href]="(tiles.data?.properties.tileType == 'type_1' && !isMobile) ? null : getTileHref(item)"
+                [attr.target]="(tiles.data?.properties.tileType == 'type_1' && !isMobile) ? null : getTileTarget(item)"
+                (click)="onTileClick($event, item)">
+                <div class="c-image" *ngIf="item.data.properties.image?.type == 'uploaded'">
+                    <ng-container *ngIf="isSvgImage(item); else imageTag">
+                        <div [innerHTML]="svgContents[item.data.properties?.image?.icon[0]?.fileName]" class="homepage-svg-icon"></div>
+                    </ng-container>
+                    <ng-template #imageTag>
+                        <img
+                            [src]="getImageUrl(item)"
+                            [alt]="item?.data?.properties?.label ? item?.data?.properties?.label : 'Tile'">
+                    </ng-template>
+                </div>
+                <div class="c-image d-flex justify-content-center pt-4"
+                    *ngIf="item.data.properties.image?.type == 'icon'">
+                    <i class="fa {{item.data.properties.image?.icon.value}} icon"
+                        [ngStyle]="{'font-size':item.data.properties.image?.iconSize,'color':item.data.properties.image?.iconColor}"></i>
+                </div>
+                <div class="c-title p-3 px-4 mt-auto"
+                    [ngClass]="{'text-left' : tiles.data?.properties.tileType == 'type_1' , 'text-center' : tiles.data?.properties.tileType != 'type_1', 'c-title-3' : tiles.data?.properties.tileType == 'type_3'}">
+                    <span [innerHTML]="getSanitizedContent(item.data.properties.label)"></span>
+                </div>
+                <div class="c-description p-3 px-4" *ngIf="tiles.data?.properties.tileType != 'type_3'">
+                    <span [innerHTML]="getSanitizedContent(item?.data?.properties?.description)"></span>
+                </div>
+                <div class="p-3 px-4 pb-4 d-none d-md-block" *ngIf="tiles.data?.properties.tileType == 'type_1'">
+                    <a class="l-c-button"
+                        [attr.href]="getTileHref(item)"
+                        [attr.target]="getTileTarget(item)"
+                        (click)="onTileClick($event, item)">
+                        <span>{{'Get_started' | translate}}</span>
+                        <span class="pl-3"><i class="fa fa-arrow-right-long"></i></span>
+                    </a>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>

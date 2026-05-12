@@ -1,0 +1,145 @@
+[
+  {
+    "producer": "Billing Service",
+    "consumer": "Order Orchestrator",
+    "mail": "billing-sa@acme.com",
+    "saEmail": "billing-sa@acme.com",
+    "userContextRequired": false,
+    "sid": "billing-to-order",
+    "authenticationType": "SERVICE_ACCOUNT",
+    "clientId": "",
+    "clientSecret": "",
+    "generatedBy": "system",
+    "generatedOn": "2026-01-12T09:15:00Z",
+    "accessTokenExpiry": null,
+    "additionalInfo": {
+      "scope": "billing.write",
+      "region": "us-east"
+    }
+  },
+  {
+    "producer": "Customer Portal",
+    "consumer": "Identity Gateway",
+    "mail": "portal-owner@acme.com",
+    "saEmail": "",
+    "userContextRequired": true,
+    "sid": "portal-to-identity",
+    "authenticationType": "OAUTH2",
+    "clientId": "c9d0a6f1-portal",
+    "clientSecret": "sec-portal-9f2a",
+    "generatedBy": "admin@acme.com",
+    "generatedOn": "2026-02-03T14:22:00Z",
+    "accessTokenExpiry": 120,
+    "additionalInfo": {
+      "tokenEndpoint": "https://id.acme.com/oauth2/token",
+      "audience": "portal"
+    }
+  },
+  {
+    "producer": "Inventory API",
+    "consumer": "Warehouse Sync",
+    "mail": "inventory-admin@acme.com",
+    "saEmail": "inventory-admin@acme.com",
+    "userContextRequired": true,
+    "sid": "inventory-to-warehouse",
+    "authenticationType": "BASIC",
+    "clientId": "",
+    "clientSecret": "",
+    "generatedBy": "ops@acme.com",
+    "generatedOn": "2026-01-25T08:05:00Z",
+    "accessTokenExpiry": null,
+    "additionalInfo": {
+      "rotationPolicyDays": 90
+    }
+  },
+  {
+    "producer": "Notification Hub",
+    "consumer": "Email Worker",
+    "mail": "notify-sa@acme.com",
+    "saEmail": "notify-sa@acme.com",
+    "userContextRequired": false,
+    "sid": "notify-to-email",
+    "authenticationType": "ACCESS_KEY",
+    "clientId": "",
+    "clientSecret": "",
+    "generatedBy": "system",
+    "generatedOn": "2026-01-30T11:40:00Z",
+    "accessTokenExpiry": null,
+    "additionalInfo": {
+      "keyId": "ak-7b8f",
+      "issuer": "notify"
+    }
+  },
+  {
+    "producer": "Analytics Engine",
+    "consumer": "Reporting UI",
+    "mail": "analytics-owner@acme.com",
+    "saEmail": "analytics-owner@acme.com",
+    "userContextRequired": true,
+    "sid": "analytics-to-reporting",
+    "authenticationType": "USER",
+    "clientId": "",
+    "clientSecret": "",
+    "generatedBy": "admin@acme.com",
+    "generatedOn": "2026-02-01T16:10:00Z",
+    "accessTokenExpiry": null,
+    "additionalInfo": {
+      "role": "report_viewer"
+    }
+  },
+  {
+    "producer": "Rappit Core",
+    "consumer": "Rappit Admin",
+    "mail": "rappit-core@acme.com",
+    "saEmail": "rappit-core@acme.com",
+    "userContextRequired": false,
+    "sid": "rappit-core-to-admin",
+    "authenticationType": "RAPPIT_INTRA_COMMUNICATION",
+    "clientId": "",
+    "clientSecret": "",
+    "generatedBy": "system",
+    "generatedOn": "2026-01-18T06:45:00Z",
+    "accessTokenExpiry": null,
+    "additionalInfo": {
+      "channel": "internal"
+    }
+  },
+  {
+    "producer": "Public API",
+    "consumer": "Partner Sandbox",
+    "mail": "partner-api@acme.com",
+    "saEmail": "",
+    "userContextRequired": false,
+    "sid": "public-to-partner",
+    "authenticationType": "NO_AUTH",
+    "clientId": "",
+    "clientSecret": "",
+    "generatedBy": "admin@acme.com",
+    "generatedOn": "2026-01-10T10:00:00Z",
+    "accessTokenExpiry": null,
+    "additionalInfo": {
+      "rateLimitPerMin": 60
+    }
+  },
+  {
+    "producer": "Payment Gateway",
+    "consumer": "Transaction Processor",
+    "mail": "",
+    "saEmail": "",
+    "userContextRequired": false,
+    "sid": "payment-to-txn",
+    "authenticationType": "KMS",
+    "clientId": "",
+    "clientSecret": "",
+    "generatedBy": "system",
+    "generatedOn": "2026-03-15T12:30:00Z",
+    "accessTokenExpiry": null,
+    "kmsKeyRingId": "payment-keyring",
+    "kmsKeyId": "txn-encrypt-key",
+    "kmsKeyLocationId": "us-central1",
+    "kmsProjectId": "payment-project-123",
+    "additionalInfo": {
+      "purpose": "encryption"
+    }
+  }
+]

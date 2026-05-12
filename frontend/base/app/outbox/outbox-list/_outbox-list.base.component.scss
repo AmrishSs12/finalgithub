@@ -1,0 +1,393 @@
+@import "../../../base-styles";
+
+// Outbox status colors
+$outbox-pending-color: $primary-color;
+$outbox-processing-color: #ff9800;
+$outbox-completed-color: #4caf50;
+$outbox-failed-color: #f44336;
+$outbox-recent-failed-color: #e91e63;
+
+// Outbox status badge backgrounds & text
+$outbox-pending-bg: #e3f2fd;
+$outbox-pending-text: #1565c0;
+$outbox-processing-bg: #fff3e0;
+$outbox-processing-text: #e65100;
+$outbox-completed-bg: #e8f5e9;
+$outbox-completed-text: #2e7d32;
+$outbox-failed-bg: #ffebee;
+$outbox-failed-text: #c62828;
+
+#search-container {
+    margin-left: auto;
+}
+
+.filter-icon {
+    height: 25px;
+}
+
+.search-btn {
+    padding: 3.75px 7.5px;
+}
+
+// Outbox Dashboard Styles
+.outbox-dashboard {
+    padding: 1rem;
+    background: $secondary-color-3;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+
+    .stats-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        justify-content: flex-start;
+    }
+
+    .stat-card {
+        display: flex;
+        align-items: center;
+        padding: 1rem 1.5rem;
+        border-radius: 8px;
+        background: $secondary-color;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+        min-width: 150px;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+        &.clickable {
+            cursor: pointer;
+        }
+
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+        }
+
+        &.active {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transform: translateY(-2px);
+            outline-offset: -2px;
+        }
+
+        .stat-icon {
+            font-size: 1.5rem;
+            margin-right: 1rem;
+        }
+
+        .stat-content {
+            display: flex;
+            flex-direction: column;
+
+            .stat-value {
+                font-size: 1.5rem;
+                font-weight: 700;
+                line-height: 1.2;
+            }
+
+            .stat-label {
+                font-size: 0.875rem;
+                color: $ternary-color;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+        }
+
+        &.pending {
+            border-left: 4px solid $outbox-pending-color;
+
+            .stat-icon {
+                color: $outbox-pending-color;
+            }
+
+            .stat-value {
+                color: $outbox-pending-color;
+            }
+
+            &.active {
+                outline: 2px solid $outbox-pending-color;
+            }
+        }
+
+        &.processing {
+            border-left: 4px solid $outbox-processing-color;
+
+            .stat-icon {
+                color: $outbox-processing-color;
+            }
+
+            .stat-value {
+                color: $outbox-processing-color;
+            }
+
+            &.active {
+                outline: 2px solid $outbox-processing-color;
+            }
+        }
+
+        &.completed {
+            border-left: 4px solid $outbox-completed-color;
+
+            .stat-icon {
+                color: $outbox-completed-color;
+            }
+
+            .stat-value {
+                color: $outbox-completed-color;
+            }
+
+            &.active {
+                outline: 2px solid $outbox-completed-color;
+            }
+        }
+
+        &.failed {
+            border-left: 4px solid $outbox-failed-color;
+
+            .stat-icon {
+                color: $outbox-failed-color;
+            }
+
+            .stat-value {
+                color: $outbox-failed-color;
+            }
+
+            &.active {
+                outline: 2px solid $outbox-failed-color;
+            }
+        }
+
+        &.recent-failed {
+            border-left: 4px solid $outbox-recent-failed-color;
+
+            .stat-icon {
+                color: $outbox-recent-failed-color;
+            }
+
+            .stat-value {
+                color: $outbox-recent-failed-color;
+            }
+
+            &.active {
+                outline: 2px solid $outbox-recent-failed-color;
+            }
+        }
+    }
+}
+
+// Selection Info Bar
+.selection-info {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background: $outbox-pending-bg;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+
+    .selection-count {
+        font-weight: 500;
+        color: $outbox-pending-text;
+        margin-right: 1rem;
+    }
+}
+
+// Payload Detail Dialog
+.payload-detail-content {
+    .detail-row {
+        display: flex;
+        padding: 0.75rem 0;
+        border-bottom: 1px solid $list-grid-border-color;
+
+        label {
+            font-weight: 600;
+            min-width: 140px;
+            color: $ternary-color-3;
+        }
+
+        span {
+            flex: 1;
+        }
+
+        &.payload-row {
+            flex-direction: column;
+
+            label {
+                margin-bottom: 0.5rem;
+            }
+        }
+    }
+
+    .payload-json {
+        background: $secondary-color-2;
+        padding: 1rem;
+        border-radius: 4px;
+        overflow: auto;
+        max-height: 300px;
+        font-family: $primary-font-family;
+        font-size: 0.875rem;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
+
+    .status-badge {
+        padding: 0.25rem 0.75rem;
+        border-radius: 4px;
+        font-size: 0.875rem;
+        font-weight: 500;
+
+        &.PENDING {
+            background: $outbox-pending-bg;
+            color: $outbox-pending-text;
+        }
+
+        &.PROCESSING {
+            background: $outbox-processing-bg;
+            color: $outbox-processing-text;
+        }
+
+        &.COMPLETED {
+            background: $outbox-completed-bg;
+            color: $outbox-completed-text;
+        }
+
+        &.FAILED {
+            background: $outbox-failed-bg;
+            color: $outbox-failed-text;
+        }
+    }
+
+    .error-text {
+        color: $outbox-failed-text;
+        font-family: $primary-font-family;
+        font-size: 0.875rem;
+    }
+}
+
+// Outbox List Conditional Formatting
+// Use ::ng-deep to penetrate into <app-grid> child component (DataTables DOM)
+::ng-deep .outbox-list {
+    .conditional-container {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0.2rem 0.6rem;
+        border-radius: 4px;
+        font-weight: 500;
+        text-align: center;
+        width: 90px;
+        box-sizing: border-box;
+
+        &.PENDING {
+            background-color: $outbox-pending-bg;
+            color: $outbox-pending-text;
+        }
+
+        &.PROCESSING {
+            background-color: $outbox-processing-bg;
+            color: $outbox-processing-text;
+        }
+
+        &.COMPLETED {
+            background-color: $outbox-completed-bg;
+            color: $outbox-completed-text;
+        }
+
+        &.FAILED {
+            background-color: $outbox-failed-bg;
+            color: $outbox-failed-text;
+        }
+    }
+
+    // Custom field styles
+    .error_message {
+        color: $outbox-failed-text;
+    }
+
+    .no_error {
+        color: $ternary-color-1;
+    }
+
+    .view_payload {
+        color: $primary-color;
+        cursor: pointer;
+        font-weight: 500;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    .no_payload {
+        color: $ternary-color-1;
+    }
+
+    .retry_count_normal {
+        color: $ternary-color;
+    }
+
+    .retry_count_warning {
+        color: $outbox-processing-text;
+        font-weight: 500;
+    }
+
+    .retry_count_high {
+        color: $outbox-failed-text;
+        font-weight: 700;
+    }
+}
+
+// Entity IDs Popup Styles
+.entity-ids-content {
+    .entity-ids-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid $secondary-color-5;
+        margin-bottom: 1rem;
+
+        .entity-ids-count {
+            font-size: 1rem;
+            font-weight: 600;
+            color: $ternary-color-3;
+        }
+    }
+
+    .entity-ids-list {
+        max-height: 400px;
+        overflow-y: auto;
+
+        .entity-id-item {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 0.75rem;
+            border-radius: 4px;
+            margin-bottom: 0.25rem;
+            background: $secondary-color-2;
+            transition: background 0.2s ease;
+
+            &:hover {
+                background: $secondary-color-1;
+            }
+
+            &:nth-child(even) {
+                background: $secondary-color-3;
+
+                &:hover {
+                    background: $secondary-color-1;
+                }
+            }
+
+            .entity-id-index {
+                color: $ternary-color;
+                font-size: 0.875rem;
+                min-width: 2.5rem;
+            }
+
+            .entity-id-value {
+                font-family: $primary-font-family;
+                font-size: 0.9rem;
+                color: $primary-color;
+                word-break: break-all;
+            }
+        }
+    }
+}

@@ -1,0 +1,27 @@
+<div class="login-container">
+    <div class="login-wrapper">
+        <div class="">
+            <div class="col" *ngIf="authService.isAuthenticating">
+                <div translate>Authenticating_User</div>
+                <p-progressBar mode="indeterminate" [style]="{'height': '6px'}"></p-progressBar>
+            </div>
+            <div class="row" *ngIf="!authService.isAuthenticating">
+                <div class="login-header">
+                    <h4>
+                        <p translate>Login</p>
+                        <span translate>Login_to_Get_Started</span>
+                    </h4>
+                </div>
+                <div class="col-12">
+                    <div class="d-flex btns">
+                        <button class="btn btn-primary btn-block sign-in-btn" (click)="authenticate()">
+                            <span translate>
+                                Sign_in_with_Google
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

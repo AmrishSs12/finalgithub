@@ -1,0 +1,299 @@
+{
+  "workflowhistory": {
+    "post": {
+      "/{workflowType}/{modelid}/datatable": [
+        "PermitAll"
+      ]
+    }
+  },
+  "rappitjitgrouprolemapping": {
+    "post": {
+      "/datatable": [
+        "App Admin"
+      ],
+      "/": [
+        "App Admin"
+      ]
+    },
+    "put": {
+      "/": [
+        "App Admin"
+      ]
+    },
+    "delete": {
+      "/{ids}": [
+        "App Admin"
+      ]
+    }
+  },
+  "cache": {
+    "get": {
+      "/flushall": [
+        "App Admin"
+      ],
+      "/flush/{cachename}": [
+        "App Admin"
+      ]
+    }
+  },
+  "attachments": {
+    "post": {
+      "/link": [
+        "PermitAll"
+      ],
+      "/upload": [
+        "PermitAll"
+      ]
+    },
+    "get": {
+      "/download/template/{fileName}": [
+        "PermitAll"
+      ],
+      "/download/attachment/{attachment_id}": [
+        "PermitAll"
+      ],
+      "/download/inline/{attachment_id}": [
+        "PermitAll"
+      ],
+      "/all/{modelKey}": [
+        "PermitAll"
+      ]
+    },
+    "delete": {
+      "/{ids}}": [
+        "PermitAll"
+      ],
+      "/attachments/{ids}": [
+        "PermitAll"
+      ]
+    }
+  },
+  "workflowconfig": {
+    "get": {
+      "/getconfig/{workflowType}": [
+        "PermitAll"
+      ]
+    }
+  },
+  "restexposedapis": {
+    "post": {
+      "/datatable": [
+        "App Admin"
+      ],
+      "/saveclientdata": [
+        "App Admin"
+      ],
+      "/setup": [
+        "App Admin"
+      ],
+      "/": [
+        "App Admin"
+      ]
+    },
+    "get": {
+      "/{sid}": [
+        "App Admin"
+      ],
+      "/clientdatafromsecret": [
+        "App Admin"
+      ]
+    },
+    "put": {
+      "/": [
+        "App Admin"
+      ]
+    }
+  },
+  "changelogs": {
+    "post": {
+      "/datatable/{entityName}/{entityId}/{fieldName}/{fromModifiedDate}": [
+        "PermitAll"
+      ]
+    }
+  },
+  "logger": {
+    "post": {
+      "/set-level/{loggerName}/{logLevel}": [
+        "App Admin"
+      ]
+    },
+    "get": {
+      "/get-packages": [
+        "App Admin"
+      ]
+    }
+  },
+  "otp": {
+    "post": {
+      "/validateotp/{otp}": [
+        "PermitAll"
+      ],
+      "/generateandsendotp": [
+        "PermitAll"
+      ],
+      "/forgotpasswordotp": [
+        "PermitAll"
+      ]
+    }
+  },
+  "usernotificationsyncinfo": {
+    "put": {
+      "/updatesynctime": [
+        "PermitAll"
+      ]
+    }
+  },
+  "outbox": {
+    "post": {
+      "/bulk-delete": [
+        "App Admin"
+      ],
+      "/bulk-retry": [
+        "App Admin"
+      ],
+      "/trigger-retry": [
+        "App Admin"
+      ],
+      "/datatable": [
+        "App Admin"
+      ],
+      "/reset-stale-pending": [
+        "App Admin"
+      ],
+      "/reset-and-retry": [
+        "App Admin"
+      ],
+      "/reset-stale-processing": [
+        "App Admin"
+      ]
+    },
+    "get": {
+      "/dashboard": [
+        "App Admin"
+      ],
+      "/retry-status/{taskSid}": [
+        "App Admin"
+      ],
+      "/entity-types": [
+        "App Admin"
+      ]
+    }
+  },
+  "deploy": {
+    "post": {
+      "/setup": [
+        "App Admin"
+      ]
+    }
+  },
+  "search": {
+    "post": {
+      "/reindex/{indexName}": [
+        "App Admin"
+      ]
+    },
+    "delete": {
+      "/delete/{indexName}": [
+        "App Admin"
+      ],
+      "/delete/{indexName}/{sid}": [
+        "App Admin"
+      ]
+    }
+  },
+  "environmentinfo": {
+    "get": {
+      "/": [
+        "PermitAll"
+      ]
+    }
+  },
+  "applicationusers": {
+    "post": {
+      "/datatable": [
+        "App Admin"
+      ],
+      "/": [
+        "App Admin"
+      ]
+    },
+    "get": {
+      "/getbysidunique/{sid}": [
+        "App Admin"
+      ],
+      "/roles": [
+        "PermitAll"
+      ],
+      "/user-details": [
+        "PermitAll"
+      ],
+      "/{sid}": [
+        "App Admin"
+      ],
+      "/getbyemailprimary/{email}": [
+        "App Admin"
+      ]
+    },
+    "put": {
+      "/userlanguage": [
+        "PermitAll"
+      ],
+      "/name": [
+        "PermitAll"
+      ],
+      "/": [
+        "App Admin"
+      ]
+    },
+    "delete": {
+      "/{ids}": [
+        "App Admin"
+      ]
+    },
+    "options": {}
+  },
+  "restconsumedapis": {
+    "post": {
+      "/datatable": [
+        "App Admin"
+      ],
+      "/setup": [
+        "App Admin"
+      ],
+      "/": [
+        "App Admin"
+      ]
+    },
+    "get": {
+      "/{sid}": [
+        "App Admin"
+      ]
+    },
+    "put": {
+      "/": [
+        "App Admin"
+      ]
+    }
+  },
+  "integrations": {},
+  "notifications": {
+    "post": {
+      "/notifications/datatable": [
+        "PermitAll"
+      ]
+    }
+  },
+  "snapshot": {
+    "post": {
+      "/restore/table": [
+        "App Admin"
+      ],
+      "/backup/schedule": [
+        "App Admin"
+      ],
+      "/backup/table": [
+        "App Admin"
+      ]
+    }
+  }
+}

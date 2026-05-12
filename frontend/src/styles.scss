@@ -1,0 +1,212 @@
+// /* You can add global styles to this file, and also import other style files */
+
+// @import './sass/variables';
+// @import './sass/mixins';
+// .app-main .vertical-nav-menu ul>li>a {
+//     color: #343a40;
+// }
+
+// .app-main .vertical-nav-menu ul ul>li>a {
+//     color: #6c757d !important;
+// }
+
+// .app-page-title {
+//     padding: 10px 0px 10px 35px;
+//     margin: -30px -30px 15px;
+//     position: relative;
+//     border-bottom: 1px solid #CCC;
+//     box-shadow: 0 8px 6px -6px #ddd;
+// }
+
+// .closed-sidebar {
+//     .app-sidebar {
+//         width: 45px;
+//         min-width: 45px;
+//         overflow-y: auto;
+//     }
+// }
+//     .closed-sidebar{
+//         .fixed-sidebar {
+//             .app-main{
+//                 .app-main__outer-right{
+//                     padding-right:45px;
+//                     padding-left: 0px !important;
+//                 }
+
+//             }
+//         }
+
+//     }
+//     .fixed-sidebar{
+//         .app-main{
+
+//             .app-main__outer-right{               
+//                 padding-left:0px !important;
+//                 padding-right:280px;
+//             }
+
+//         }
+//     }
+
+// .ev {
+//     &-breadcrumb {
+//         .p-breadcrumb {
+//             padding: 0;
+//             background: transparent;
+//             border: 0;
+//             li {
+//                 font-size: 14px !important;
+//             }
+//         }
+//     }
+//     &-action-bar {
+//         margin-bottom: 15px;
+//         @include box-layout;
+//         .mob-menu {
+//             .p-splitbutton-defaultbutton {
+//                 display: none;
+//             }
+//             .p-splitbutton-menubutton {
+//                 border-radius: 3px;
+//                 padding: 5px;
+//                 .pi-chevron-down::before {
+//                     content: "\e91d";
+//                 }
+//             }
+//         }
+//     }
+//     &-notify {
+//         position: fixed;
+//         z-index: 100;
+//         top: 66px;
+//         margin: auto;
+//         left: 0;
+//         right: 0;
+//         width: fit-content;
+//     }
+//     &-caption-bar {
+//         padding: 0px;
+//         @include box-layout;
+//         .card-body {
+//             padding: .75rem;
+//             .card-title {
+//                 text-transform: initial
+//             }
+//             .card-subtitle {
+//                 margin-bottom: 0px !important;
+//             }
+//         }
+//     }
+//     &-detail-view {
+//         .btn-group {
+//             margin-right: 8px;
+//         }
+//         .ev-form {
+//             margin-top: 10px;
+//             margin-left: 8px;
+//             margin-right: 8px;
+//             .form-body {
+//                 margin-right: -15px;
+//                 margin-left: -15px;
+//                 .section-col {
+//                     .form-section {
+//                         padding: 1.2rem;
+//                         margin-bottom: 12px;
+//                         margin-left: -8px;
+//                         margin-right: -8px;
+//                         display: flex;
+//                         flex-wrap: wrap;
+//                         @include box-layout;
+//                         .form-section {
+//                             margin-bottom: 0px;
+//                         }
+//                         .header {
+//                             margin-bottom: 20px;
+//                             font-weight: 600;
+//                             width: 100%;
+//                             font-size: 1.2rem;
+//                         }
+//                         .contents {
+//                             padding: 0px 10px;
+//                             .form-col {
+//                                 width: 100%;
+//                                 padding: 0px 5px;
+//                                 @include for-size(phone-only) {
+//                                     width: 100% !important;
+//                                     margin-bottom: 10px;
+//                                 }
+//                                 .field-row {
+//                                     display: flex;
+//                                     flex-wrap: wrap;
+//                                     margin-bottom: 10px;
+//                                     &.required {
+//                                         .col-form-label:after {
+//                                             content: "*";
+//                                             color: $error-bg-color;
+//                                         }
+//                                     }
+//                                 }
+//                             }
+//                         }
+//                     }
+//                     @include form-col-layout-loop(4)
+//                 }
+//             }
+//         }
+//         .p-dialog-top {
+//             top: 50px;
+//         }
+//         @media only screen and (max-width: 768px) {
+//             .section-col {
+//                 flex-basis: auto
+//             }
+//         }
+//     }
+// }
+
+// .caption-bar {
+//     padding: 0px;
+//     min-height: 66px;
+//     @include box-layout;
+//     .card {
+//         height: 100%;
+//     }
+//     .card-body {
+//         padding: .75rem;
+//         .card-title {
+//             text-transform: initial;
+//             margin-bottom: 0px !important;
+//         }
+//         .card-subtitle {
+//             margin-bottom: 0px !important;
+//         }
+//     }
+// }
+
+// .table-container{
+//     padding:20px;
+//     .serach-container{
+//         text-align: right;
+//         position:relative;
+//         .search-bar{
+//             position: absolute;
+//             top: 25%;
+//             right: 33%;
+//         }
+//     }
+//     .spinner{
+//         position: absolute;
+//         top:50%;
+//         left:50%;
+//         z-index: 100;
+//     }
+
+//     .col-tags{
+//         background-color: rgb(223, 177, 144);
+//         border-radius: 10px;
+//         text-align: center;
+//         vertical-align: middle;
+//         font-size: 13px;
+//     }
+
+// }

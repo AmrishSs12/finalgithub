@@ -1,0 +1,110 @@
+<ng-template #btnsElem let-buttonList='buttonList'>
+    <div class="btn-group mr-3  mt2" *ngFor="let btn of buttonList;let i=index;" [attr.id]="btn.label || null"
+        [style.display]="(hideActions(btn))?'none':''">
+        <div *ngIf="btn.type === 'button' && btn.onMobile !=='secondary'">
+
+            <span class="{{btn.outline?'outlined':''}} default-btn {{btn.buttonStyle}}" *ngIf="!(hideActions(btn))"
+                [style.borderColor]="btn.outlineColor" [style.borderColor]="btn.outlineColor"
+                [style.backgroundColor]="btn.backgroundColor" [style.fontFamily]="btn.font?.fontFamily?.code"
+                [style.fontSize]="btn.font?.fontSize" [style.fontWeight]="btn.font?.fontWeight"
+                [style.color]="btn.font?.fontColor">
+                <p-button [label]="(btn.buttonType !=='icon_only') ? ((btn.label | translate) || btn.label) : null"
+                    styleClass="{{btn.buttonStyle}}" class=""
+                    [disabled]="(btn.buttonEnabled =='no'|| conditionBasedButtons.disableButtons.includes(btn.buttonId)) || detailConditionalButtons.disableActions.includes(btn.buttonId)"
+                    [hidden]="hideActions(btn)"
+                    [icon]="(btn.buttonType !=='text_only') && (btn.icon?.icon?.value)? btn.icon?.icon?.value:''"
+                    [iconPos]="(btn.buttonType ==='icon_on_right')?'right':'left'" (onClick)="onButtonClick(btn)"
+                    [attr.tooltip-message]="btn.tooltipMessage | translate" [pTooltip]="btn.tooltipMessage | translate" tooltipPosition="top">
+                    <img *ngIf="btn.icon?.icon[0]?.fileName" src="assets/images/{{btn.icon.icon[0].fileName}}"
+                        style="width: 1.5rem" />
+                </p-button>
+            </span>
+        </div>
+
+        <span *ngIf="btn.type === 'splitButton'"
+            class="default-btn split-btn {{btn.buttonStyle}} {{btn.outline?'outlined':''}}"
+            [style.borderColor]="btn.outlineColor" [style.fontFamily]="btn.font?.fontFamily?.code"
+            [style.fontSize]="btn.font?.fontSize" [style.fontWeight]="btn.font?.fontWeight"
+            [style.color]="btn.font?.fontColor">
+            <img *ngIf="btn.icon?.icon[0]?.fileName" src="assets/images/{{btn.icon.icon[0].fileName}}" />
+            <p-splitButton label="{{(btn.buttonType !=='iconOnly') ? (btn.label|translate) || btn.label :''}}" id="{{btn.label}}"
+                [style.backgroundColor]="btn.backgroundColor" styleClass="{{btn.buttonStyle}}"
+                [disabled]="btn.buttonEnabled == 'no'"
+                [hidden]="btn.visibility ==='hide'|| (btn.showOn =='mobile_only' && !isMobile) || (btn.showOn =='desktop_only' && isMobile)"
+                [icon]="(btn.buttonType !=='textOnly') &&  (btn.icon?.icon?.value)?btn.icon?.icon?.value:''"
+                [iconPos]="(btn.buttonType ==='icon_on_right')?'right':'left'" (onClick)="onButtonClick(btn)"
+                [model]="btn.dropdownActions" [attr.tooltip-message]="btn.tooltipMessage | translate"
+                [pTooltip]="btn.tooltipMessage | translate" tooltipPosition="top">
+
+            </p-splitButton>
+        </span>
+
+        <span style="display: flex;"
+            class="p-buttonset default-btn {{btn.buttonStyle}} {{btn.outline && (hideBtnGroup(btn.displayActions) || hideBtnGroup(btn.dropdownActions))?'outlined':''}}"
+            [style.borderColor]="(btn.outlineColor)?btn.outlineColor:''" [style.fontFamily]="btn.font?.fontFamily?.code"
+            [style.fontSize]="btn.font?.fontSize" [style.fontWeight]="btn.font?.fontWeight"
+            [style.color]="btn.font?.fontColor" [style.backgroundColor]="btn.backgroundColor"
+            *ngIf="btn.type === 'buttonGroup'">
+            <!-- <span id="btngroup"  class="default-btn"> -->
+            <ng-container *ngFor="let btngroup of btn.displayActions">
+                <button class="btngroup" [attr.id]="btngroup.label || null" *ngIf="!hideActions(btngroup)" pButton
+                    label="{{(btngroup.buttonType !=='icon_only') ? ((btngroup.label|translate) || btngroup.label) :''}}"
+                    style="border-right: 1px solid;"
+                    [disabled]="(btngroup.buttonEnabled == 'no' || conditionBasedButtons.disableButtons.includes(btngroup?.buttonId)) || detailConditionalButtons.disableActions.includes(btngroup?.buttonId)"
+                    [icon]="(btngroup.buttonType !=='text_only') && (btngroup.icon?.icon?.value)?btngroup.icon?.icon?.value:''"
+                    [iconPos]="(btngroup.buttonType ==='icon_on_right')?'right':'left'"
+                    (click)="onButtonClick(btngroup)" [style.borderColor]="(btn.outlineColor)?btn.outlineColor:''"
+                    [attr.tooltip-message]="btngroup.tooltipMessage | translate" [pTooltip]="btngroup.tooltipMessage | translate"
+                    tooltipPosition="top">
+                    <img *ngIf="btngroup.icon?.icon[0]?.fileName"
+                        src="assets/images/{{btngroup.icon.icon[0].fileName}}" />
+                </button>
+            </ng-container>
+            <!-- </span> -->
+            <!-- <span id="dropdownaction"  > -->
+            <button class="dropdownaction" id="dropdownActionBar"
+                *ngIf="btn.dropdownActions?.length > 0 && hideBtnGroup(btn.dropdownActions)" type="button" pButton
+                pRipple icon="fa-solid fa-ellipsis-vertical" (click)="menu.toggle($event)"
+                styleClass="{{btn.buttonStyle}}" [style]="btngrouphover?(btn.hoverFont):btn.font"
+                [attr.tooltip-message]="btn.tooltipMessage | translate" [pTooltip]="btn.tooltipMessage | translate" tooltipPosition="top"
+                [style.color]="(btn.outlineColor)?btn.outlineColor:''"></button>
+            <p-menu #menu [popup]="true" [model]="btn.dropdownActions" appendTo="body" styleClass="action-bar-menu">
+            </p-menu>
+            <!-- </span> -->
+
+        </span>
+
+    </div>
+    <span *ngIf="secondaryActions.length > 0 && isMobile">
+        <!-- <p-button icon="pi pi-ellipsis-h" class="secondary-btn" (click)="secondarymenu.toggle($event)"></p-button>
+        <p-menu #secondarymenu [popup]="true" [model]="secondaryActions" appendTo="body" styleClass="action-bar-menu"> -->
+        <!-- </p-menu> -->
+    </span>
+</ng-template>
+
+<ng-template #mobileBtns let-buttonList='buttonList'>
+    <app-speed-dial [fabButtons]="getButtonListForMobile(buttonList)" (actionClick)='onButtonClick($event)' class="{{actionBarName}}">
+    </app-speed-dial>
+</ng-template>
+
+<ng-template #childListBtns let-buttonList='buttonList'>
+    <p-button icon="pi pi-ellipsis-v" class="secondary-btn" (click)="secondarymenu.toggle($event)"></p-button>
+    <p-menu #secondarymenu [popup]="true" [model]="getChildListForMobile(buttonList)" appendTo="body"
+        styleClass="action-bar-menu">
+    </p-menu>
+</ng-template>
+
+<div class="ev-action-bar action-bar" *ngIf="buttons?.length > 0" id="action-bar-container">
+    <nav class="nav d-block">
+        <div class="d-flex">
+            <div class="primary mr-auto py-2 button-nowrap">
+                <!-- <ng-container [ngTemplateOutlet]="isMobile? mobileBtns : btnsElem" [ngTemplateOutletContext]="{buttonList:buttons}">
+                </ng-container> -->
+                <ng-container
+                    [ngTemplateOutlet]="(isMobile)? (isChildListpage && isListPage) ? childListBtns : mobileBtns : btnsElem"
+                    [ngTemplateOutletContext]="{buttonList:buttons}" *ngIf="(actionBarName !== 'rightActionBar') || !isMobile">
+                </ng-container>
+            </div>
+        </div>
+    </nav>
+</div>

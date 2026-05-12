@@ -1,0 +1,33 @@
+@import "../../../sass-base/base-variables";
+
+.redirect-container{
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    margin: 0px !important;
+    .details-container{
+        background: $white-color;
+        border: 2px solid $secondary-color-2;
+        border-radius: 5px;
+        width: 35rem;
+        .login-wrapper{
+            display: flex;
+            font-size: 3rem;
+            font-weight: $primary-font-weight-2;
+            justify-content: center;
+            text-align: center;
+        }
+    }
+}
+
+.loader{
+    background: none !important;
+    border: none !important;
+    width: auto !important;
+    height: auto !important;
+}

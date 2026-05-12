@@ -1,0 +1,27 @@
+name: test Runner
+
+on: workflow_dispatch
+
+jobs:
+  deployment:
+    environment: test
+    runs-on: ubuntu-latest
+    container: node:18-alpine
+    
+    steps:
+    - name: Checking out repo...
+      uses: actions/checkout@v3
+      with:
+        ref: test
+    
+    - name: Building...
+      uses: ./.github/actions/test-build
+      with:
+        SERVICE_ACCOUNT_KEYFILE_JSON: ${{ secrets.SERVICE_ACCOUNT_KEYFILE_JSON }}
+        ARTIFACTORY_USER: ${{ secrets.ARTIFACTORY_USER }}
+        ARTIFACTORY_PASS: ${{ secrets.ARTIFACTORY_PASS }}
+    
+    - name: Deploying...
+      uses: ./.github/actions/test-deploy
+      with:
+        CLOUD_RUN_DEFAULT_SERVICE_ACCOUNT: ${{ secrets.CLOUD_RUN_DEFAULT_SERVICE_ACCOUNT }}

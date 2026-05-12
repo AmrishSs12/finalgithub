@@ -1,0 +1,66 @@
+@import "../../../sass-base/base-variables";
+
+.login-container{
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  .content{
+    background: $white-color;
+    border: 1px solid $secondary-color-2;
+    border-radius: 5px;
+    width: 370px;
+  }
+}
+
+.login-wrapper{
+  margin-top: 1rem;
+  display: flex;
+  font-size: 2.4rem;
+  font-weight: 600;
+  justify-content: center;
+  text-align: center;
+}
+
+::ng-deep .firebaseui-info-bar{
+  position: relative !important;
+  left: 0px !important;
+}
+
+:host ::ng-deep{
+  #back-btn {
+    .p-button{
+      border: none;
+      padding: 1rem 2.25rem;
+      font-size: $secondary-font-size;
+      background-color: $secondary-color !important;
+      margin-top: 1.25rem;
+      background-color: $secondary-color !important;
+      color: #3f51b5 !important;
+      font-weight: $primary-font-weight-1;
+      border-radius: 4px;
+    }
+  }
+  #back-btn:hover {
+    .p-button{
+      background-color: #e5e7eb !important;
+      cursor: pointer;
+    }
+  }
+}
+
+
+.back-container{
+  display: flex;
+  justify-content: right;
+}
+
+.sub-title{
+  font-size: $secondary-font-size;
+  font-weight: $primary-font-weight;
+  margin-bottom: 2.5rem;
+  justify-content: center;
+  display: flex;
+}

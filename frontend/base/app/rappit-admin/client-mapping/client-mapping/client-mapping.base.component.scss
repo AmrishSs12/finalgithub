@@ -1,0 +1,13 @@
+th.editbtn::after,
+th.editbtn::before {
+    display: none !important;
+}
+svg.clientId ,svg.clientSecret{
+    path{
+        pointer-events: none;
+    }
+}
+
+.mailediticon {
+    transform: scale(1);
+ }

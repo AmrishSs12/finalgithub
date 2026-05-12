@@ -1,0 +1,92 @@
+{
+  "left" : [ {
+    "accessControl" : [ "App Admin" ],
+    "defaultDetailPageEnabled" : false,
+    "onClick" : "navigate_to_page",
+    "label" : "Application_User",
+    "enableLookup" : false,
+    "pathsInvolved" : [ "/applicationuser/applicationuserlist", "/applicationuser/applicationuserdetail" ],
+    "detailPagePopupWidth" : 70,
+    "outline" : false,
+    "autoFillLookup" : false,
+    "displayAsToggleSwitch" : false,
+    "hideListPageTitle" : false,
+    "page" : {
+      "sid" : "d0374b00-eb83-4d83-8a0a-2ac2f9a69425",
+      "name" : "Application User List",
+      "url" : "/applicationuser/applicationuserlist"
+    },
+    "element" : "menuItem"
+  }, {
+    "pathsInvolved" : [ ],
+    "accessControl" : [ "App Admin" ],
+    "detailPagePopupWidth" : 70,
+    "defaultDetailPageEnabled" : false,
+    "outline" : false,
+    "children" : [ {
+      "accessControl" : [ "App Admin" ],
+      "defaultDetailPageEnabled" : false,
+      "onClick" : "navigate_to_url",
+      "currentNode" : "loggerSettings-menu",
+      "icon" : {
+        "type" : "icon",
+        "icon" : {
+          "label" : "fas fa-poll-h",
+          "value" : "fas fa-poll-h"
+        },
+        "iconColor" : "#000000",
+        "iconSize" : "13px"
+      },
+      "label" : "Logger_Settings",
+      "enableLookup" : false,
+      "customUrl" : "/admin/logger-settings",
+      "detailPagePopupWidth" : 70,
+      "outline" : false,
+      "valueChange" : true,
+      "autoFillLookup" : false,
+      "displayAsToggleSwitch" : false,
+      "hideListPageTitle" : false,
+      "element" : "menuItem"
+    }, {
+      "accessControl" : [ "App Admin" ],
+      "defaultDetailPageEnabled" : false,
+      "onClick" : "navigate_to_url",
+      "currentNode" : "outbox-menu",
+      "icon" : {
+        "type" : "icon",
+        "icon" : {
+          "label" : "fas fa-paper-plane",
+          "value" : "fas fa-paper-plane"
+        },
+        "iconColor" : "#000000",
+        "iconSize" : "18px"
+      },
+      "label" : "Outbox",
+      "enableLookup" : false,
+      "customUrl" : "/outbox/list",
+      "detailPagePopupWidth" : 70,
+      "outline" : false,
+      "valueChange" : true,
+      "autoFillLookup" : false,
+      "displayAsToggleSwitch" : false,
+      "hideListPageTitle" : false,
+      "element" : "menuItem"
+    } ],
+    "autoFillLookup" : false,
+    "displayAsToggleSwitch" : false,
+    "hideListPageTitle" : false,
+    "label" : "ADMIN_CONTROLS",
+    "enableLookup" : false,
+    "element" : "menuGroup"
+  } ],
+  "topBarLeft" : [ ],
+  "topBarMiddle" : [ ],
+  "topBarRight" : [ {
+    "languages" : [ {
+      "code" : "en",
+      "name" : "English"
+    } ],
+    "element" : "language"
+  } ],
+  "right" : [ ]
+}

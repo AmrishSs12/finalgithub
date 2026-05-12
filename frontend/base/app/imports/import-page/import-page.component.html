@@ -1,0 +1,125 @@
+<div class="detail imports-page ">
+    <div class="import-popup-container">
+        <div class="ev-detail-view" id="detail-view-container">
+            <div>
+                <div class="flex align-items-center justify-content-center form-container">
+
+                    <form class="ev-form " [formGroup]="importGroup" #detailForm>
+                        <div *ngIf="!fromListPage">
+                            <div class="field-row required">
+                                <label class="col-form-label" translate>Select_Table</label>
+                                <p-dropdown [options]="this.currentImpConfig" styleClass="dropdown"
+                                    optionLabel="tableName" (onChange)="selectedTable($event)"
+                                    [placeholder]="'Select_Table_Type' | translate" value="tableName" appendTo="body"  [filter]="true" #tableDropdown>
+                                </p-dropdown>
+                            </div>
+                        </div>
+
+                        <div class="field-row required" *ngIf="fromListPage || this.selectedtablename">
+                            <label class="col-form-label" translate>Template_Type</label>
+                            <p-dropdown [options]="ImportConfig" styleClass="dropdown" optionLabel="name"
+                                [autoDisplayFirst]="true" (onChange)="selectedImportType($event)" value="name"
+                                appendTo="body" [filter]="true" #templateDropdown>
+                            </p-dropdown>
+                        </div>
+
+                        <div class="field-row required">
+                            <label *ngIf="this.selectedValues.selectedImportFileType !=undefined"
+                                class="col-form-label" translate>File_Type</label>
+                            <div class="filetype-radiobtn-container">
+                                <div *ngFor="let fileType of selectedValues.selectedImportFileType"
+                                    class="filetype-checkbox">
+                                    <p-radioButton (click)="selectedFileType(fileType)" name="FileType"
+                                        [value]="fileType" formControlName="FileType"></p-radioButton>
+                                    <label translate>{{fileTypeMap.get(fileType)}}</label>
+                                </div>
+                                <div class="download-link"
+                                    *ngIf="this.selectedValues.selectedType!= '' && enableDownloadLink">
+                                    <a href="javascript:void(0)" (click)="downloadTemplate()" translate>Download_Template</a></div>
+                            </div>
+                        </div>
+                        <div>
+                            <span *ngIf="selectedValues.selectedType === 'csv'">
+                                <div class="field-row required">
+                                    <label class="col-form-label attachment-label" translate>Upload_CSV_File</label>
+                                    <p-fileUpload #csvRef accept=".csv" maxFileSize="10000000"
+                                        [showUploadButton]="false" [showCancelButton]="true"
+                                        styleClass="form-upload-control file-upload" [name]="Exe"
+                                        [chooseLabel]="'Choose' | translate"
+                                        (onRemove)="onRemoveAttachment()"
+                                        (onSelect)="onSelectattachment($event,csvRef)" [fileLimit]="1">
+                                    </p-fileUpload>
+                                </div>
+                            </span>
+                            <span *ngIf="selectedValues.selectedType === 'excel'">
+                                <div class="field-row required">
+                                    <label class="col-form-label attachment-label" translate="">Upload_Excel_File</label>
+                                    <p-fileUpload #excelRef accept=".xlsx" maxFileSize="10000000"
+                                        [showUploadButton]="false" [showCancelButton]="true"
+                                        styleClass="form-upload-control file-upload" [name]="Exe"
+                                        [chooseLabel]="'Choose' | translate"
+                                        (onRemove)="onRemoveAttachment()"
+                                        (onSelect)="onSelectattachment($event,excelRef)" [fileLimit]="1">
+
+
+                                    </p-fileUpload>
+                                </div>
+                            </span>
+                        </div>
+
+                        <div *ngIf="shouldShowRuntimeOptions()" class="field-row">
+                            <label class="col-form-label" translate>Run_Business_Rule_Events</label>
+                            <div class="runtime-rules-container">
+                              <div class="runtime-radiobtn-container">
+                                <div class="runtime-radio-option">
+                                  <p-radioButton
+                                    name="runtimeBusinessRules"
+                                    [value]="true"
+                                    formControlName="runtimeEvents"
+                                    (onClick)="onRuntimeEventsChange(true)">
+                                  </p-radioButton>
+                                  <label translate>Yes</label>
+                                </div>
+                                <div class="runtime-radio-option">
+                                  <p-radioButton
+                                    name="runtimeBusinessRules"
+                                    [value]="false"
+                                    formControlName="runtimeEvents"
+                                    (onClick)="onRuntimeEventsChange(false)">
+                                  </p-radioButton>
+                                  <label translate>No</label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                        <div *ngIf="dateformat && dateformat.length > 0" class="field-row">
+                            <label class="col-form-label" translate>Date_Format
+                                <span class="label-sub-text ml-1">({{ today | date: (importGroup?.value?.dateFormat || '') }})</span>
+                            </label>
+                            <p-dropdown [options]="dateformat" styleClass="dropdown" formControlName="dateFormat"
+                                [placeholder]="'Choose_a_Format' | translate"></p-dropdown>
+                        </div>
+                        <div *ngIf="numberformat && numberformat.length > 0" class="field-row">
+                            <label class="col-form-label" translate>Number_Format</label>
+                            <p-dropdown [options]="numberformat" styleClass="dropdown" formControlName="numberFormat"
+                                [placeholder]="'Choose_a_Format' | translate" optionLabel="displayLabel">
+                            </p-dropdown>
+                        </div>
+                        <div *ngIf="datetimeformat && datetimeformat.length > 0" class="field-row">
+                            <label class="col-form-label" translate>Date_AND_Time_Format
+                                <span class="label-sub-text ml-1">({{ today | date: (importGroup?.value?.dateTimeFormat || '') }})</span>
+                            </label>
+                            <p-dropdown [options]="datetimeformat" styleClass="dropdown"
+                                formControlName="dateTimeFormat" [placeholder]="'Choose_a_Format' | translate"></p-dropdown>
+                        </div>
+                    </form>
+                    <div class="footer">
+                        <p-button icon="pi pi-check" class="import-btn" type="submit" (onClick)="initiateImport()"
+                        [label]="'Start_Import' | translate" [disabled]="importBtndisabled"></p-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,16 @@
+name: dev-deploy
+description: dev-deploy action for the pipeline
+
+inputs:
+  CLOUD_RUN_DEFAULT_SERVICE_ACCOUNT:
+    required: true
+
+runs:
+  using: "composite"
+  
+  steps:
+  - name: Deploying image...
+    shell: sh
+    run: |
+      export CLOUDSDK_CORE_DISABLE_PROMPTS=1
+      gcloud beta run deploy finalgithub --use-http2 --service-account=${{inputs.CLOUD_RUN_DEFAULT_SERVICE_ACCOUNT}} --image=europe-west1-docker.pkg.dev/vb-eva-gen/finalgithub-repository/finalgithub --vpc-connector=eva-modeller --region=europe-west1 --platform=managed --timeout=600s --concurrency=80 --cpu-boost --no-use-http2 --allow-unauthenticated --quiet  --vpc-egress=private-ranges-only  --user-output-enabled --port=9090 --max-instances=${{inputs.MAX_INSTANCE}} --min-instances=${{inputs.MIN_INSTANCE}} --cpu=2 --memory=1Gi --set-env-vars "JAVA_TOOL_OPTIONS=-Xss256k " --execution-environment=gen2 --update-secrets=SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GOOGLE_CLIENT-ID=SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GOOGLE_CLIENT-ID:latest,SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GOOGLE_CLIENT-SECRET=SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GOOGLE_CLIENT-SECRET:latest

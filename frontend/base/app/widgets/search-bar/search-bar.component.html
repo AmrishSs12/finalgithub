@@ -1,0 +1,63 @@
+<!-- global-search -->
+<div class="col global-search">
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text show-advanced" (click)="toggleAdvancedSearch()"><i class="fa fa-search"></i><i
+                    class="fa fa-caret-down"></i></span>
+        </div>
+        <input type="text" class="form-control" pInputText [placeholder]="'SEARCH' | translate"
+            (keydown)="onKeydown($event)" [(ngModel)]="globalSearch" />
+        <div class="input-group-append">
+            <span class="input-group-text clear-filter" (click)="clearAllFilters()">
+                <i class="fa fa-filter"></i>
+                <i class="fa fa-times"></i>
+            </span>
+        </div>
+    </div>
+</div>
+
+<!-- Advanced search -->
+
+<div class="advanced-search" *ngIf="showAdvancedSearch">
+    <h5 class="pl-3 pr-3 pt-0 adv-search-header">Advanced Search</h5>
+
+    <form [formGroup]="searchForm" (ngSubmit)="advancedSearch()">
+        <div class="row">
+            <div class="col-md-4" *ngFor="let item of searchConfig">
+                <label for="{{item.label}}" class="block" [textContent]="item.label"></label>
+                <div [ngSwitch]="item.type">
+
+                    <div class="p-1" *ngSwitchCase="'text'">
+                        <input type="text" pInputText formControlName="{{item.label}}">
+                    </div>
+
+                    <div class="p-1" *ngSwitchCase="'textarea'">
+                        <textarea pInputTextarea formControlName="{{item.label}}"></textarea>
+                    </div>
+
+                    <div class="p-1" *ngSwitchCase="'number'">
+                        <p-inputNumber formControlName="{{item.label}}"></p-inputNumber>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row search-actions">
+            <div class="col">
+                <button class="btn btn-secondary btn-sm" (click)="clearAllFilters()">Clear
+                    Filter</button>
+            </div>
+
+            <div class="col text-right">
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-secondary btn-sm"
+                        (click)="toggleAdvancedSearch()">Cancel</button>
+                    <button type="submit" class="btn btn-primary btn-sm">Search</button>
+                </div>
+            </div>
+
+        </div>
+
+    </form>
+
+</div>

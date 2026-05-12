@@ -1,0 +1,20 @@
+.save-changes-dialog-content {
+  padding: 0;
+}
+
+.dialog-message {
+  padding-bottom: 1.5rem;
+}
+
+.message-text {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+}
+
+.dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}

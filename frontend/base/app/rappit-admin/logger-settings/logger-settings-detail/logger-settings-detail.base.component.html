@@ -1,0 +1,177 @@
+<div class="detail logger-settings">
+    <div id="title-bar">
+        <div class="display">
+            <div class="col" class="page-title-bar">
+                <span class="page-title" [innerHTML]="pageViewTitle | translate"></span>
+            </div>
+        </div>
+    </div>
+    <div class="ev-detail-view" id="detail-view-container">
+        <div class="detail-flex-box">
+            <div class="flex align-items-center justify-content-center form-container" *ngIf="showForm">
+                <form class="ev-form " [formGroup]="detailFormControls" #detailForm
+                    [ngClass]="{'read-only-fields':enableReadOnly,  'read-only-form':!tableaccess}">
+                    <div class="row form-body">
+                        <div class="form-row vg-col-2">
+                            <div class="col-12 col-lg-6 SECTION_1_class" id="sectionSECTION_1">
+                                <div class="form-section {{ true ? 'hidden-section':' '}}">
+                                    <h5 class="header" *ngIf="!true" [innerHTML]="'Section_1'|translate"></h5>
+                                    <div class="form-row  vg-col-1">
+                                        <div class="form-col" [hidden]="hiddenFields.packageName" id="packageName">
+                                            <div class="field-row"
+                                                [ngClass]="{'required': formFieldConfig?.packageName?.isRequired, 'error':inValidFields.packageName}">
+                                                <label for="packageName" class="col-form-label packageName-label"
+                                                    [textContent]="'Package_Name'|translate"></label>
+                                                <span class="info-bubble"
+                                                    *ngIf="formFieldConfig?.packageName?.infoBubble"
+                                                    [pTooltip]="(formFieldConfig?.packageName?.infoBubble|translate) || ''"><i
+                                                        class="fa fa-circle-info"></i></span>
+                                                <p-dropdown [options]="formFieldConfig.packageName?.options"
+                                                    formControlName="packageName" [showClear]="true" [editable]="true"
+                                                    optionLabel="value" optionValue="label"
+                                                    [placeholder]="(formFieldConfig?.packageName?.placeHolder|translate) || (translateService.instant('Select'))"
+                                                    styleClass="dropdown" appendTo="body"
+                                                    [ngClass]="{'dropdown-disabled': getDisabled(detailFormControls,'packageName')}">
+                                                    <ng-template pTemplate="selectedItem">
+                                                        <ng-template #packageNameSelectedRef let-conditions="conditions"
+                                                            let-option="option">
+                                                            <div class="selected-item"
+                                                                [ngStyle]="conditions?.cellStyle">
+                                                                <img [src]="conditions?.image" class="img"
+                                                                    *ngIf="conditions?.image" />
+                                                                <span *ngIf="conditions?.iconClass" class="icon"
+                                                                    [ngStyle]="conditions?.iconStyle">
+                                                                    <i [ngClass]="conditions?.iconClass"></i>
+
+                                                                </span>
+                                                                <div class="value"
+                                                                    *ngIf="!conditions || (conditions && conditions?.showText)">
+                                                                    {{option.label| translate}}</div>
+                                                            </div>
+                                                        </ng-template>
+                                                        <ng-container
+                                                            *ngIf="getValue(detailFormControls,'packageName'); let selected;">
+                                                            <ng-template
+                                                                *ngTemplateOutlet="packageNameSelectedRef;context:{conditions :formFieldConfig.packageName?.optionConditions?.[(getSelectedObject(selected,formFieldConfig.packageName?.options)).value], option:(getSelectedObject(selected,formFieldConfig.packageName?.options))}"></ng-template>
+                                                        </ng-container>
+                                                    </ng-template>
+
+                                                    <ng-template let-dropdownItem pTemplate="item">
+                                                        <ng-template #packageNameListRef let-conditions="conditions"
+                                                            let-option="option">
+                                                            <div class="select-list-item"
+                                                                [ngStyle]="conditions?.cellStyle">
+                                                                <img [src]="conditions?.image" class="list-image"
+                                                                    *ngIf="conditions?.image" />
+                                                                <span *ngIf="conditions?.iconClass"
+                                                                    [ngStyle]="conditions?.iconStyle">
+                                                                    <i [ngClass]="conditions?.iconClass"></i>
+
+                                                                </span>
+                                                                <div
+                                                                    *ngIf="!conditions || (conditions && conditions?.showText)">
+                                                                    {{option.label| translate}}</div>
+                                                            </div>
+                                                        </ng-template>
+
+                                                        <ng-container>
+                                                            <ng-template
+                                                                *ngTemplateOutlet="packageNameListRef;context:{conditions :formFieldConfig.packageName?.optionConditions?.[dropdownItem.value], option:dropdownItem}"></ng-template>
+                                                        </ng-container>
+                                                    </ng-template>
+                                                </p-dropdown>
+                                                <div class="fst-italic fs-5 help-text">
+                                                    {{(formFieldConfig?.packageName?.helpText|translate) || ''}}</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-col" [hidden]="hiddenFields.loggingLevel" id="loggingLevel">
+                                            <div class="field-row"
+                                                [ngClass]="{'required': formFieldConfig?.loggingLevel?.isRequired, 'error':inValidFields.loggingLevel}">
+                                                <label for="loggingLevel" class="col-form-label loggingLevel-label"
+                                                    [textContent]="'Logging_Level'|translate"></label>
+                                                <span class="info-bubble"
+                                                    *ngIf="formFieldConfig?.loggingLevel?.infoBubble"
+                                                    [pTooltip]="(formFieldConfig?.loggingLevel?.infoBubble|translate) || ''"><i
+                                                        class="fa fa-circle-info"></i></span>
+                                                <p-dropdown [options]="formFieldConfig.loggingLevel?.options"
+                                                    formControlName="loggingLevel" [showClear]="true"
+                                                    optionLabel="value" optionValue="label"
+                                                    [placeholder]="(formFieldConfig?.loggingLevel?.placeHolder|translate) || (translateService.instant('Select'))"
+                                                    styleClass="dropdown" appendTo="body"
+                                                    [ngClass]="{'dropdown-disabled': getDisabled(detailFormControls,'loggingLevel')}">
+                                                    <ng-template pTemplate="selectedItem">
+                                                        <ng-template #loggingLevelSelectedRef
+                                                            let-conditions="conditions" let-option="option">
+                                                            <div class="selected-item"
+                                                                [ngStyle]="conditions?.cellStyle">
+                                                                <img [src]="conditions?.image" class="img"
+                                                                    *ngIf="conditions?.image" />
+                                                                <span *ngIf="conditions?.iconClass" class="icon"
+                                                                    [ngStyle]="conditions?.iconStyle">
+                                                                    <i [ngClass]="conditions?.iconClass"></i>
+
+                                                                </span>
+                                                                <div class="value"
+                                                                    *ngIf="!conditions || (conditions && conditions?.showText)">
+                                                                    {{option.label| translate}}</div>
+                                                            </div>
+                                                        </ng-template>
+                                                        <ng-container
+                                                            *ngIf="getValue(detailFormControls,'loggingLevel'); let selected;">
+                                                            <ng-template
+                                                                *ngTemplateOutlet="loggingLevelSelectedRef;context:{conditions :formFieldConfig.loggingLevel?.optionConditions?.[(getSelectedObject(selected,formFieldConfig.loggingLevel?.options)).value], option:(getSelectedObject(selected,formFieldConfig.loggingLevel?.options))}"></ng-template>
+                                                        </ng-container>
+                                                    </ng-template>
+
+                                                    <ng-template let-dropdownItem pTemplate="item">
+                                                        <ng-template #loggingLevelListRef let-conditions="conditions"
+                                                            let-option="option">
+                                                            <div class="select-list-item"
+                                                                [ngStyle]="conditions?.cellStyle">
+                                                                <img [src]="conditions?.image" class="list-image"
+                                                                    *ngIf="conditions?.image" />
+                                                                <span *ngIf="conditions?.iconClass"
+                                                                    [ngStyle]="conditions?.iconStyle">
+                                                                    <i [ngClass]="conditions?.iconClass"></i>
+
+                                                                </span>
+                                                                <div
+                                                                    *ngIf="!conditions || (conditions && conditions?.showText)">
+                                                                    {{option.label| translate}}</div>
+                                                            </div>
+                                                        </ng-template>
+
+                                                        <ng-container>
+                                                            <ng-template
+                                                                *ngTemplateOutlet="loggingLevelListRef;context:{conditions :formFieldConfig.loggingLevel?.optionConditions?.[dropdownItem.value], option:dropdownItem}"></ng-template>
+                                                        </ng-container>
+                                                    </ng-template>
+                                                </p-dropdown>
+                                                <div class="fst-italic fs-5 help-text">
+                                                    {{(formFieldConfig?.loggingLevel?.helpText|translate) || ''}}</div>
+                                            </div>
+                                        </div>
+                                        <span class="form-col ev-action-bar action-bar submit" [hidden]="hiddenFields?.submit">
+                                            <span
+                                                class="curved  {{formFieldConfig?.submit.outline?'outlined':''}} default-btn {{formFieldConfig.submit.buttonStyle}}">
+                                                <p-button
+                                                    [label]="(formFieldConfig?.submit.buttonType !=='icon_only') ? (formFieldConfig?.submit.label | translate):''"
+                                                    id="{{formFieldConfig?.submit.label}}"
+                                                    styleClass="{{formFieldConfig?.submit.buttonStyle}}" class=""
+                                                    [disabled]="(formFieldConfig?.submit.buttonEnabled ==='no')"
+                                                    (onClick)="onSubmitAction($event, formFieldConfig?.submit)"
+                                                    [pTooltip]="formFieldConfig?.submit.tooltipMessage"
+                                                    tooltipPosition="top">
+                                                </p-button>
+                                            </span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

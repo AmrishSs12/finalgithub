@@ -1,0 +1,84 @@
+<div class="paginator paginator-top p-mb-3">
+    <ng-container *ngTemplateOutlet="paginator">
+    </ng-container>
+</div>
+<div>
+    <p-table [value]="gridData" dataKey="sid" [scrollable]="true" scrollHeight="flex" [paginator]="false"
+        [rows]="params.length" [showCurrentPageReport]="true" [(first)]="first" [lazy]="true" rowHover="true"
+        responsive="true" responsiveLayout="scroll">
+        <ng-template pTemplate="header">
+            <tr>
+                <th scope="col" class="overflow-hidden">
+                    <span [innerHTML]="'STEP'| translate"></span>
+                </th>
+                <th scope="col" class="overflow-hidden">
+                    <span [innerHTML]="'ACTION'| translate"></span>
+                </th>
+                <th scope="col" class="overflow-hidden">
+                    <span [innerHTML]="'ACTOR'| translate"></span>
+                </th>
+                <th scope="col" class="overflow-hidden">
+                    <span [innerHTML]="'ACTION_ON'| translate"></span>
+                </th>
+                <th scope="col" class="overflow-hidden">
+                    <span [innerHTML]="'NEXT_STEP'| translate"></span>
+                </th>
+                <th scope="col" class="overflow-hidden">
+                    <span [innerHTML]="'NEXT_ACTOR'| translate"></span>
+                </th>
+                <th scope="col" class="overflow-hidden">
+                    <span [innerHTML]="'COMMENTS'| translate"></span>
+                </th>
+
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-data let-rowIndex="rowIndex" let-rowgroup="rowgroup" let-rowspan="rowspan"
+            let-rowData="rowData">
+            <tr class="medium border-box margin-md">
+                <td class="fromStep  overflow-hidden" tooltipActive>
+                    <span [innerHTML]="data['fromStep']|translate" class="ellipsis white-space-nowrap"></span>
+                </td>
+                <td class="action  overflow-hidden" tooltipActive>
+                    <span [innerHTML]="data['action']|translate" class="ellipsis white-space-nowrap"></span>
+                </td>
+                <td class="actionBy  overflow-hidden" tooltipActive>
+                    <span [innerHTML]="data['actionBy']" class="ellipsis white-space-nowrap"></span>
+                </td>
+                <td class="actionOn  overflow-hidden" tooltipActive>
+                    <span [innerHTML]="data['actionOn']|date" class="ellipsis white-space-nowrap"></span>
+                </td>
+                <td class="toStep  overflow-hidden" tooltipActive>
+                    <span [innerHTML]="data['toStep']|translate" class="ellipsis white-space-nowrap"></span>
+                </td>
+                <td class="nextActor  overflow-hidden" tooltipActive>
+                    <span [innerHTML]="data['nextActor']" class="ellipsis white-space-nowrap"></span>
+                </td>
+                <td class="commets  overflow-hidden" tooltipActive>
+                    <span [innerHTML]="data['comments']" class="ellipsis white-space-nowrap"></span>
+                </td>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="emptymessage">
+            <tr class="no-records" *ngIf="!isPageLoading">
+                <td colspan="5" [innerHTML]="'No records found'">
+                </td>
+            </tr>
+        </ng-template>
+
+    </p-table>
+</div>
+
+<ng-template #paginator>
+    <div class="paginator-label" [ngClass]="{'pagination-record-label':gridData.length < params.length}"> Showing
+        {{gridData.length > 0 ? first + 1: first}} to {{first + gridData.length}} </div>
+    <span *ngIf="updatedRecords.length >= params.length ">
+        <p-button type="button" icon="pi pi-angle-double-left" (onClick)="onRefresh()" [disabled]=" this.first === 0"
+            styleClass="p-button-text"></p-button>
+        <p-button type="button" icon="pi pi-angle-left" (onClick)="prev()" [disabled]="this.first === 0"
+            styleClass="p-button-text"></p-button>
+        <p-button type="button" icon="pi pi-refresh" (onClick)="onRefresh()" styleClass="p-button-text"></p-button>
+        <p-button type="button" icon="pi pi-angle-right" (onClick)="next()"
+            [disabled]="((first + rows) > updatedRecords.length)" styleClass="p-button-text"></p-button>
+    </span>
+</ng-template>

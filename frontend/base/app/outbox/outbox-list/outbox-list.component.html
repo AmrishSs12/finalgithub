@@ -1,0 +1,299 @@
+<div class="list outbox-list">
+    <div class="w-100" *ngIf="showBreadcrumb">
+        <app-breadcrumb></app-breadcrumb>
+    </div>
+    <div id="title-bar">
+        <div class="display">
+            <div class="col page-title-bar" *ngIf="(isMobile && !isSearchFocused) || !isMobile">
+                <span class="page-title" [innerHTML]="pageViewTitle | translate"></span>
+            </div>
+            <app-action-bar [buttons]="leftActionBarConfig.children" (onBtnClick)='actionBarAction($event)'
+                [style.order]="isMobile?'1':'0'" actionBarName="leftActionBar"
+                [isRowSelected]="isRowSelected" [isChildListpage]="isChildPage"
+                [isListPage]="isList" [detailConditionalButtons]="conditionalActions">
+            </app-action-bar>
+            <app-action-bar [buttons]="rightActionBarConfig.children" (onBtnClick)='actionBarAction($event)'
+                [style.order]="isMobile?'1':'0'" actionBarName="rightActionBar"
+                [isRowSelected]="isRowSelected" [isChildListpage]="isChildPage"
+                [isListPage]="isList" [detailConditionalButtons]="conditionalActions">
+            </app-action-bar>
+            <div class="p-0" id="search-container" [ngStyle]="{'width':isMobile && isSearchFocused? '100%':'50%' }"
+                [ngClass]="{ 'show-advanced-search':(showAdvancedSearch ||  filter.globalSearch)}">
+                <div class="col global-search p-3">
+                    <div class="input-group" [ngClass]="{ 'highlightSearch': filter.globalSearch }">
+                        <div class="input-group-prepend global-search-magnifier">
+                            <span class="input-group-text show-advanced">
+                                <span class="pi pi-search icon-font"></span>
+                            </span>
+                        </div>
+                        <span class="input-container">
+                            <input type="text" class="form-control global-search-input" pInputText
+                                [placeholder]="'Search' | translate" (keydown)="onKeydown($event)"
+                                [(ngModel)]="filter.globalSearch" [title]="filter.globalSearch" id="inputField"/>
+                        </span>
+                        <span class="p-inputgroup-addon searchCloseIcon" *ngIf="filter.globalSearch"
+                            (click)="clearGlobalSearch()"><i class="pi pi-times"></i></span>
+                        <div class="input-group-append d-flex justify-content-end advancedSearch-only"
+                            *ngIf="(tableSearchConfig.showAdvancedSearch && tableSearchConfig?.children?.length > 0)">
+                            <span (click)="toggleAdvancedSearch()" class="advancedsearch-icon" #toggleButton>
+                                <span class="icon-filter">
+                                    <svg class="filter-icon">
+                                        <use xlink:href="assets/images/filter.svg#filter-button"></use>
+                                    </svg>
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="advanced-search ev-detail-view"
+                    *ngIf="(tableSearchConfig.showAdvancedSearch && showAdvancedSearch && tableSearchConfig?.children?.length > 0)" #menu>
+                    <span class="pr-3 pt-0 adv-search-header" [innerHTML]="'Advanced_Search'| translate"></span>
+                    <span style="float:right" class="cursor-pointer"><i class="pi pi-times"
+                            (click)="toggleAdvancedSearch()"></i></span>
+                    <form [formGroup]="tableSearchControls" (ngSubmit)="this.filter.globalSearch = '';advancedSearch()" class="ev-form">
+                        <div class="row form-body">
+                            <div class="form-row vg-col-2">
+                                <!-- Entity Type -->
+                                <div class="form-col" [hidden]="hiddenFields.entityType" id="entityType">
+                                    <div class="field-row"
+                                        [ngClass]="{'required': tableSearchFieldConfig?.entityType?.isRequired, 'error':inValidFields.entityType}">
+                                        <label for="entityType" class="col-form-label entityType-label"
+                                            [textContent]="'Entity_Type'|translate"></label>
+                                        <input type="text" pInputText class="form-control" formControlName="entityType"
+                                            [placeholder]="tableSearchFieldConfig?.entityType?.placeHolder || ''"
+                                            [maxlength]="tableSearchFieldConfig?.entityType?.maxLength" />
+                                    </div>
+                                </div>
+                                <!-- Entity ID -->
+                                <div class="form-col" [hidden]="hiddenFields.entityId" id="entityId">
+                                    <div class="field-row"
+                                        [ngClass]="{'required': tableSearchFieldConfig?.entityId?.isRequired, 'error':inValidFields.entityId}">
+                                        <label for="entityId" class="col-form-label entityId-label"
+                                            [textContent]="'Entity_ID'|translate"></label>
+                                        <input type="text" pInputText class="form-control" formControlName="entityId"
+                                            [placeholder]="tableSearchFieldConfig?.entityId?.placeHolder || ''"
+                                            [maxlength]="tableSearchFieldConfig?.entityId?.maxLength" />
+                                    </div>
+                                </div>
+                                <!-- Target -->
+                                <div class="form-col" [hidden]="hiddenFields.target" id="target">
+                                    <div class="field-row"
+                                        [ngClass]="{'required': tableSearchFieldConfig?.target?.isRequired, 'error':inValidFields.target}">
+                                        <label for="target" class="col-form-label target-label"
+                                            [textContent]="'Target'|translate"></label>
+                                        <p-multiSelect [options]="tableSearchFieldConfig.target?.options"
+                                            formControlName="target" optionLabel="label" [filter]="false"
+                                            [showToggleAll]="false"
+                                            [showClear]="(tableSearchControls.controls.target?.value?.length > 0) ? true : false"
+                                            [placeholder]="tableSearchFieldConfig?.target?.placeHolder || 'Select'"
+                                            [disabled]="getDisabled(tableSearchControls,'target')"
+                                            styleClass="dropdown" optionValue="value" appendTo="body">
+                                        </p-multiSelect>
+                                    </div>
+                                </div>
+                                <!-- Status -->
+                                <div class="form-col" [hidden]="hiddenFields.status" id="status">
+                                    <div class="field-row"
+                                        [ngClass]="{'required': tableSearchFieldConfig?.status?.isRequired, 'error':inValidFields.status}">
+                                        <label for="status" class="col-form-label status-label"
+                                            [textContent]="'Status'|translate"></label>
+                                        <p-multiSelect [options]="tableSearchFieldConfig.status?.options"
+                                            formControlName="status" optionLabel="label" [filter]="false"
+                                            [showToggleAll]="false"
+                                            [showClear]="(tableSearchControls.controls.status?.value?.length > 0) ? true : false"
+                                            [placeholder]="tableSearchFieldConfig?.status?.placeHolder || 'Select'"
+                                            [disabled]="getDisabled(tableSearchControls,'status')"
+                                            styleClass="dropdown" optionValue="value" appendTo="body">
+                                        </p-multiSelect>
+                                    </div>
+                                </div>
+                                <!-- Event Type -->
+                                <div class="form-col" [hidden]="hiddenFields.eventType" id="eventType">
+                                    <div class="field-row"
+                                        [ngClass]="{'required': tableSearchFieldConfig?.eventType?.isRequired, 'error':inValidFields.eventType}">
+                                        <label for="eventType" class="col-form-label eventType-label"
+                                            [textContent]="'Event_Type'|translate"></label>
+                                        <p-multiSelect [options]="tableSearchFieldConfig.eventType?.options"
+                                            formControlName="eventType" optionLabel="label" [filter]="false"
+                                            [showToggleAll]="false"
+                                            [showClear]="(tableSearchControls.controls.eventType?.value?.length > 0) ? true : false"
+                                            [placeholder]="tableSearchFieldConfig?.eventType?.placeHolder || 'Select'"
+                                            [disabled]="getDisabled(tableSearchControls,'eventType')"
+                                            styleClass="dropdown" optionValue="value" appendTo="body">
+                                        </p-multiSelect>
+                                    </div>
+                                </div>
+                                <!-- Created Date -->
+                                <div class="form-col" [hidden]="hiddenFields.createdDate" id="createdDate">
+                                    <div class="field-row"
+                                        [ngClass]="{'required': tableSearchFieldConfig?.createdDate?.isRequired, 'error':inValidFields.createdDate}">
+                                        <label for="createdDate" class="col-form-label dateTime-label createdDate-label"
+                                            [textContent]="'Created_At'|translate"></label>
+                                        <p-calendar showButtonBar="true" class="form-input w-100"
+                                            formControlName="createdDate" [showIcon]="true"
+                                            inputId="datetimerangepicker" [showTime]="true" selectionMode="range"
+                                            [minDate]="tableSearchFieldConfig?.createdDate?.calendarMinDate"
+                                            [maxDate]="tableSearchFieldConfig?.createdDate?.calendarMaxDate"
+                                            appendTo="body"
+                                            [placeholder]="tableSearchFieldConfig?.createdDate?.placeHolder || ''"
+                                            [dateFormat]="dateFormat"></p-calendar>
+                                    </div>
+                                </div>
+                                <!-- Created By -->
+                                <div class="form-col" [hidden]="hiddenFields.createdBy" id="createdBy">
+                                    <div class="field-row"
+                                        [ngClass]="{'required': tableSearchFieldConfig?.createdBy?.isRequired, 'error':inValidFields.createdBy}">
+                                        <label for="createdBy" class="col-form-label createdBy-label"
+                                            [textContent]="'Created_By'|translate"></label>
+                                        <input type="text" pInputText class="form-control" formControlName="createdBy"
+                                            [placeholder]="tableSearchFieldConfig?.createdBy?.placeHolder || ''"
+                                            [maxlength]="tableSearchFieldConfig?.createdBy?.maxLength" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="search-actions">
+                            <div>
+                                <button type="button" class="btn btn-secondary search-btn" (click)="clearFilterValues()">{{'Clear_Filter' | translate}}</button>
+                            </div>
+                            <div>
+                                <div class="btn-group mr-0" role="group">
+                                    <button type="button" class="btn btn-secondary search-btn"
+                                        (click)="toggleAdvancedSearch()">{{'Cancel'| translate}}</button>
+                                    <button type="submit" class="btn btn-primary search-btn">{{'Search'| translate}}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Statistics Cards -->
+    <div class="outbox-dashboard" *ngIf="dashboardStats">
+        <div class="stats-row">
+            <div class="stat-card pending clickable" [class.active]="activeStatusFilter === 'PENDING'" 
+                 tabindex="0" role="button" [attr.aria-pressed]="activeStatusFilter === 'PENDING'"
+                 (click)="filterByStatus('PENDING')" (keydown.enter)="filterByStatus('PENDING')">
+                <div class="stat-icon"><i class="fa fa-clock" aria-hidden="true"></i></div>
+                <div class="stat-content">
+                    <span class="stat-value">{{dashboardStats.statusCounts?.PENDING || 0}}</span>
+                    <span class="stat-label">{{'Pending' | translate}}</span>
+                </div>
+            </div>
+            <div class="stat-card processing clickable" [class.active]="activeStatusFilter === 'PROCESSING'" 
+                 tabindex="0" role="button" [attr.aria-pressed]="activeStatusFilter === 'PROCESSING'"
+                 (click)="filterByStatus('PROCESSING')" (keydown.enter)="filterByStatus('PROCESSING')">
+                <div class="stat-icon"><i class="fa fa-spinner" [class.fa-spin]="dashboardStats.statusCounts?.PROCESSING > 0" aria-hidden="true"></i></div>
+                <div class="stat-content">
+                    <span class="stat-value">{{dashboardStats.statusCounts?.PROCESSING || 0}}</span>
+                    <span class="stat-label">{{'Processing' | translate}}</span>
+                </div>
+            </div>
+            <div class="stat-card completed clickable" [class.active]="activeStatusFilter === 'COMPLETED'" 
+                 tabindex="0" role="button" [attr.aria-pressed]="activeStatusFilter === 'COMPLETED'"
+                 (click)="filterByStatus('COMPLETED')" (keydown.enter)="filterByStatus('COMPLETED')">
+                <div class="stat-icon"><i class="fa fa-check-circle" aria-hidden="true"></i></div>
+                <div class="stat-content">
+                    <span class="stat-value">{{dashboardStats.statusCounts?.COMPLETED || 0}}</span>
+                    <span class="stat-label">{{'Completed' | translate}}</span>
+                </div>
+            </div>
+            <div class="stat-card failed clickable" [class.active]="activeStatusFilter === 'FAILED'" 
+                 tabindex="0" role="button" [attr.aria-pressed]="activeStatusFilter === 'FAILED'"
+                 (click)="filterByStatus('FAILED')" (keydown.enter)="filterByStatus('FAILED')">
+                <div class="stat-icon"><i class="fa fa-times-circle" aria-hidden="true"></i></div>
+                <div class="stat-content">
+                    <span class="stat-value">{{dashboardStats.statusCounts?.FAILED || 0}}</span>
+                    <span class="stat-label">{{'Failed' | translate}}</span>
+                </div>
+            </div>
+            <div class="stat-card recent-failed clickable" [class.active]="activeStatusFilter === 'RECENT_FAILED'" 
+                 tabindex="0" role="button" [attr.aria-pressed]="activeStatusFilter === 'RECENT_FAILED'"
+                 (click)="filterByRecentFailed()" (keydown.enter)="filterByRecentFailed()">
+                <div class="stat-icon"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></div>
+                <div class="stat-content">
+                    <span class="stat-value">{{dashboardStats.recentFailedCount || 0}}</span>
+                    <span class="stat-label">{{'FAILED_LAST_24H' | translate}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Grid Component -->
+    <app-grid [gridConfig]="gridConfig" *ngIf="gridConfig && (gridConfig | keyvalue).length > 0"
+        class="{{tableConfig.tableStyle}}"></app-grid>
+
+    <!-- Payload Detail Dialog -->
+    <p-dialog header="{{'Payload_Details' | translate}}" [(visible)]="displayPayloadDetail" 
+        [modal]="true" [style]="{width: '80vw', maxHeight: '80vh'}" 
+        [draggable]="false" [resizable]="false" (onHide)="onClosePayloadDetail()">
+        <div class="payload-detail-content" *ngIf="selectedOutbox">
+            <div class="detail-row">
+                <label>{{'Outbox_ID' | translate}}:</label>
+                <span>{{selectedOutbox.outboxId}}</span>
+            </div>
+            <div class="detail-row">
+                <label>{{'Entity_Type' | translate}}:</label>
+                <span>{{selectedOutbox.entityType}}</span>
+            </div>
+            <div class="detail-row">
+                <label>{{'Entity_ID' | translate}}:</label>
+                <span>{{selectedOutbox.entityId}}</span>
+            </div>
+            <div class="detail-row">
+                <label>{{'Event_Type' | translate}}:</label>
+                <span>{{selectedOutbox.eventType}}</span>
+            </div>
+            <div class="detail-row">
+                <label>{{'Target' | translate}}:</label>
+                <span>{{selectedOutbox.target}}</span>
+            </div>
+            <div class="detail-row">
+                <label>{{'Status' | translate}}:</label>
+                <span class="status-badge {{selectedOutbox.status}}">{{selectedOutbox.status}}</span>
+            </div>
+            <div class="detail-row" *ngIf="selectedOutbox.errorMessage">
+                <label>{{'Error_Message' | translate}}:</label>
+                <span class="error-text">{{selectedOutbox.errorMessage}}</span>
+            </div>
+            <div class="detail-row">
+                <label>{{'Retry_Count' | translate}}:</label>
+                <span>{{selectedOutbox.retryCount || 0}}</span>
+            </div>
+            <div class="detail-row payload-row">
+                <label>{{'Payload' | translate}}:</label>
+                <pre class="payload-json">{{selectedOutbox.payload | json}}</pre>
+            </div>
+        </div>
+        <ng-template pTemplate="footer">
+            <button pButton type="button" [label]="'Close' | translate" 
+                class="p-button-text" (click)="onClosePayloadDetail()"></button>
+            <button pButton type="button" [label]="'Retry_This_Entry' | translate" 
+                class="p-button" *ngIf="selectedOutbox?.status === 'FAILED'"
+                (click)="selectedOutboxIds = [selectedOutbox!.outboxId]; onRetrySelected()"></button>
+        </ng-template>
+    </p-dialog>
+
+    <!-- Cell templates for grid column rendering -->
+    <ng-template #errorCellTemplate let-data>
+        <span class="error_message cursor-pointer" [attr.title]="data.fullText">{{data.truncated}}</span>
+    </ng-template>
+    <ng-template #errorEmptyCellTemplate>
+        <span class="no_error">-</span>
+    </ng-template>
+    <ng-template #statusCellTemplate let-data>
+        <span class="conditional conditional-container ellipsis white-space-nowrap {{data.status}}">
+            <span align="center" style="display:block;">{{data.label}}</span>
+        </span>
+    </ng-template>
+    <ng-template #entityIdCellTemplate let-data>
+        <span class="ellipsis">{{data.truncated}}</span>
+    </ng-template>
+    <ng-template #entityIdEmptyCellTemplate>
+        <span>-</span>
+    </ng-template>
+</div>

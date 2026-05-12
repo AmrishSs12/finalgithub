@@ -1,0 +1,74 @@
+@import "../../../../src/sass/variables";
+@import "../../../sass-base/_base-variables.scss";
+
+  ::ng-deep .custom-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    min-width: 150px;
+  }
+  
+  ::ng-deep .custom-menu li {
+    padding: 0.5rem 1rem;
+    margin: 0;
+    cursor: pointer;
+    border: none;
+    background-color: #ffff;
+    transition: background-color 0.2s ease-in-out;
+    font-size: 14px;
+    border-radius: 4px;
+  }
+  
+  ::ng-deep .custom-menu li:hover {
+    background-color: #f0f0f0;
+    color: $primary-color;
+  }
+
+  #search-container .input-group {
+    display: flex;
+    justify-content : flex-start;
+    flex-wrap: nowrap;
+}
+::ng-deep {
+  .table-action-btn {
+    min-width: auto !important;
+    max-width: 120px;
+    width: auto !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0.25rem 0.75rem;
+  }
+
+  .table-action-btn .p-button-label {
+    display: inline-block;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+  }
+  .due-date-field.overdue {
+    color: #ff4500;
+    font-weight: 400;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+  }
+}
+.radio-option{
+  margin-right: 15px;
+  color: $ternary-color;
+  font-size: 1.2rem;
+}
+  
+.rwf-action-buttons {
+  .p-button {
+    margin-right: 0.5rem;
+  }
+}
+
+.advanced-search,
+.form-body {
+  overflow: visible !important;
+}

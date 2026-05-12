@@ -1,0 +1,101 @@
+@import "../../../sass-base/base-variables";
+
+.login-container{
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.signin-card {
+  max-width: 400px;
+  width: 370px;
+  height: 260px;
+  margin: 3rem auto;
+  padding: 2rem 3rem;
+  border-radius: 5px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  background: #fff;
+  text-align: center;
+  height: auto;
+}
+
+.title {
+  font-size: 2.4rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.sub-title{
+  font-size: $secondary-font-size;
+  font-weight: 400;
+  margin-bottom: 2.5rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+label {
+  font-size: $secondary-font-size;
+  margin-bottom: 0.3rem;
+  color: #374151;
+}
+
+input[pInputText] {
+  width: 100%;
+  padding: 0.6rem;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+}
+
+:host ::ng-deep{
+  .continue-btn {
+    width: 100%;
+    .p-button{
+      width: 100%;
+      color: #fff;
+      background-color: #3b82f6 !important;
+      border: none;
+      font-size: $secondary-font-size;
+      font-weight: $primary-font-weight-1;
+      padding: 0.75rem;
+      border-radius: 6px;
+    }
+  }
+  .continue-btn:hover {
+    .p-button{
+      background-color: #2563eb !important;
+    }
+  }
+}
+
+
+.project-link {
+  display: inline-block;
+  margin-top: 1.3rem;
+  font-size: $secondary-font-size;
+  color: #3b82f6;
+  text-decoration: none;
+}
+
+.project-link:hover {
+  text-decoration: underline;
+}
+
+.success-card .icon-circle {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin: 1rem auto;
+  background-color: #22c55e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

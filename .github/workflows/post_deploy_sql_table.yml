@@ -1,0 +1,88 @@
+name: SQL Table creation script
+on: workflow_dispatch
+
+jobs:
+  prod-sql_table_creation:
+    if: contains(github.ref, 'master')
+    environment: prod
+    runs-on: ubuntu-latest
+    container: google/cloud-sdk:alpine
+
+    steps:
+    - name: SQL Table creation script
+      run: |
+        apk add curl
+        echo "[*] Started creating SQL script..."
+        export CLOUDSDK_CORE_DISABLE_PROMPTS=1
+        echo '${{ secrets.SERVICE_ACCOUNT_KEYFILE_JSON }}' > client-secret.json
+        gcloud auth activate-service-account --key-file client-secret.json
+        gcloud config set project vb-eva-gen
+        cloud_run_url=$(gcloud run services describe finalgithub --platform managed --region europe-west1 --format 'value(status.url)')
+        echo "[*] Cloud Run url : ${cloud_run_url}"
+        echo "[*] Triggering the API to create SQL table creation script..."
+        curl -X POST "${cloud_run_url}/rest/rdbms/generatesqlscript" --fail-with-body
+        echo "[*] SQL script created successfully"
+
+  dev-sql_table_creation:
+    if: contains(github.ref, 'development')
+    environment: dev
+    runs-on: ubuntu-latest
+    container: google/cloud-sdk:alpine
+
+    steps:
+    - name: SQL Table creation script
+      run: |
+        apk add curl
+        echo "[*] Started creating SQL script..."
+        export CLOUDSDK_CORE_DISABLE_PROMPTS=1
+        echo '${{ secrets.SERVICE_ACCOUNT_KEYFILE_JSON }}' > client-secret.json
+        gcloud auth activate-service-account --key-file client-secret.json
+        gcloud config set project vb-eva-gen
+        cloud_run_url=$(gcloud run services describe finalgithub --platform managed --region europe-west1 --format 'value(status.url)')
+        echo "[*] Cloud Run url : ${cloud_run_url}"
+        echo "[*] Triggering the API to create SQL table creation script..."
+        curl -X POST "${cloud_run_url}/rest/rdbms/generatesqlscript" --fail-with-body
+        echo "[*] SQL script created successfully"
+
+  test-sql_table_creation:
+    if: contains(github.ref, 'release')
+    environment: test
+    runs-on: ubuntu-latest
+    container: google/cloud-sdk:alpine
+
+    steps:
+    - name: SQL Table creation script
+      run: |
+        apk add curl
+        echo "[*] Started creating SQL script..."
+        export CLOUDSDK_CORE_DISABLE_PROMPTS=1
+        echo '${{ secrets.SERVICE_ACCOUNT_KEYFILE_JSON }}' > client-secret.json
+        gcloud auth activate-service-account --key-file client-secret.json
+        gcloud config set project vb-eva-gen
+        cloud_run_url=$(gcloud run services describe finalgithub --platform managed --region europe-west1 --format 'value(status.url)')
+        echo "[*] Cloud Run url : ${cloud_run_url}"
+        echo "[*] Triggering the API to create SQL table creation script..."
+        curl -X POST "${cloud_run_url}/rest/rdbms/generatesqlscript" --fail-with-body
+        echo "[*] SQL script created successfully"
+
+  pre-prod-sql_table_creation:
+    if: contains(github.ref, 'preproduction')
+    environment: pre-prod
+    runs-on: ubuntu-latest
+    container: google/cloud-sdk:alpine
+
+    steps:
+    - name: SQL Table creation script
+      run: |
+        apk add curl
+        echo "[*] Started creating SQL script..."
+        export CLOUDSDK_CORE_DISABLE_PROMPTS=1
+        echo '${{ secrets.SERVICE_ACCOUNT_KEYFILE_JSON }}' > client-secret.json
+        gcloud auth activate-service-account --key-file client-secret.json
+        gcloud config set project vb-eva-gen
+        cloud_run_url=$(gcloud run services describe finalgithub --platform managed --region europe-west1 --format 'value(status.url)')
+        echo "[*] Cloud Run url : ${cloud_run_url}"
+        echo "[*] Triggering the API to create SQL table creation script..."
+        curl -X POST "${cloud_run_url}/rest/rdbms/generatesqlscript" --fail-with-body
+        echo "[*] SQL script created successfully"
+

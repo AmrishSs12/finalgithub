@@ -1,0 +1,16 @@
+<label for="url" class="col-form-label {{fieldName}}-label" [textContent]="label"></label>
+<span class="info-bubble" *ngIf="infoBubble" [pTooltip]="(infoBubble|translate) || ''"><i class="fa fa-circle-info"></i></span>
+<div *ngIf="!isEditMode" class="link-wrap form-control" [ngClass]="{'disabled': disabled}">
+    <p-button label="{{link}}" styleClass="p-button-link" (click)="openLink($event)" [ngClass]="{'empty-link': !link}">
+    </p-button>
+    <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded p-button-text link-text link-edit"
+        (click)="toggleEditor('edit')" *ngIf="!disabled"></button>
+</div>
+<div *ngIf="isEditMode && !disabled" class="link-edit-wrap">
+    <input type="text" pInputText class="form-control" id="email" [placeholder]="placeHolder || ''" [(ngModel)]="link" (ngModelChange)="onChange($event)"
+        (blur)="onTouch()" />
+    <button pButton pRipple type="button" icon="pi pi-check" class="p-button-text p-button-success"
+        (click)="toggleEditor('save')"></button>
+    <button pButton pRipple type="button" icon="pi pi-times" class="p-button-danger p-button-text"
+        (click)="toggleEditor('cancel')"></button>
+</div>
