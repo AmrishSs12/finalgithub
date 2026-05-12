@@ -17,6 +17,10 @@ public class Table1Base extends BasePersistModel {
   @Id
   private String sid;
 
+  @Column(length = 50)
+  @Size(max = 50, message = "INVALID_MAX_LENGTH")
+  private String f1;
+
   @Override
   public String getSid() {
     return sid;
@@ -25,6 +29,14 @@ public class Table1Base extends BasePersistModel {
   @Override
   public void setSid(String sid) {
     this.sid = sid;
+  }
+
+  public String getF1() {
+    return f1;
+  }
+
+  public void setF1(String f1) {
+    this.f1 = f1;
   }
 
   @Override

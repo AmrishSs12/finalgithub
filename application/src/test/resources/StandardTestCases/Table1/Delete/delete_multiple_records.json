@@ -1,0 +1,117 @@
+{
+  "name" : "delete_multiple_records",
+  "description" : "Delete multiple records",
+  "setUp" : [ {
+    "serviceType" : "CREATE",
+    "inputData" : {
+      "f1" : "JIKCk4gTQz"
+    },
+    "foreignKeyConfiguration" : { },
+    "fileAttachmentInfo" : [ ],
+    "method" : "POST",
+    "requestUrl" : "/rest/table1s/",
+    "recordInfo" : {
+      "tableName" : "Table1",
+      "tableRecordNo" : 1
+    },
+    "userName" : "AppAdmin"
+  }, {
+    "serviceType" : "CREATE",
+    "inputData" : {
+      "f1" : "4fMsJ8jyJocgqF25Q4b"
+    },
+    "foreignKeyConfiguration" : { },
+    "fileAttachmentInfo" : [ ],
+    "method" : "POST",
+    "requestUrl" : "/rest/table1s/",
+    "recordInfo" : {
+      "tableName" : "Table1",
+      "tableRecordNo" : 2
+    },
+    "userName" : "AppAdmin"
+  }, {
+    "serviceType" : "CREATE",
+    "inputData" : {
+      "f1" : "ThXBjmhi6866aZzRgZEV"
+    },
+    "foreignKeyConfiguration" : { },
+    "fileAttachmentInfo" : [ ],
+    "method" : "POST",
+    "requestUrl" : "/rest/table1s/",
+    "recordInfo" : {
+      "tableName" : "Table1",
+      "tableRecordNo" : 3
+    },
+    "userName" : "AppAdmin"
+  }, {
+    "serviceType" : "CREATE",
+    "inputData" : {
+      "f1" : "INVOB1e7FpH"
+    },
+    "foreignKeyConfiguration" : { },
+    "fileAttachmentInfo" : [ ],
+    "method" : "POST",
+    "requestUrl" : "/rest/table1s/",
+    "recordInfo" : {
+      "tableName" : "Table1",
+      "tableRecordNo" : 4
+    },
+    "userName" : "AppAdmin"
+  }, {
+    "serviceType" : "CREATE",
+    "inputData" : {
+      "f1" : "3s3ZJHd4r11YppI6YANxJM8KR0PJV84YJjqVuA"
+    },
+    "foreignKeyConfiguration" : { },
+    "fileAttachmentInfo" : [ ],
+    "method" : "POST",
+    "requestUrl" : "/rest/table1s/",
+    "recordInfo" : {
+      "tableName" : "Table1",
+      "tableRecordNo" : 5
+    },
+    "userName" : "AppAdmin"
+  } ],
+  "requestDetails" : {
+    "serviceType" : "DELETE_MULTIPLE_RECORDS",
+    "method" : "DELETE",
+    "requestUrl" : "/rest/table1s/{ids}",
+    "userName" : "AppAdmin"
+  },
+  "deleteRecordInfo" : [ {
+    "tableName" : "Table1",
+    "tableRecordNo" : 1
+  }, {
+    "tableName" : "Table1",
+    "tableRecordNo" : 2
+  }, {
+    "tableName" : "Table1",
+    "tableRecordNo" : 3
+  }, {
+    "tableName" : "Table1",
+    "tableRecordNo" : 4
+  }, {
+    "tableName" : "Table1",
+    "tableRecordNo" : 5
+  } ],
+  "outputData" : [ ],
+  "responseCode" : 200,
+  "verifyUsingService" : true,
+  "tearDown" : {
+    "Table1" : {
+      "method" : "DELETE",
+      "requestUrl" : "/rest/table1s/{ids}",
+      "expectedResponseCode" : 200,
+      "userName" : "AppAdmin"
+    }
+  },
+  "verificationRequestDetails" : {
+    "method" : "GET",
+    "requestUrl" : "/rest/table1s/{sid}",
+    "expectedResponseCode" : 204,
+    "userName" : "AppAdmin"
+  },
+  "modelInfo" : {
+    "autoNumberFields" : [ ]
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "name" : "create_max_boundary_failure",
+  "description" : "Create max boundary failure",
+  "inputModelName" : "com.bmtest.finalgithub.model.Table1",
+  "setUp" : [ ],
+  "requestDetails" : {
+    "serviceType" : "CREATE",
+    "inputData" : {
+      "f1" : "lUT9e4td7AJxfHlpi487fWfOEKq7CN3jcoE2utDe8P0TkcZXU4M8MEh2rpw7dP1K"
+    },
+    "foreignKeyConfiguration" : { },
+    "fileAttachmentInfo" : [ ],
+    "method" : "POST",
+    "requestUrl" : "/rest/table1s/",
+    "recordInfo" : {
+      "tableName" : "Table1",
+      "tableRecordNo" : 1
+    },
+    "userName" : "AppAdmin"
+  },
+  "responseCode" : 400,
+  "verifyUsingService" : false,
+  "tearDown" : {
+    "Table1" : {
+      "method" : "DELETE",
+      "requestUrl" : "/rest/table1s/{ids}",
+      "expectedResponseCode" : 200,
+      "userName" : "AppAdmin"
+    }
+  },
+  "errorMessage" : {
+    "ERROR_CODE" : "VALIDATION",
+    "MESSAGE" : "VALIDATION",
+    "STATUS_CODE" : 400,
+    "DETAIL" : [ {
+      "ERROR_CODE" : "INVALID_MAX_LENGTH",
+      "MESSAGE" : "`f1` value is not matching with the given maximum length"
+    } ]
+  },
+  "modelInfo" : {
+    "autoNumberFields" : [ ]
+  }
+}

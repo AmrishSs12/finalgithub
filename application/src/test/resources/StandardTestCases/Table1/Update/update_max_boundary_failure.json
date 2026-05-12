@@ -1,0 +1,56 @@
+{
+  "name" : "update_max_boundary_failure",
+  "description" : "Update max boundary failure",
+  "inputModelName" : "com.bmtest.finalgithub.model.Table1",
+  "setUp" : [ {
+    "serviceType" : "CREATE",
+    "inputData" : {
+      "f1" : "UbCZohzlTr2"
+    },
+    "foreignKeyConfiguration" : { },
+    "fileAttachmentInfo" : [ ],
+    "method" : "POST",
+    "requestUrl" : "/rest/table1s/",
+    "recordInfo" : {
+      "tableName" : "Table1",
+      "tableRecordNo" : 1
+    },
+    "userName" : "AppAdmin"
+  } ],
+  "requestDetails" : {
+    "serviceType" : "UPDATE",
+    "inputData" : {
+      "f1" : "SQql3kKmCza1xPNNJdT8qTkMIDgn0PSE0EuvfLjt54JqSyi4krm0aYc7WUp"
+    },
+    "foreignKeyConfiguration" : { },
+    "method" : "PUT",
+    "requestUrl" : "/rest/table1s/",
+    "recordInfo" : {
+      "tableName" : "Table1",
+      "tableRecordNo" : 1
+    },
+    "userName" : "AppAdmin"
+  },
+  "responseCode" : 400,
+  "verifyUsingService" : false,
+  "tearDown" : {
+    "Table1" : {
+      "method" : "DELETE",
+      "requestUrl" : "/rest/table1s/{ids}",
+      "expectedResponseCode" : 200,
+      "userName" : "AppAdmin"
+    }
+  },
+  "errorMessage" : {
+    "ERROR_CODE" : "VALIDATION",
+    "MESSAGE" : "VALIDATION",
+    "STATUS_CODE" : 400,
+    "DETAIL" : [ {
+      "ERROR_CODE" : "INVALID_MAX_LENGTH",
+      "MESSAGE" : "`f1` value is not matching with the given maximum length"
+    } ]
+  },
+  "modelInfo" : {
+    "autoNumberFields" : [ ]
+  }
+}

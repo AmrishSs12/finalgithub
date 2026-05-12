@@ -1,0 +1,38 @@
+{
+  "name" : "create_success",
+  "description" : "Create success",
+  "inputModelName" : "com.bmtest.finalgithub.model.Table1",
+  "outputModelName" : "com.bmtest.finalgithub.model.Table1",
+  "setUp" : [ ],
+  "requestDetails" : {
+    "serviceType" : "CREATE",
+    "inputData" : {
+      "f1" : "ZMgu1HrgVDozUC83zD"
+    },
+    "foreignKeyConfiguration" : { },
+    "fileAttachmentInfo" : [ ],
+    "method" : "POST",
+    "requestUrl" : "/rest/table1s/",
+    "recordInfo" : {
+      "tableName" : "Table1",
+      "tableRecordNo" : 1
+    },
+    "userName" : "AppAdmin"
+  },
+  "outputData" : [ {
+    "f1" : "ZMgu1HrgVDozUC83zD"
+  } ],
+  "responseCode" : 200,
+  "verifyUsingService" : false,
+  "tearDown" : {
+    "Table1" : {
+      "method" : "DELETE",
+      "requestUrl" : "/rest/table1s/{ids}",
+      "expectedResponseCode" : 200,
+      "userName" : "AppAdmin"
+    }
+  },
+  "modelInfo" : {
+    "autoNumberFields" : [ ]
+  }
+}

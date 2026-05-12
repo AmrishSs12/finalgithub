@@ -1,0 +1,49 @@
+{
+  "name" : "delete_by_id",
+  "description" : "Delete by id",
+  "setUp" : [ {
+    "serviceType" : "CREATE",
+    "inputData" : {
+      "f1" : "35uZc5ATknuFAVEVYFNdH8rNCrsszGQndaqIvmaK10EA9JtoV"
+    },
+    "foreignKeyConfiguration" : { },
+    "fileAttachmentInfo" : [ ],
+    "method" : "POST",
+    "requestUrl" : "/rest/table1s/",
+    "recordInfo" : {
+      "tableName" : "Table1",
+      "tableRecordNo" : 1
+    },
+    "userName" : "AppAdmin"
+  } ],
+  "requestDetails" : {
+    "serviceType" : "DELETE_BY_IDS",
+    "method" : "DELETE",
+    "requestUrl" : "/rest/table1s/{ids}",
+    "userName" : "AppAdmin"
+  },
+  "deleteRecordInfo" : [ {
+    "tableName" : "Table1",
+    "tableRecordNo" : 1
+  } ],
+  "outputData" : [ ],
+  "responseCode" : 200,
+  "verifyUsingService" : true,
+  "tearDown" : {
+    "Table1" : {
+      "method" : "DELETE",
+      "requestUrl" : "/rest/table1s/{ids}",
+      "expectedResponseCode" : 200,
+      "userName" : "AppAdmin"
+    }
+  },
+  "verificationRequestDetails" : {
+    "method" : "GET",
+    "requestUrl" : "/rest/table1s/{sid}",
+    "expectedResponseCode" : 204,
+    "userName" : "AppAdmin"
+  },
+  "modelInfo" : {
+    "autoNumberFields" : [ ]
+  }
+}

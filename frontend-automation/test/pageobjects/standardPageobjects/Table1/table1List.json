@@ -1,0 +1,9 @@
+{
+  "pageName" : "table1 list",
+  "pageUrl" : "/#/table1/table1list",
+  "elementConfirm" : {
+    "selector" : "#main-container",
+    "time" : 3000
+  },
+  "components" : [ ]
+}

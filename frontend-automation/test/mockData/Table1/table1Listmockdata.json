@@ -1,0 +1,23 @@
+{
+  "create" : {
+    "Table1" : {
+      "method" : "POST",
+      "requestUrl" : "/rest/table1s/",
+      "inputData" : {
+        "record_0" : {
+          "f1" : "7LiM5i0gVaxrzv8ZZm19H3Mi8OIg4xSA"
+        },
+        "record_1" : {
+          "f1" : "ZNXPImQGl27ZQvel3yx2Riux7numJZSFg5T12KsechvVZzD1i"
+        }
+      },
+      "foreignKeyConfiguration" : { }
+    }
+  },
+  "delete" : {
+    "Table1" : {
+      "method" : "DELETE",
+      "requestUrl" : "/rest/table1s/{ids}"
+    }
+  }
+}

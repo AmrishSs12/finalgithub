@@ -1,0 +1,47 @@
+{
+  "name" : "read_by_id",
+  "description" : "Read by id",
+  "inputModelName" : "com.bmtest.finalgithub.model.Table1",
+  "outputModelName" : "com.bmtest.finalgithub.model.Table1",
+  "setUp" : [ {
+    "serviceType" : "CREATE",
+    "inputData" : {
+      "f1" : "xfxABd"
+    },
+    "foreignKeyConfiguration" : { },
+    "fileAttachmentInfo" : [ ],
+    "method" : "POST",
+    "requestUrl" : "/rest/table1s/",
+    "recordInfo" : {
+      "tableName" : "Table1",
+      "tableRecordNo" : 1
+    },
+    "userName" : "AppAdmin"
+  } ],
+  "requestDetails" : {
+    "serviceType" : "GET_BY_SID",
+    "method" : "GET",
+    "requestUrl" : "/rest/table1s/{sid}",
+    "recordInfo" : {
+      "tableName" : "Table1",
+      "tableRecordNo" : 1
+    },
+    "userName" : "AppAdmin"
+  },
+  "outputData" : [ {
+    "f1" : "xfxABd"
+  } ],
+  "responseCode" : 200,
+  "verifyUsingService" : false,
+  "tearDown" : {
+    "Table1" : {
+      "method" : "DELETE",
+      "requestUrl" : "/rest/table1s/{ids}",
+      "expectedResponseCode" : 200,
+      "userName" : "AppAdmin"
+    }
+  },
+  "modelInfo" : {
+    "autoNumberFields" : [ ]
+  }
+}

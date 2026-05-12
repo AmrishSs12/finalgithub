@@ -28,6 +28,10 @@ export const routes: Routes = [
     component: AppHomePageComponent,
     },
       {
+        path: 'table1',
+        loadChildren: () => import('@app/table1/table1.module').then(m => m.Table1Module)
+      },
+      {
         path: 'applicationuser',
         loadChildren: () => import('@app/application-user/application-user.module').then(m => m.ApplicationUserModule)
       }

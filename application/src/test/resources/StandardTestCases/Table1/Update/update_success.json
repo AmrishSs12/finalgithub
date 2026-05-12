@@ -1,0 +1,51 @@
+{
+  "name" : "update_success",
+  "description" : "Update success",
+  "inputModelName" : "com.bmtest.finalgithub.model.Table1",
+  "outputModelName" : "com.bmtest.finalgithub.model.Table1",
+  "setUp" : [ {
+    "serviceType" : "CREATE",
+    "inputData" : {
+      "f1" : "ccI8"
+    },
+    "foreignKeyConfiguration" : { },
+    "fileAttachmentInfo" : [ ],
+    "method" : "POST",
+    "requestUrl" : "/rest/table1s/",
+    "recordInfo" : {
+      "tableName" : "Table1",
+      "tableRecordNo" : 1
+    },
+    "userName" : "AppAdmin"
+  } ],
+  "requestDetails" : {
+    "serviceType" : "UPDATE",
+    "inputData" : {
+      "f1" : "ruqctfWCZucJwkQbbri3idnTvKk1XPpzK4f"
+    },
+    "foreignKeyConfiguration" : { },
+    "method" : "PUT",
+    "requestUrl" : "/rest/table1s/",
+    "recordInfo" : {
+      "tableName" : "Table1",
+      "tableRecordNo" : 1
+    },
+    "userName" : "AppAdmin"
+  },
+  "outputData" : [ {
+    "f1" : "ruqctfWCZucJwkQbbri3idnTvKk1XPpzK4f"
+  } ],
+  "responseCode" : 200,
+  "verifyUsingService" : false,
+  "tearDown" : {
+    "Table1" : {
+      "method" : "DELETE",
+      "requestUrl" : "/rest/table1s/{ids}",
+      "expectedResponseCode" : 200,
+      "userName" : "AppAdmin"
+    }
+  },
+  "modelInfo" : {
+    "autoNumberFields" : [ ]
+  }
+}

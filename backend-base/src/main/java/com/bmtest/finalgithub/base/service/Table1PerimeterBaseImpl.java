@@ -28,8 +28,14 @@ public abstract class Table1PerimeterBaseImpl<M extends Table1Base>
 
   private static final Logger logger = LoggerFactory.getLogger(Table1PerimeterBaseImpl.class);
 
+  protected static final List<String> APP_ADMIN_WRITE_FIELDS = List.of(F1);
+
+  protected List<String> getAppAdminWriteFields() {
+    return APP_ADMIN_WRITE_FIELDS;
+  }
+
   protected static final List<String> APP_ADMIN_READ_FIELDS =
-      List.of(SID, CREATED_BY, CREATED_DATE, MODIFIED_BY, MODIFIED_DATE);
+      List.of(SID, CREATED_BY, CREATED_DATE, MODIFIED_BY, MODIFIED_DATE, F1);
 
   protected List<String> getAppAdminReadFields() {
     return APP_ADMIN_READ_FIELDS;
@@ -189,6 +195,9 @@ public abstract class Table1PerimeterBaseImpl<M extends Table1Base>
       allowedFields.setAllowedWriteFields(allowedAccessFieldList);
       logger.logExit(LogConstants.setWriteFields);
       return;
+    }
+    if (BooleanUtils.isTrue(userBase.isAppAdmin())) {
+      allowedAccessFields.addAll(getAppAdminWriteFields());
     }
 
     List<String> allowedAccessFieldList = new ArrayList<>(allowedAccessFields);

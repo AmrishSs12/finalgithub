@@ -78,6 +78,24 @@
     "label" : "ADMIN_CONTROLS",
     "enableLookup" : false,
     "element" : "menuGroup"
+  }, {
+    "accessControl" : [ "App Admin" ],
+    "defaultDetailPageEnabled" : false,
+    "onClick" : "navigate_to_page",
+    "label" : "table1_List",
+    "enableLookup" : false,
+    "pathsInvolved" : [ "/table1/table1list", "/table1/table1detail" ],
+    "detailPagePopupWidth" : 70,
+    "outline" : false,
+    "autoFillLookup" : false,
+    "displayAsToggleSwitch" : false,
+    "hideListPageTitle" : false,
+    "page" : {
+      "sid" : "6debb0b6-95dc-4578-b5f2-4d3a5082a757",
+      "name" : "table1 List",
+      "url" : "/table1/table1list"
+    },
+    "element" : "menuItem"
   } ],
   "topBarLeft" : [ ],
   "topBarMiddle" : [ ],
